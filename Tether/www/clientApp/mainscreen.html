@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+
+<html ng-app="navigationBar">
+<head>
+    <meta name="format-detection" content="telephone=no">
+    <meta name="msapplication-tap-highlight" content="no">
+    <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">
+
+    <script type="text/javascript" src="../js/util/angular.min.js"></script>
+    <script type="text/javascript" src="../js/util/angular-route.min.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="../css/index.css">
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
+    <!-- Latest compiled and minified JavaScript -->
+
+    <!-- Stuff for BootStrap -->
+    <script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+    <script src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+
+
+    <title>Tether</title>
+</head>
+
+<body ng-controller="NavCtrl">
+    <div class="container">
+        <div class="navbar">
+            <ul class="nav navbar-nav">
+                <li ng-class="navClass('home')"><a href='' ng-click="loadHome()">Home</a></li>
+                <li ng-class="navClass('friends')"><a href='' ng-click="loadFriends()">Friends</a></li>
+                <li ng-class="navClass('profile')"><a href='' ng-click="loadProfiles()">Profile</a></li>
+                <li ng-class="navClass('settings')"><a href='' ng-click="loadSettings()">Settings</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <div ng-view> </div>
+
+</body>
+
+    <script type="text/javascript" src="../js/main_screen_navigation.js"></script>
+
+
+</html>

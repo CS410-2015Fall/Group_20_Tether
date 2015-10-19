@@ -97,6 +97,16 @@ h1 {
     display:none;
 }
 
+.enterbutton {
+    border-radius:4px;
+    -webkit-border-radius:4px;
+    color:#FFFFFF;
+    font-size:14px;
+    margin:0px 30px;
+    padding:2px 0px;
+    background-color:#4B946A;
+}
+
 @keyframes fade {
     from { opacity: 1.0; }
     50% { opacity: 0.4; }
