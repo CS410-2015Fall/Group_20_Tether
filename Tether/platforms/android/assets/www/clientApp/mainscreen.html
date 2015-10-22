@@ -9,7 +9,7 @@
     <script type="text/javascript" src="../js/util/angular.min.js"></script>
     <script type="text/javascript" src="../js/util/angular-route.min.js"></script>
 
-    <link rel="stylesheet" type="text/css" href="../css/index.css">
+    <!--<link rel="stylesheet" type="text/css" href="../css/index.css">-->
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
     <!-- Optional theme -->
@@ -30,18 +30,26 @@
         <div class="navbar">
             <ul class="nav navbar-nav">
                 <li ng-class="navClass('home')"><a href='' ng-click="loadHome()">Home</a></li>
-                <li ng-class="navClass('friends')"><a href='' ng-click="loadFriends()">Friends</a></li>
-                <li ng-class="navClass('profile')"><a href='' ng-click="loadProfiles()">Profile</a></li>
-                <li ng-class="navClass('settings')"><a href='' ng-click="loadSettings()">Settings</a></li>
             </ul>
+            <ul class="nav navbar-nav">
+                <li ng-class="navClass('friends')"><a href='' ng-click="loadFriends()">Friends</a></li>
+                </ul>
+            <ul class="nav navbar-nav">
+                <li ng-class="navClass('profile')"><a href='' ng-click="loadProfiles()">Profile</a></li>
+                </ul>
+            <ul class="nav navbar-nav">
+                <li ng-class="navClass('settings')"><a href='' ng-click="loadSettings()">Settings</a></li>
+                </ul>
         </div>
     </div>
 
-    <div ng-view> </div>
+    <div ng-view></div>
+
+    <script type="text/javascript" src="../js/main_screen_navigation.js"></script>
 
 </body>
 
-    <script type="text/javascript" src="../js/main_screen_navigation.js"></script>
+
 
 
 </html>
