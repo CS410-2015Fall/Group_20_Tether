@@ -2,8 +2,8 @@
  * Created by lanepither on 15-10-19.
  */
 
-var startApp = angular.module("startApp", ['ngRoute'])
-    .config(function ($routeProvider, $locationProvider, $httpProvider) {
+var startApp = angular.module("startApp", ['ngRoute', 'UserApp'])
+    .config(['$routeProvider', function ($routeProvider, $locationProvider, $httpProvider) {
 
         $routeProvider.when('/index',
             {
@@ -14,20 +14,26 @@ var startApp = angular.module("startApp", ['ngRoute'])
         $routeProvider.when('/login',
             {
                 templateUrl:    '../clientApp/loginComponents/login.html',
+                login: true,
                 controller:     'LoginCtrl'
             });
-        $routeProvider.when('/register',
+        $routeProvider.when('/signup',
             {
-                templateUrl:    '../clientApp/loginComponents/register.html',
-                controller:     'RegisterCtrl'
+                templateUrl:    '../clientApp/loginComponents/signup.html',
+                public: true,
+                controller:     'SignupCtrl'
             });
 
         $routeProvider.otherwise(
             {
-                redirectTo:     'index',
-                controller:     'IndexCtrl'
+                redirectTo:     '/home',
+                controller:     'HomeCtrl'
             }
         );
+    }])
+    .run(function(user) {
+        // Initiate the user service with UserApp App Id
+        user.init({ appId: '562812a967f8b' });
     });
 
 
@@ -44,7 +50,7 @@ startApp.controller('InitCtrl',
         };
 
         $scope.loadRegister = function(){
-            $location.url('/register');
+            $location.url('/signup');
             ngView();
         };
 
@@ -55,8 +61,8 @@ startApp.controller('LoginCtrl', function($scope, $compile) {
 
 });
 
-startApp.controller('RegisterCtrl', function($scope, $compile) {
-    console.log('inside register controller');
+startApp.controller('SignupCtrl', function($scope, $compile) {
+    console.log('inside signup controller');
 
 });
 

@@ -26,15 +26,20 @@
 
 <body>
 
-<div class="app">
-    <div>
-        <button class="btn btn-primary" type="button">
-            <a href="../mainscreen.html" style="color:rgb(0,255,100)">Login</a></button>
-        <button class="btn btn-primary" type="button">
-            <a href="../loginComponents/register.html" style="color:rgb(0,255,100)">Register</a></button>
-    </div>
-</div>
+<p> Please log in</p>
 
+<form ua-login>
+    <input name="login" placeholder="Username"><br>
+    <input name="password" placeholder="Password" type="password"><br>
+    <p><button type="submit">Login</button></p>
+
+    <p ng-show="loading"><img src="https://app.userapp.io/img/ajax-loader-transparent.gif"> </p>
+    <!-- Error handling --> <!--
+    <p ng-show="error">{{ error.message }}</p>
+    -->
+</form>
+
+<p><a href="../clientApp/loginComponents/signup.html">Sign up</a></p>
 
 <script type="text/javascript" src="../../js/loginNavigation.js"></script>
 
