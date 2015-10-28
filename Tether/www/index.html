@@ -44,10 +44,6 @@
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
         <script src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
 
-        <!-- UserApp SDK's for user authentication -->
-        <script src="https://app.userapp.io/js/userapp.client.js"></script>
-        <script src="https://app.userapp.io/js/angularjs.userapp.js"></script>
-
         <title>TETHER - Welcome</title>
     </head>
     <body>
@@ -60,18 +56,12 @@
     <div class="app">
         <div>
             <button class="btn btn-primary" type="button">
-                <a href="clientApp/loginComponents/login.html" style="color:rgb(0,255,100)">Login</a></button>
-            <button class="btn btn-primary" type="button">
-                <a href="clientApp/loginComponents/signup.html" style="color:rgb(0,255,100)">Sign up</a></button>
+                <a href="clientApp/loginComponents/login.html" style="color:rgb(0,255,100)">Enter</a></button>
         </div>
     </div>
 
 
-    <ul class="menu" ng-show="user.authenticated"></ul>
 
-    <div ng-view> </div>
-
-    <div ng-show="user.authenticated">Welcome, {{ user.first_name }}</div>
 
 
 

@@ -2,8 +2,8 @@
  * Created by lanepither on 15-10-19.
  */
 
-var startApp = angular.module("startApp", ['ngRoute', 'UserApp'])
-    .config(['$routeProvider', function ($routeProvider, $locationProvider, $httpProvider) {
+var startApp = angular.module("startApp", ['ngRoute'])
+    .config(function ($routeProvider, $locationProvider, $httpProvider) {
 
         $routeProvider.when('/index',
             {
@@ -14,26 +14,20 @@ var startApp = angular.module("startApp", ['ngRoute', 'UserApp'])
         $routeProvider.when('/login',
             {
                 templateUrl:    '../clientApp/loginComponents/login.html',
-                login: true,
                 controller:     'LoginCtrl'
             });
-        $routeProvider.when('/signup',
+        $routeProvider.when('/register',
             {
-                templateUrl:    '../clientApp/loginComponents/signup.html',
-                public: true,
-                controller:     'SignupCtrl'
+                templateUrl:    '../clientApp/loginComponents/register.html',
+                controller:     'RegisterCtrl'
             });
 
         $routeProvider.otherwise(
             {
-                redirectTo:     '/home',
-                controller:     'HomeCtrl'
+                redirectTo:     'index',
+                controller:     'IndexCtrl'
             }
         );
-    }])
-    .run(function(user) {
-        // Initiate the user service with UserApp App Id
-        user.init({ appId: '562812a967f8b' });
     });
 
 
@@ -50,7 +44,7 @@ startApp.controller('InitCtrl',
         };
 
         $scope.loadRegister = function(){
-            $location.url('/signup');
+            $location.url('/register');
             ngView();
         };
 
@@ -61,8 +55,8 @@ startApp.controller('LoginCtrl', function($scope, $compile) {
 
 });
 
-startApp.controller('SignupCtrl', function($scope, $compile) {
-    console.log('inside signup controller');
+startApp.controller('RegisterCtrl', function($scope, $compile) {
+    console.log('inside register controller');
 
 });
 
