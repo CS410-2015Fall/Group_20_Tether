@@ -5,6 +5,12 @@
     <title></title>
 </head>
 <body>
-<div>Make a contract here:</div>
+<div ng-app="contractSetup">
+    Make a contract here:
+    <div ng-controller="contractSetupCtrl">
+        <button class="button" ng-click="getApps()">Click to log to console</button>
+    </div>
+</div>
+
 </body>
 </html>
