@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body ng-app="angularDjangoRegistrationAuthApp">
+
+
+<div ng-controller="contractSetupCtrl">
+    <h1 ng-hide="submitted">Form Contract</h1>
+    <form role="form" ng-submit="" name="contractForm" novalidate ng-hide="submitted">
+        <div class="form-group">
+            <label for="id_duration">Duration (hours):</label>
+            <input name="contract_duration" id="id_duration" type="number" ng-model="contractDuration" placeholder="Duration of contract" class="form-control" required />
+
+        </div>
+
+        <div id="installedApps">
+
+        </div>
+
+        <button type="submit" class="btn btn-primary" ng-click="submitContract()">Submit</button>
+    </form>
+
+    <pre ng-show="ongoingContract">Your contract will end in:
+        <div class="container" id="countdown"></div>
+        <button class="button" ng-click="forfeit()">Forfeit</button>
+    </pre>
+
+    <pre ng-show="contractOver">
+        <div ng-hide="contractSuccess">"You Lost"</div>
+        <div ng-show="contractSuccess">"You made it - good job!"</div>
+    </pre>
+
+
+
+
+</div>
+
+
+
+</body>
+</html>

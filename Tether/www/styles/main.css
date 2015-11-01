@@ -76,4 +76,14 @@ body {
   .jumbotron {
     border-bottom: 0;
   }
+
+
+}
+
+#countdown span {
+  font-size: 26px;
+  font-weight: normal;
+  margin-left: 20px;
+  margin-right: 20px;
+  text-align: center;
 }
