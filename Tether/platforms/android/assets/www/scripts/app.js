@@ -101,12 +101,17 @@ angular.module('angularDjangoRegistrationAuthApp', [
             })
             .when('/home', {
                 templateUrl: 'views/home.html',
-                controller: 'HomeCtrl',
+                controller: 'contractSetupCtrl',
                 resolve: {
                     authenticated: ['djangoAuth', function(djangoAuth){
                         return djangoAuth.authenticationStatus(true);
                     }],
                 }
+            })
+
+            .when('/contract', {
+                templateUrl: 'views/contract.html',
+                controller: 'contractSetupCtrl'
             })
 
 
