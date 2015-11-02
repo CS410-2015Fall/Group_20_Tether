@@ -10,7 +10,6 @@ angular.module('tetherApp', [
         $routeProvider
             .when('/', {
                 templateUrl: 'views/main.html',
-                controller: 'MainCtrl',
                 resolve: {
                     authenticated: ['userService', function(userService){
                         return userService.authenticationStatus();
