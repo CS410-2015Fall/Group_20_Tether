@@ -6,19 +6,18 @@
 </head>
 <body ng-app="angularDjangoRegistrationAuthApp">
 
-
 <div ng-controller="contractSetupCtrl">
     <h1 ng-hide="submitted">Form Contract</h1>
     <form role="form" ng-submit="" name="contractForm" novalidate ng-hide="submitted">
         <div class="form-group">
-            <label for="id_duration">Duration (hours):</label>
-            <input name="contract_duration" id="id_duration" type="number" ng-model="contractDuration" placeholder="Duration of contract" class="form-control" required />
-
+            <label>Duration:
+            <input name="contract_hours" id="hrID" type="number" ng-model="contractHours" placeholder="Hr" class="form-control" required />
+            <input name="contract_minutes" id="minID" type="number" ng-model="contractMinutes" placeholder="Min" class="form-control" required />
+            <input name="contract_seconds" id="secID" type="number" ng-model="contractSeconds" placeholder="Sec" class="form-control" required />
+            </label>
         </div>
 
-        <div id="installedApps">
-
-        </div>
+        <div id="installedApps"></div>
 
         <button type="submit" class="btn btn-primary" ng-click="submitContract()">Submit</button>
     </form>
@@ -28,16 +27,12 @@
         <button class="button" ng-click="forfeit()">Forfeit</button>
     </pre>
 
-    <pre ng-show="contractOver">
-        <div ng-hide="contractSuccess">"You Lost"</div>
-        <div ng-show="contractSuccess">"You made it - good job!"</div>
+    <pre ng-show="contractOver">The contract is now over:
+        <div class="container" ng-hide="contractSuccess">"You Lost"</div>
+        <div class="contianer" ng-show="contractSuccess">"You made it - good job!"</div>
     </pre>
 
-
-
-
 </div>
-
 
 
 </body>
