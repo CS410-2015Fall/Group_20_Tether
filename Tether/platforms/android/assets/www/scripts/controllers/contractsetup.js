@@ -8,12 +8,11 @@ angular.module('angularDjangoRegistrationAuthApp')
     .controller('contractSetupCtrl',['$scope', '$location', function($scope, $location, $http, $routeParams, $cordovaApplist){
 
         $scope.showButton = true;
-
-        $scope.contractDuration = 0;
-
         $scope.submitted = false;
 
-
+        $scope.contractHours;
+        $scope.contractMinutes;
+        $scope.contractSeconds;
 
         $scope.startContract = function(){
             $location.path("/contract");
@@ -48,10 +47,7 @@ angular.module('angularDjangoRegistrationAuthApp')
         });
 
 
-
-
-        var contractJSON = '{"contract":{"apps":[],"duration":0}}';
-
+        var contractJSON = '{"contract":{"apps":[],"durationInMins":0}}';
 
         $scope.submitContract = function(){
 
@@ -66,32 +62,37 @@ angular.module('angularDjangoRegistrationAuthApp')
 
             }
 
-            obj["contract"].duration = document.getElementById("id_duration").value;
+            // parse duration inputs
+            var durationHrs = parseInt(document.getElementById("hrID").value);
+            var durationMins = parseInt(document.getElementById("minID").value);
+            var durationSecs = parseInt(document.getElementById("secID").value);
+
+            // convert to minutes and attach to contract JSON object
+            var durationInMins = (durationHrs * 60) + durationMins + (durationSecs / 60);
+            obj["contract"].durationInMins = durationInMins;
 
             contractJSON = JSON.stringify(obj);
-
-
             console.log(JSON.stringify(contractJSON));
-            $scope.ongoingContract = true;
+
             $scope.submitted = true;
+            $scope.ongoingContract = true;
+            $scope.contractOver = false;
 
             $scope.startTimer();
+
         };
 
 
-    $scope.startTimer = function(){
+    $scope.startTimer = function() {
 
         var target_dateOld = new Date();
 
-        var target_date = target_dateOld.setHours(target_dateOld.getHours() + $scope.contractDuration);
-
-
-
-
-
+        var target_date = target_dateOld.setHours(target_dateOld.getHours() + $scope.contractHours);
+        target_date = target_dateOld.setMinutes(target_dateOld.getMinutes() + $scope.contractMinutes);
+        target_date = target_dateOld.setSeconds(target_dateOld.getSeconds() + $scope.contractSeconds);
 
         // variables for time units
-        var days, hours, minutes, seconds, min, sec, ms,  ms_step=10;
+        var days, hours, minutes, seconds, min, sec, ms, ms_step=1000;
 
         // get tag element
         var countdown = document.getElementById('countdown');
@@ -112,37 +113,34 @@ angular.module('angularDjangoRegistrationAuthApp')
                 '<span class="hours">'+hours+'<b>Hours</b></span><br>'+
                 '<span class="minutes">'+min+'<b>Minutes</b></span><br>'+
                 '<span class="seconds">'+sec+'<b>Seconds</b></span>';
-            // this is just for milliseconds only
-            /* countdown.innerHTML =
-             '<span class="ms">'+ms+' ms</span>'; */
 
-            if (target_date < current_date){
+            // success when timer hits zero
+            if (seconds_left <= 0) {
                 clearInterval(refreshIntervalId);
-                $scope.ongoingContract = false;
-                $scope.contractOver = true;
-                $scope.contractSuccess = true;
+                $scope.succeeded();
             }
+
         }, ms_step);
+
+
     };
 
-        $scope.forfeit = function(){
+        $scope.succeeded = function() {
+            $scope.ongoingContract = false;
+            $scope.contractOver = true;
+            $scope.contractSuccess = true;
+        };
 
+        $scope.forfeit = function() {
             $scope.ongoingContract = false;
             $scope.contractOver = true;
             $scope.contractSuccess = false;
-
         };
 
 
-
         /*
-         $scope.contract = [contract: {apps:[ {name: "FB", img: xxx}, {name: "Google", img:yyy}], duration:"2"}]
-         contract.duration = 3;
+         $scope.contract = [contract: {apps:[ {name: "FB", img: xxx}, {name: "Google", img:yyy}], durationInMins:"30"}]
          */
-
-
-
-
 
     }]);
 
