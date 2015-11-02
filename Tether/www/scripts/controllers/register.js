@@ -1,14 +1,14 @@
 'use strict';
 
-angular.module('angularDjangoRegistrationAuthApp')
-    .controller('RegisterCtrl', function ($scope, djangoAuth, Validate) {
+angular.module('tetherApp')
+    .controller('RegisterCtrl', function ($scope, userService, validationService) {
       $scope.model = {'username':'','password':'','email':''};
       $scope.complete = false;
       $scope.register = function(formData){
         $scope.errors = [];
-        Validate.form_validation(formData,$scope.errors);
+          validationService.form_validation(formData,$scope.errors);
         if(!formData.$invalid){
-          djangoAuth.register($scope.model.username,$scope.model.password1,$scope.model.password2,$scope.model.email)
+            userService.register($scope.model.username,$scope.model.password1,$scope.model.password2,$scope.model.email)
               .then(function(data){
                 // success case
                 $scope.complete = true;

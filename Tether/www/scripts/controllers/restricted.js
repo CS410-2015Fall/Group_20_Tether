@@ -2,14 +2,14 @@
 
 /**
  * @ngdoc function
- * @name angularDjangoRegistrationAuthApp.controller:RestrictedCtrl
+ * @name tetherApp.controller:RestrictedCtrl
  * @description
  * # RestrictedCtrl
- * Controller of the angularDjangoRegistrationAuthApp
+ * Controller of the tetherApp
  */
-angular.module('angularDjangoRegistrationAuthApp')
+angular.module('tetherApp')
   .controller('RestrictedCtrl', function ($scope, $location) {
-    $scope.$on('djangoAuth.logged_in', function() {
+    $scope.$on('userService.logged_in', function() {
       $location.path('/');
     });
   });
