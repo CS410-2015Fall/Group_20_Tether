@@ -6,13 +6,21 @@ module.exports = [
         "clobbers": [
             "window.Applist"
         ]
+    },
+    {
+        "file": "plugins/com.lane.GetForeground/www/ForegroundActivity.js",
+        "id": "com.lane.GetForeground.ForegroundActivity",
+        "clobbers": [
+            "window.ForegroundActivity"
+        ]
     }
 ];
 module.exports.metadata = 
 // TOP OF METADATA
 {
     "cordova-plugin-whitelist": "1.0.0",
-    "org.jmrezayi2.Applist": "0.1.4"
+    "org.jmrezayi2.Applist": "0.1.4",
+    "com.lane.GetForeground": "1.1.1"
 }
 // BOTTOM OF METADATA
 });

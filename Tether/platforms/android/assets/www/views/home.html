@@ -4,10 +4,14 @@
     <meta charset="UTF-8">
     <title></title>
 </head>
-<body ng-app="angularDjangoRegistrationAuthApp">
-<div ng-controller="contractSetupCtrl">
+<body ng-app="tetherApp">
+<div ng-controller="contractCtrl">
 
-    <button class="button" id="startContract" ng-show="showButton" ng-click="startContract()">Start Contract</button>
+    <a href="" ng-click="createContract()">
+        <button class="btn-primary" id="startContract" ng-show="showButton" ng-click="createContract()">
+            <span class="glyphicon glyphicon-pencil"></span>Start Contract
+        </button>
+    </a>
 
 </div>
 

@@ -15,5 +15,13 @@
         },
         "is_top_level": true,
         "variables": {}
+    },
+    "com.lane.GetForeground": {
+        "source": {
+            "type": "local",
+            "path": "/Users/lanepither/tetherOct24/plugins/com.lane.GetForeground"
+        },
+        "is_top_level": true,
+        "variables": {}
     }
 }
