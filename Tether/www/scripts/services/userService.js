@@ -1,21 +1,24 @@
+/**
+ * Created by Tunjay Jafarli on 2015-11-02.
+ */
+
 'use strict';
 
-angular.module('angularDjangoRegistrationAuthApp')
-  .service('djangoAuth', function djangoAuth($q, $http, $cookies, $rootScope) {
+angular.module('tetherApp')
+  .service('userService', function userService($q, $http, $cookies, $rootScope) {
     // AngularJS will instantiate a singleton by calling "new" on this function
     var service = {
-        /* START CUSTOMIZATION HERE */
         // Change this to point to your Django REST Auth API
         // e.g. /api/rest-auth  (DO NOT INCLUDE ENDING SLASH)
         'API_URL': 'http://206.87.217.207:8000/rest-auth',
         // Set use_session to true to use Django sessions to store security token.
         // Set use_session to false to store the security token locally and transmit it as a custom header.
         'use_session': false,
-        /* END OF CUSTOMIZATION */
+
         'authenticated': null,
         'authPromise': null,
         'request': function(args) {
-            // Let's retrieve the token from the cookie, if available
+            // Retrieve the token from the cookie, if available
             if($cookies.token){
                 $http.defaults.headers.common.Authorization = 'Token ' + $cookies.token;
             }
@@ -79,7 +82,7 @@ angular.module('angularDjangoRegistrationAuthApp')
             });
         },
         'login': function(username,password){
-            var djangoAuth = this;
+            var userService = this;
             return this.request({
                 'method': "POST",
                 'url': "/login/",
@@ -88,24 +91,24 @@ angular.module('angularDjangoRegistrationAuthApp')
                     'password':password
                 }
             }).then(function(data){
-                if(!djangoAuth.use_session){
+                if(!userService.use_session){
                     $http.defaults.headers.common.Authorization = 'Token ' + data.key;
                     $cookies.token = data.key;
                 }
-                djangoAuth.authenticated = true;
-                $rootScope.$broadcast("djangoAuth.logged_in", data);
+                userService.authenticated = true;
+                $rootScope.$broadcast("userService.logged_in", data);
             });
         },
         'logout': function(){
-            var djangoAuth = this;
+            var userService = this;
             return this.request({
                 'method': "POST",
                 'url': "/logout/"
             }).then(function(data){
                 delete $http.defaults.headers.common.Authorization;
                 delete $cookies.token;
-                djangoAuth.authenticated = false;
-                $rootScope.$broadcast("djangoAuth.logged_out");
+                userService.authenticated = false;
+                $rootScope.$broadcast("userService.logged_out");
             });
         },
         'changePassword': function(password1,password2){

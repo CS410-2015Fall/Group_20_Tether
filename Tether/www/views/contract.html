@@ -4,9 +4,9 @@
     <meta charset="UTF-8">
     <title></title>
 </head>
-<body ng-app="angularDjangoRegistrationAuthApp">
+<body ng-app="tetherApp">
 
-<div ng-controller="contractSetupCtrl">
+<div ng-controller="contractCtrl">
     <h1 ng-hide="submitted">Form Contract</h1>
     <form role="form" ng-submit="" name="contractForm" novalidate ng-hide="submitted">
         <div class="form-group">
@@ -22,10 +22,11 @@
         <button type="submit" class="btn btn-primary" ng-click="submitContract()">Submit</button>
     </form>
 
-    <pre ng-show="ongoingContract">Your contract will end in:
+   <pre ng-show="ongoingContract">Your contract will end in:
         <div class="container" id="countdown"></div>
-        <button class="button" ng-click="forfeit()">Forfeit</button>
     </pre>
+
+    <button class="btn btn-warning" ng-show="ongoingContract" ng-click="forfeit()">Forfeit</button>
 
     <pre ng-show="contractOver">The contract is now over:
         <div class="container" ng-hide="contractSuccess">"You Lost"</div>
@@ -33,7 +34,6 @@
     </pre>
 
 </div>
-
 
 </body>
 </html>
