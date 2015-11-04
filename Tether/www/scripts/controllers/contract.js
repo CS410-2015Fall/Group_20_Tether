@@ -4,8 +4,8 @@
 
 'use strict';
 
-angular.module('angularDjangoRegistrationAuthApp')
-    .controller('contractSetupCtrl',['$scope', '$location', function($scope, $location, $http, $routeParams, $cordovaApplist){
+angular.module('tetherApp')
+    .controller('contractCtrl',['$scope', '$location', function($scope, $location, $http, $routeParams, $cordovaApplist){
 
         $scope.showButton = true;
         $scope.submitted = false;

@@ -1,6 +1,6 @@
 'use strict';
 
-var CordovaInit = function() {
+var cordovaInit = function() {
 
 	var onDeviceReady = function() {
 		receivedEvent('deviceready');
@@ -28,5 +28,5 @@ var CordovaInit = function() {
 
 $(function() {
 	console.log('Bootstrapping!');
-	new CordovaInit();
+	new cordovaInit();
 });
