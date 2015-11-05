@@ -12,6 +12,9 @@
         },
         "org.jmrezayi2.Applist": {
             "PACKAGE_NAME": "io.cordova.hellocordova"
+        },
+        "com.lane.GetForeground": {
+            "PACKAGE_NAME": "io.cordova.hellocordova"
         }
     },
     "dependent_plugins": {}

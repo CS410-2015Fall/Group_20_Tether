@@ -5,16 +5,29 @@
 'use strict';
 
 angular.module('tetherApp')
-    .controller('contractCtrl',['$scope', '$location', function($scope, $location, $http, $routeParams, $cordovaApplist){
+    .controller('contractCtrl',['$scope', '$location', function($scope, $location, $http,
+                                                                $routeParams, $cordovaApplist,
+                                                                $cordovaForegroundActivity){
 
         $scope.showButton = true;
         $scope.submitted = false;
+
+        $scope.validHours = true;
+        $scope.validAppSelection = true;
+
 
         $scope.contractHours;
         $scope.contractMinutes;
         $scope.contractSeconds;
 
-        $scope.startContract = function(){
+
+        //Scope variables for monitoring
+        $scope.blacklistedApps = [];
+        $scope.foregroundApp = "";
+        $scope.blacklistedAppUsed = "";
+
+
+        $scope.createContract = function(){
             $location.path("/contract");
             $scope.showButton = false;
 
@@ -31,11 +44,15 @@ angular.module('tetherApp')
 
             Applist.createEvent('','','','','',function(app_list){
 
+                    document.getElementById('installedApps').innerHTML = '';
+
                     $.each(app_list, function () {
                         $("#installedApps").append($("<label>").text(this.name).prepend(
                             $("<input>").attr('type', 'checkbox').attr('id',(this.name))
                         ));
                     });
+
+                    // try to format check boxes better?
 
 
                 },
@@ -53,11 +70,14 @@ angular.module('tetherApp')
 
             var checkedBoxes = $(':checkbox:checked');
 
+            $scope.blacklistedApps = [];
+
             var obj = JSON.parse(contractJSON);
 
             for (var i = 0; i < checkedBoxes.length; i++){
 
                 obj["contract"]["apps"].push({"name":checkedBoxes[i].id});
+                $scope.blacklistedApps.push(checkedBoxes[i].id);
                 console.log(checkedBoxes.text());
 
             }
@@ -67,9 +87,31 @@ angular.module('tetherApp')
             var durationMins = parseInt(document.getElementById("minID").value);
             var durationSecs = parseInt(document.getElementById("secID").value);
 
-            // convert to minutes and attach to contract JSON object
-            var durationInMins = (durationHrs * 60) + durationMins + (durationSecs / 60);
-            obj["contract"].durationInMins = durationInMins;
+            //trying this -> test
+
+            if ($scope.blacklistedApps.size < 1){
+                console.log("User didn't choose any apps");
+                $scope.validAppSelection = false;
+
+            }
+
+            if ((durationHrs * 60) + durationMins + (durationSecs / 60) == 0){
+                // set new toast here requesting it is required
+                //for testing
+                console.log("Hour input denied");
+
+                    $scope.validHours = false;
+
+                return;
+            } else {
+
+                // convert to minutes and attach to contract JSON object
+                var durationInMins = (durationHrs * 60) + durationMins + (durationSecs / 60);
+                obj["contract"].durationInMins = durationInMins;
+                $scope.validHours = true;
+            }
+
+
 
             contractJSON = JSON.stringify(obj);
             console.log(JSON.stringify(contractJSON));
@@ -97,7 +139,7 @@ angular.module('tetherApp')
         // get tag element
         var countdown = document.getElementById('countdown');
 
-        var refreshIntervalId = setInterval(function () {
+        $scope.refreshContractTimerIntervalId = setInterval(function () {
             var current_date = new Date().getTime();
             var seconds_left = (target_date - current_date) / 1000;
             days = parseInt(seconds_left / 86400);
@@ -114,9 +156,11 @@ angular.module('tetherApp')
                 '<span class="minutes">'+min+'<b>Minutes</b></span><br>'+
                 '<span class="seconds">'+sec+'<b>Seconds</b></span>';
 
+            $scope.checkForegroundApp();
+
             // success when timer hits zero
             if (seconds_left <= 0) {
-                clearInterval(refreshIntervalId);
+                clearInterval($scope.refreshContractTimerIntervalId);
                 $scope.succeeded();
             }
 
@@ -126,16 +170,44 @@ angular.module('tetherApp')
     };
 
         $scope.succeeded = function() {
-            $scope.ongoingContract = false;
-            $scope.contractOver = true;
-            $scope.contractSuccess = true;
+            $scope.$apply(function(){
+                $scope.ongoingContract = false;
+                $scope.contractOver = true;
+                $scope.contractSuccess = true;
+                $scope.blacklistedApps = [];
+            });
+
         };
 
         $scope.forfeit = function() {
-            $scope.ongoingContract = false;
-            $scope.contractOver = true;
-            $scope.contractSuccess = false;
+                $scope.ongoingContract = false;
+                $scope.contractOver = true;
+                $scope.contractSuccess = false;
+                $scope.blacklistedApps = [];
+
         };
+
+
+        $scope.checkForegroundApp = function(){
+          ForegroundActivity.createEvent('','','', function(foreground_app){
+              $scope.foregroundApp = foreground_app;
+              for (var i = 0; i < $scope.blacklistedApps.length; i++){
+                  if ($scope.foregroundApp == $scope.blacklistedApps[i]){
+                      clearInterval($scope.refreshContractTimerIntervalId);
+                      $scope.$apply(function(){
+                          $scope.blacklistedAppUsed = $scope.blacklistedApps[i];
+                      });
+                      $scope.forfeit();
+                  }
+              }
+          }, function(foreground_app){
+              console.log("Error" + foreground_app + "from GetForegound plugin")
+          });
+        };
+
+
+        // add event listener for back button if ongoing contract is true pops up toast saying they can't use the app
+        //since it will distract them
 
 
         /*

@@ -8,6 +8,9 @@
     <feature name="Applist">
         <param name="android-package" value="org.jmrezayi2.Applist.Applist" />
     </feature>
+    <feature name="ForegroundActivity">
+        <param name="android-package" value="com.lane.GetForeground.ForegroundActivity" />
+    </feature>
     <allow-intent href="market:*" />
     <name>Tether</name>
     <description>

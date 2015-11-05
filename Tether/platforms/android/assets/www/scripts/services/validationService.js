@@ -1,7 +1,11 @@
+/**
+ * Created by Tunjay Jafarli on 2015-11-02.
+ */
+
 'use strict';
 
-angular.module('angularDjangoRegistrationAuthApp')
-  .service('Validate', function Validate() {
+angular.module('tetherApp')
+  .service('validationService', function validationService() {
     return {
         'message': {
             'minlength': 'This value is not long enough.',
