@@ -15,6 +15,10 @@
                         {
                             "xml": "<feature name=\"Applist\"><param name=\"android-package\" value=\"org.jmrezayi2.Applist.Applist\" /></feature>",
                             "count": 1
+                        },
+                        {
+                            "xml": "<feature name=\"ForegroundActivity\"><param name=\"android-package\" value=\"com.lane.GetForeground.ForegroundActivity\" /></feature>",
+                            "count": 1
                         }
                     ]
                 }
@@ -24,6 +28,22 @@
                     "/*": [
                         {
                             "xml": "<uses-permission android:name=\"android.permission.WRITE_EXTERNAL_STORAGE\" />",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<uses-permission android:name=\"android.permission.ACCESS_NETWORK_STATE\" />",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<uses-permission android:name=\"android.permission.GET_TASKS\" />",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<uses-permission android:name=\"android.permission.SYSTEM_ALERT_WINDOW\" />",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<uses-permission android:name=\"android.permission.PACKAGE_USAGE_STATS\" />",
                             "count": 1
                         }
                     ]
@@ -36,6 +56,9 @@
             "PACKAGE_NAME": "io.cordova.hellocordova"
         },
         "org.jmrezayi2.Applist": {
+            "PACKAGE_NAME": "io.cordova.hellocordova"
+        },
+        "com.lane.GetForeground": {
             "PACKAGE_NAME": "io.cordova.hellocordova"
         }
     },

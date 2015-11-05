@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('angularDjangoRegistrationAuthApp')
-  .controller('LogoutCtrl', function ($scope, $location, djangoAuth) {
-    djangoAuth.logout();
+angular.module('tetherApp')
+  .controller('LogoutCtrl', function ($scope, $location, userService) {
+    userService.logout();
   });

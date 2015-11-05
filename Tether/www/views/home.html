@@ -7,7 +7,11 @@
 <body ng-app="tetherApp">
 <div ng-controller="contractCtrl">
 
-    <button class="btn btn-primary" id="startContract" ng-show="showButton" ng-click="startContract()">Start Contract</button>
+    <a href="" ng-click="createContract()">
+        <button class="btn-primary" id="startContract" ng-show="showButton" ng-click="createContract()">
+            <span class="glyphicon glyphicon-pencil"></span>Start Contract
+        </button>
+    </a>
 
 </div>
 

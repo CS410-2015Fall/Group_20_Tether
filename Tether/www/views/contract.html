@@ -17,9 +17,19 @@
             </label>
         </div>
 
+        <div class="alert alert-danger" role="alert" ng-hide="validHours">
+            <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+            Duration must be longer than 0!
+        </div>
+        <div class="alert alert-danger" role="alert" ng-hide="validAppSelection">
+            <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+            Please choose at least one app!
+        </div>
+
         <div id="installedApps"></div>
 
         <button type="submit" class="btn btn-primary" ng-click="submitContract()">Submit</button>
+
     </form>
 
    <pre ng-show="ongoingContract">Your contract will end in:

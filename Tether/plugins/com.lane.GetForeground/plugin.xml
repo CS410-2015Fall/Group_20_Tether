@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<plugin xmlns="http://apache.org/cordova/ns/plugins/1.0"
+           id="com.lane.GetForeground"
+      version="1.1.1">
+    <name>GetForeground</name>
+    <description>GetForegroundActivity Plugin</description>
+    <license>MIT</license>
+    <keywords>phonegap,ForegroundActivity</keywords>
+
+
+    <js-module src="www/ForegroundActivity.js" name="ForegroundActivity">
+        <clobbers target="window.ForegroundActivity" />
+    </js-module>
+
+    <!-- android -->
+    <platform name="android">
+        <config-file target="res/xml/config.xml" parent="/*">
+            <feature name="ForegroundActivity">
+                <param name="android-package" value="com.lane.GetForeground.ForegroundActivity"/>
+            </feature>
+        </config-file>
+        <config-file target="AndroidManifest.xml" parent="/*">
+            <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+            <uses-permission android:name="android.permission.GET_TASKS" />
+            <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+            <uses-permission android:name="android.permission.PACKAGE_USAGE_STATS" />
+        </config-file>
+
+        <source-file src="src/android/ForegroundActivity.java" target-dir="src/com/lane/GetForeground" />      
+     </platform>          
+</plugin>
