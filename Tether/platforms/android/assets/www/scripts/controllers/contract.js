@@ -94,6 +94,8 @@ angular.module('tetherApp')
 
             }
 
+            console.log($scope.blacklistedApps);
+
             // parse duration inputs
             var durationHrs = parseInt(document.getElementById("hrID").value);
             var durationMins = parseInt(document.getElementById("minID").value);
@@ -172,7 +174,7 @@ angular.module('tetherApp')
         // get tag element
         var countdown = document.getElementById('countdown');
 
-        $scope.refreshContractTimerIntervalId = setInterval(function () {
+        $scope.updateClock = function() {
             var current_date = new Date().getTime();
             var seconds_left = (target_date - current_date) / 1000;
             days = parseInt(seconds_left / 86400);
@@ -184,10 +186,10 @@ angular.module('tetherApp')
             ms = parseInt(target_date-current_date);
 
             // format countdown string + set tag value
-            countdown.innerHTML = ''+
-                '<span class="hours">'+hours+'<b>Hours</b></span><br>'+
-                '<span class="minutes">'+min+'<b>Minutes</b></span><br>'+
-                '<span class="seconds">'+sec+'<b>Seconds</b></span>';
+            countdown.innerHTML = '' + 
+            '<div><span class="hours">' + ('0' + hours).slice(-2) + '</span><div class="smalltext"> Hours </div></div> ' + 
+            '<div><span class="minutes">' + ('0' + min).slice(-2) + '</span><div class="smalltext">Minutes</div></div> ' +
+            '<div><span class="seconds">' + ('0' + sec).slice(-2) + '</span><div class="smalltext">Seconds</div></div> ';
 
             $scope.checkForegroundApp();
 
@@ -197,8 +199,10 @@ angular.module('tetherApp')
                 $scope.succeeded();
             }
 
-        }, ms_step);
+        }
 
+        $scope.updateClock();
+        $scope.refreshContractTimerIntervalId = setInterval($scope.updateClock, ms_step);
 
     };
 
@@ -212,7 +216,18 @@ angular.module('tetherApp')
 
         };
 
+
+
         $scope.forfeit = function() {
+                $scope.ongoingContract = false;
+                $scope.contractOver = true;
+                $scope.contractSuccess = false;
+                $scope.blacklistedApps = [];
+                clearInterval($scope.refreshContractTimerIntervalId);
+
+        };
+
+        $scope.lose = function() {
             $scope.$apply(function(){
                 $scope.ongoingContract = false;
                 $scope.contractOver = true;
@@ -233,7 +248,7 @@ angular.module('tetherApp')
                       $scope.$apply(function(){
                           $scope.blacklistedAppUsed = $scope.blacklistedApps[i];
                       });
-                      $scope.forfeit();
+                      $scope.lose();
                   }
               }
           }, function(foreground_app){
@@ -252,6 +267,65 @@ angular.module('tetherApp')
             }
 
             else return true;
+        };
+
+
+
+        $scope.routeToHome = function(){
+            $location.path('/home');
+        };
+
+        $scope.routeToContract = function(){
+            $scope.showButton = true;
+            $scope.submitted = false;
+
+            $scope.validHours = true;
+            $scope.validAppSelection = true;
+
+
+            $scope.contractHours = 0;
+            $scope.contractMinutes = 0;
+            $scope.contractSeconds = 0;
+
+
+            //Scope variables for monitoring
+            $scope.blacklistedApps = [];
+            $scope.foregroundApp = "";
+            $scope.blacklistedAppUsed = "";
+            $scope.ongoingContract = false;
+            $scope.contractOver = false;
+
+
+            Applist.createEvent('','','','','',function(app_list){
+
+                    document.getElementById('installedApps').innerHTML = '';
+
+
+                    $.each(app_list, function () {
+                        $("#installedApps").append($("<label>").text(this.name).prepend(
+                            $("<input>").attr('type', 'checkbox').attr('id',(this.name))
+                        ));
+
+                        /*  $("#installedApps").append(
+                         "<div class='" + "input-group'" + ">"
+                         + "<span class='" + "input-group-addon'" + ">"
+                         + "<input type='" + "checkbox'" + "aria-label='" +"...'" + ">"
+                         + "</span>"
+                         + "<img " + "style='" + "height: 100%" + "style='" + "width: 100%" + "src='" + this.img + "'>"
+                         + "</div>");*/
+
+                    });
+
+                    // try to format check boxes better?
+
+
+                },
+
+                function(app_list){
+                    console.log("Fail:" + app_list);
+                });
+
+
         };
 
 

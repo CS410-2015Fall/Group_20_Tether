@@ -216,7 +216,18 @@ angular.module('tetherApp')
 
         };
 
+
+
         $scope.forfeit = function() {
+                $scope.ongoingContract = false;
+                $scope.contractOver = true;
+                $scope.contractSuccess = false;
+                $scope.blacklistedApps = [];
+                clearInterval($scope.refreshContractTimerIntervalId);
+
+        };
+
+        $scope.lose = function() {
             $scope.$apply(function(){
                 $scope.ongoingContract = false;
                 $scope.contractOver = true;
@@ -237,7 +248,7 @@ angular.module('tetherApp')
                       $scope.$apply(function(){
                           $scope.blacklistedAppUsed = $scope.blacklistedApps[i];
                       });
-                      $scope.forfeit();
+                      $scope.lose();
                   }
               }
           }, function(foreground_app){
@@ -256,6 +267,45 @@ angular.module('tetherApp')
             }
 
             else return true;
+        };
+
+
+
+        $scope.routeToHome = function(){
+            $location.path('/home');
+        };
+
+        $scope.routeToContract = function(){
+            Applist.createEvent('','','','','',function(app_list){
+
+                    document.getElementById('installedApps').innerHTML = '';
+
+
+                    $.each(app_list, function () {
+                        $("#installedApps").append($("<label>").text(this.name).prepend(
+                            $("<input>").attr('type', 'checkbox').attr('id',(this.name))
+                        ));
+
+                        /*  $("#installedApps").append(
+                         "<div class='" + "input-group'" + ">"
+                         + "<span class='" + "input-group-addon'" + ">"
+                         + "<input type='" + "checkbox'" + "aria-label='" +"...'" + ">"
+                         + "</span>"
+                         + "<img " + "style='" + "height: 100%" + "style='" + "width: 100%" + "src='" + this.img + "'>"
+                         + "</div>");*/
+
+                    });
+
+                    // try to format check boxes better?
+
+
+                },
+
+                function(app_list){
+                    console.log("Fail:" + app_list);
+                });
+
+            $location.
         };
 
 
