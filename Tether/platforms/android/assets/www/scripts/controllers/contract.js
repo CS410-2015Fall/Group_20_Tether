@@ -44,6 +44,8 @@ angular.module('tetherApp')
 
             Applist.createEvent('','','','','',function(app_list){
 
+
+                
                     document.getElementById('installedApps').innerHTML = '';
 
 
@@ -272,7 +274,24 @@ angular.module('tetherApp')
 
 
         $scope.routeToHome = function(){
-            $location.path('/home');
+        $scope.showButton = true;
+        $scope.submitted = false;
+
+        $scope.validHours = true;
+        $scope.validAppSelection = true;
+
+
+        $scope.contractHours = 0;
+        $scope.contractMinutes = 0;
+        $scope.contractSeconds = 0;
+
+
+        //Scope variables for monitoring
+        $scope.blacklistedApps = [];
+        $scope.foregroundApp = "";
+        $scope.blacklistedAppUsed = "";
+
+            $location.path('/');
         };
 
         $scope.routeToContract = function(){
