@@ -26,6 +26,15 @@
             Please choose at least one app!
         </div>
 
+        <!--<div class="input-group">
+            <span class="input-group-addon">
+                <input type="checkbox" aria-label="...">
+            </span>
+                <input type="text" class="form-control" aria-label="...">
+            <img src=/storage/emulated/0/com.ionicframework.xxx/Cache/com.giphy.messenger.png";
+        </div> -->
+
+
         <div id="installedApps"></div>
 
         <button type="submit" class="btn btn-primary" ng-click="submitContract()">Submit</button>
@@ -34,16 +43,13 @@
 
    <pre ng-show="ongoingContract">Your contract will end in:
         <div class="container" id="countdown"></div>
-        <div>These apps are not permitted to   use during the contract: 
-        <li ng-repeat="app in blacklistedApps">{{ app }}</li>
-        </div>
     </pre>
 
     <button class="btn btn-warning" ng-show="ongoingContract" ng-click="forfeit()">Forfeit</button>
 
     <pre ng-show="contractOver">The contract is now over:
         <div class="container" ng-hide="contractSuccess">"You Lost"</div>
-        <div class="contianer" ng-show="contractSuccess">"You made it - great job!<br> Stay focused!"</div>
+        <div class="container" ng-show="contractSuccess">"You made it - good job!"</div>
     </pre>
 
 </div>

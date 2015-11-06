@@ -16,9 +16,9 @@ angular.module('tetherApp')
         $scope.validAppSelection = true;
 
 
-        $scope.contractHours;
-        $scope.contractMinutes;
-        $scope.contractSeconds;
+        $scope.contractHours = 0;
+        $scope.contractMinutes = 0;
+        $scope.contractSeconds = 0;
 
 
         //Scope variables for monitoring
@@ -46,10 +46,20 @@ angular.module('tetherApp')
 
                     document.getElementById('installedApps').innerHTML = '';
 
+
                     $.each(app_list, function () {
                         $("#installedApps").append($("<label>").text(this.name).prepend(
                             $("<input>").attr('type', 'checkbox').attr('id',(this.name))
                         ));
+
+                      /*  $("#installedApps").append(
+                            "<div class='" + "input-group'" + ">"
+                            + "<span class='" + "input-group-addon'" + ">"
+                            + "<input type='" + "checkbox'" + "aria-label='" +"...'" + ">"
+                            + "</span>"
+                            + "<img " + "style='" + "height: 100%" + "style='" + "width: 100%" + "src='" + this.img + "'>"
+                            + "</div>");*/
+
                     });
 
                     // try to format check boxes better?
@@ -71,6 +81,8 @@ angular.module('tetherApp')
             var checkedBoxes = $(':checkbox:checked');
 
             $scope.blacklistedApps = [];
+            $scope.validHours = true;
+            $scope.validAppSelection = true;
 
             var obj = JSON.parse(contractJSON);
 
@@ -89,29 +101,50 @@ angular.module('tetherApp')
             var durationMins = parseInt(document.getElementById("minID").value);
             var durationSecs = parseInt(document.getElementById("secID").value);
 
+            if (isNaN(durationHrs)){
+                durationHrs = 0;
+                $scope.contractHours = 0;
+            }
+
+            if (isNaN(durationMins)){
+                durationMins = 0;
+                $scope.contractMinutes = 0;
+            }
+
+            if (isNaN(durationSecs)){
+                durationSecs = 0;
+                $scope.contractSeconds = 0;
+            }
+
             //trying this -> test
 
-            if ($scope.blacklistedApps.size < 1){
-                console.log("User didn't choose any apps");
+           // if ($scope.blacklistedApps = []){
+              //  console.log("User didn't choose any apps");
+               // $scope.validAppSelection = false;
+            //}
+
+            if ($scope.blacklistedApps.length == 0){
+                console.log("User hasn't selected any apps");
                 $scope.validAppSelection = false;
+            }
+
+            if (!$scope.validateHours(durationHrs, durationMins, durationSecs)){
+                console.log("Hour input denied");
+
+                $scope.validHours = false;
 
             }
 
-            if ((durationHrs * 60) + durationMins + (durationSecs / 60) == 0){
-                // set new toast here requesting it is required
-                //for testing
-                console.log("Hour input denied");
-
-                    $scope.validHours = false;
-
+            if ($scope.validHours == false || $scope.validAppSelection == false){
                 return;
             } else {
-
                 // convert to minutes and attach to contract JSON object
                 var durationInMins = (durationHrs * 60) + durationMins + (durationSecs / 60);
                 obj["contract"].durationInMins = durationInMins;
                 $scope.validHours = true;
             }
+
+
 
 
 
@@ -184,10 +217,13 @@ angular.module('tetherApp')
         };
 
         $scope.forfeit = function() {
+            $scope.$apply(function(){
                 $scope.ongoingContract = false;
                 $scope.contractOver = true;
                 $scope.contractSuccess = false;
                 $scope.blacklistedApps = [];
+                clearInterval($scope.refreshContractTimerIntervalId);
+            });
 
         };
 
@@ -208,6 +244,20 @@ angular.module('tetherApp')
               console.log("Error" + foreground_app + "from GetForegound plugin")
           });
         };
+
+
+        $scope.validateHours = function(durationHrs, durationMins, durationSecs){
+
+            if ((durationHrs == 0) && (durationMins == 0) && (durationSecs == 0)){
+                // set new toast here requesting it is required
+                //for testing
+                console.log("Hour input denied");
+                return false;
+            }
+
+            else return true;
+        };
+
 
 
         // add event listener for back button if ongoing contract is true pops up toast saying they can't use the app
