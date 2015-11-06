@@ -94,6 +94,8 @@ angular.module('tetherApp')
 
             }
 
+            console.log($scope.blacklistedApps);
+
             // parse duration inputs
             var durationHrs = parseInt(document.getElementById("hrID").value);
             var durationMins = parseInt(document.getElementById("minID").value);
@@ -172,7 +174,7 @@ angular.module('tetherApp')
         // get tag element
         var countdown = document.getElementById('countdown');
 
-        $scope.refreshContractTimerIntervalId = setInterval(function () {
+        $scope.updateClock = function() {
             var current_date = new Date().getTime();
             var seconds_left = (target_date - current_date) / 1000;
             days = parseInt(seconds_left / 86400);
@@ -184,10 +186,10 @@ angular.module('tetherApp')
             ms = parseInt(target_date-current_date);
 
             // format countdown string + set tag value
-            countdown.innerHTML = ''+
-                '<span class="hours">'+hours+'<b>Hours</b></span><br>'+
-                '<span class="minutes">'+min+'<b>Minutes</b></span><br>'+
-                '<span class="seconds">'+sec+'<b>Seconds</b></span>';
+            countdown.innerHTML = '' + 
+            '<div><span class="hours">' + ('0' + hours).slice(-2) + '</span><div class="smalltext"> Hours </div></div> ' + 
+            '<div><span class="minutes">' + ('0' + min).slice(-2) + '</span><div class="smalltext">Minutes</div></div> ' +
+            '<div><span class="seconds">' + ('0' + sec).slice(-2) + '</span><div class="smalltext">Seconds</div></div> ';
 
             $scope.checkForegroundApp();
 
@@ -197,8 +199,10 @@ angular.module('tetherApp')
                 $scope.succeeded();
             }
 
-        }, ms_step);
+        }
 
+        $scope.updateClock();
+        $scope.refreshContractTimerIntervalId = setInterval($scope.updateClock, ms_step);
 
     };
 
