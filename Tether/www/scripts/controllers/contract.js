@@ -276,6 +276,26 @@ angular.module('tetherApp')
         };
 
         $scope.routeToContract = function(){
+            $scope.showButton = true;
+            $scope.submitted = false;
+
+            $scope.validHours = true;
+            $scope.validAppSelection = true;
+
+
+            $scope.contractHours = 0;
+            $scope.contractMinutes = 0;
+            $scope.contractSeconds = 0;
+
+
+            //Scope variables for monitoring
+            $scope.blacklistedApps = [];
+            $scope.foregroundApp = "";
+            $scope.blacklistedAppUsed = "";
+            $scope.ongoingContract = false;
+            $scope.contractOver = false;
+
+
             Applist.createEvent('','','','','',function(app_list){
 
                     document.getElementById('installedApps').innerHTML = '';
@@ -305,7 +325,7 @@ angular.module('tetherApp')
                     console.log("Fail:" + app_list);
                 });
 
-            $location.
+
         };
 
 
