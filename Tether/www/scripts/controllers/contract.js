@@ -82,6 +82,8 @@ angular.module('tetherApp')
 
             }
 
+            console.log($scope.blacklistedApps);
+
             // parse duration inputs
             var durationHrs = parseInt(document.getElementById("hrID").value);
             var durationMins = parseInt(document.getElementById("minID").value);
