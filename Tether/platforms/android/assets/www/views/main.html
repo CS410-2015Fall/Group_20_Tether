@@ -3,7 +3,24 @@
         <a ng-hide="authenticated" href="#/login" class="btn btn-primary">Login</a>
     </p>
     <p>
-        <a ng-show="authenticated" href="#/logout" class="btn btn-primary">Logout</a>
         <a ng-hide="authenticated" ng-href="#/register" class="btn btn-primary">Register</a>
         <a ng-show="authenticated" href="#/userProfile" class="btn btn-primary">Profile</a>
+        <a ng-show="authenticated" href="#/logout" class="btn btn-primary">Logout</a>
+
     </p>
+
+
+<div ng-app="tetherApp">
+    <div ng-controller="contractCtrl" ng-show="authenticated">
+
+    <a href="" ng-click="createContract()">
+        <button class="btn-primary" id="startContract" ng-show="showButton" ng-click="createContract()">
+            <span class="glyphicon glyphicon-pencil"></span>Start Contract
+        </button>
+    </a>
+
+</div>
+</div>
+
+
+    
