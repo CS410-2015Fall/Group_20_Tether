@@ -5,9 +5,9 @@
 'use strict';
 
 angular.module('tetherApp')
-    .controller('contractCtrl',['$scope', '$location', function($scope, $location, $http,
+    .controller('contractCtrl',['$scope', '$location','contractService', function($scope, $location, $http,
                                                                 $routeParams, $cordovaApplist,
-                                                                $cordovaForegroundActivity){
+                                                                $cordovaForegroundActivity,contractService){
 
         $scope.showButton = true;
         $scope.submitted = false;
@@ -225,6 +225,7 @@ angular.module('tetherApp')
                 $scope.contractSuccess = false;
                 $scope.blacklistedApps = [];
                 clearInterval($scope.refreshContractTimerIntervalId);
+                $scope.contractService = contractService.contractbroken();
         };
 
         $scope.lose = function() {

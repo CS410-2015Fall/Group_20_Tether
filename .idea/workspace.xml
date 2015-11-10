@@ -3,16 +3,8 @@
   <component name="ChangeListManager">
     <list default="true" id="0c0fa9e8-d3ef-4fb7-a1ed-5609c166f232" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Tether/platforms/android/assets/www/scripts/app.js" afterPath="$PROJECT_DIR$/Tether/platforms/android/assets/www/scripts/app.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Tether/platforms/android/assets/www/scripts/controllers/contract.js" afterPath="$PROJECT_DIR$/Tether/platforms/android/assets/www/scripts/controllers/contract.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Tether/platforms/android/assets/www/scripts/controllers/login.js" afterPath="$PROJECT_DIR$/Tether/platforms/android/assets/www/scripts/controllers/login.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Tether/platforms/android/assets/www/scripts/services/contractService.js" afterPath="$PROJECT_DIR$/Tether/platforms/android/assets/www/scripts/services/contractService.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Tether/platforms/android/assets/www/scripts/services/pushService.js" afterPath="$PROJECT_DIR$/Tether/platforms/android/assets/www/scripts/services/pushService.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Tether/www/scripts/app.js" afterPath="$PROJECT_DIR$/Tether/www/scripts/app.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Tether/www/scripts/controllers/contract.js" afterPath="$PROJECT_DIR$/Tether/www/scripts/controllers/contract.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Tether/www/scripts/controllers/login.js" afterPath="$PROJECT_DIR$/Tether/www/scripts/controllers/login.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Tether/www/scripts/services/contractService.js" afterPath="$PROJECT_DIR$/Tether/www/scripts/services/contractService.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Tether/www/scripts/services/pushService.js" afterPath="$PROJECT_DIR$/Tether/www/scripts/services/pushService.js" />
     </list>
     <ignored path="Group_20_Tether.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -33,11 +25,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="contractService.js" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/Tether/www/scripts/services/contractService.js">
+      <file leaf-file-name="contract.js" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/Tether/www/scripts/controllers/contract.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.6178862">
-              <caret line="22" column="31" selection-start-line="22" selection-start-column="31" selection-end-line="22" selection-end-column="31" />
+            <state vertical-scroll-proportion="0.6820513">
+              <caret line="227" column="74" selection-start-line="227" selection-start-column="74" selection-end-line="227" selection-end-column="74" />
               <folding />
             </state>
           </provider>
@@ -91,10 +83,10 @@
         <option value="$PROJECT_DIR$/Tether/platforms/android/AndroidManifest.xml" />
         <option value="$PROJECT_DIR$/Tether/www/scripts/services/userService.js" />
         <option value="$PROJECT_DIR$/Tether/www/scripts/services/pushService.js" />
-        <option value="$PROJECT_DIR$/Tether/www/scripts/controllers/contract.js" />
         <option value="$PROJECT_DIR$/Tether/www/scripts/app.js" />
         <option value="$PROJECT_DIR$/Tether/www/scripts/controllers/login.js" />
         <option value="$PROJECT_DIR$/Tether/www/scripts/services/contractService.js" />
+        <option value="$PROJECT_DIR$/Tether/www/scripts/controllers/contract.js" />
       </list>
     </option>
   </component>
@@ -698,14 +690,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Tether/www/scripts/controllers/master.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.06178862">
-          <caret line="2" column="26" selection-start-line="2" selection-start-column="26" selection-end-line="2" selection-end-column="26" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Tether/www/scripts/services/validationService.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.15447155">
@@ -730,22 +714,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Tether/www/scripts/app.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="3.8">
-          <caret line="123" column="77" selection-start-line="123" selection-start-column="77" selection-end-line="123" selection-end-column="77" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Tether/www/scripts/controllers/contract.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.27804878">
-          <caret line="9" column="90" selection-start-line="9" selection-start-column="90" selection-end-line="9" selection-end-column="90" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Tether/www/scripts/controllers/login.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.6178862">
@@ -754,18 +722,42 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/Tether/www/scripts/controllers/master.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.06178862">
+          <caret line="2" column="26" selection-start-line="2" selection-start-column="26" selection-end-line="2" selection-end-column="26" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Tether/www/scripts/app.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="3.8">
+          <caret line="123" column="77" selection-start-line="123" selection-start-column="77" selection-end-line="123" selection-end-column="77" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/Tether/www/scripts/services/userService.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.46341464">
-          <caret line="75" column="13" selection-start-line="75" selection-start-column="13" selection-end-line="75" selection-end-column="13" />
+        <state vertical-scroll-proportion="0.33333334">
+          <caret line="110" column="26" selection-start-line="110" selection-start-column="17" selection-end-line="110" selection-end-column="26" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Tether/www/scripts/services/contractService.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.6178862">
-          <caret line="22" column="31" selection-start-line="22" selection-start-column="31" selection-end-line="22" selection-end-column="31" />
+        <state vertical-scroll-proportion="0.06178862">
+          <caret line="2" column="39" selection-start-line="2" selection-start-column="39" selection-end-line="2" selection-end-column="39" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Tether/www/scripts/controllers/contract.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.6820513">
+          <caret line="227" column="74" selection-start-line="227" selection-start-column="74" selection-end-line="227" selection-end-column="74" />
           <folding />
         </state>
       </provider>
