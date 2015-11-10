@@ -219,14 +219,12 @@ angular.module('tetherApp')
         };
 
 
-
         $scope.forfeit = function() {
                 $scope.ongoingContract = false;
                 $scope.contractOver = true;
                 $scope.contractSuccess = false;
                 $scope.blacklistedApps = [];
                 clearInterval($scope.refreshContractTimerIntervalId);
-
         };
 
         $scope.lose = function() {

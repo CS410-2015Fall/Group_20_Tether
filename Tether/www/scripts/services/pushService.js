@@ -1,4 +1,5 @@
-angular.module('tetherApp').service('pushService', function pushService($q, $window) {
+angular.module('tetherApp')
+    .service('pushService', function pushService($q, $window) {
 
     var pushConfig = {};
     if (device.platform == 'android' || device.platform == 'Android') {

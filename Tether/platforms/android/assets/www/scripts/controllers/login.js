@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('tetherApp')
-  .controller('LoginCtrl', function ($scope, $location, userService, validationService, pushService) {
+  .controller('LoginCtrl', function ($scope, $location, userService, validationService, pushService,contractService) {
     $scope.model = {'username':'','password':''};
   	$scope.complete = false;
     $scope.login = function(formData){
@@ -14,7 +14,11 @@ angular.module('tetherApp')
           }, function(err) {
               // An error occured. Show a message to the user
           });
-
+          contractService.contractbroken().then(function(result) {
+              // Success!
+          }, function(err) {
+              // An error occured. Show a message to the user
+          });
         userService.login($scope.model.username, $scope.model.password)
         .then(function(data){
         	// success case
