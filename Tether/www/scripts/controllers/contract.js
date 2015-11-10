@@ -219,13 +219,18 @@ angular.module('tetherApp')
         };
 
 
+
         $scope.forfeit = function() {
                 $scope.ongoingContract = false;
                 $scope.contractOver = true;
                 $scope.contractSuccess = false;
                 $scope.blacklistedApps = [];
                 clearInterval($scope.refreshContractTimerIntervalId);
-                $scope.contractService = contractService.contractbroken();
+                contractService.contractbroken().then(function(result) {
+                    // Success!
+                }, function(err) {
+                    // An error occured. Show a message to the user
+                });
         };
 
         $scope.lose = function() {
