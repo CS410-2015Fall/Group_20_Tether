@@ -1,4 +1,4 @@
-"""TetherDjango URL Configuration
+"""Auth URL Configuration
 
 The `urlpatterns` list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/1.8/topics/http/urls/
@@ -15,9 +15,13 @@ Including another URLconf
 """
 from django.conf.urls import include, url
 from django.contrib import admin
+from Users import views
 
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
     url(r'^rest-auth/', include('rest_auth.urls')),
     url(r'^rest-auth/registration/', include('rest_auth.registration.urls')),
+    url(r'^allprofiles/', views.get_all_user_profile),
+    url(r'^profile/', views.get_user_profile),
+    url(r'^friends/', views.get_friends),
 ]
