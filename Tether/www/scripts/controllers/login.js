@@ -14,11 +14,6 @@ angular.module('tetherApp')
           }, function(err) {
               // An error occured. Show a message to the user
           });
-          contractService.contractbroken().then(function(result) {
-              // Success!
-          }, function(err) {
-              // An error occured. Show a message to the user
-          });
         userService.login($scope.model.username, $scope.model.password)
         .then(function(data){
         	// success case
