@@ -5,7 +5,20 @@
 'use strict';
 
 angular.module('tetherApp')
-    .controller('contractCtrl', function ($scope, $location, $http,$routeParams,contractService){
+    .controller('contractCtrl', function ($window,$scope, $location, $http,$routeParams,contractService,userService){
+        // send the token to server
+        var token = $window.localStorage.gcmtoken;
+        var data = {
+            'gcm_token':token
+        }
+        userService.updateProfile(data)
+            .then(function(data){
+                // success case
+                $scope.complete = true;
+            },function(data){
+                // error case
+                $scope.error = data;
+            });
 
         $scope.showButton = true;
         $scope.submitted = false;

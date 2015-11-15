@@ -73,7 +73,6 @@ angular.module('tetherApp')
                     'msgcnt':'1',
                     'soundname':'beep.wav'
                 }
-                //var toself = $window.localStorage.gcmtoken;
                 return this.request({
                     'method': "POST",
                     'data': {
@@ -89,7 +88,6 @@ angular.module('tetherApp')
                     'msgcnt':'1',
                     'soundname':'beep.wav'
                 }
-                //var toself = $window.localStorage.gcmtoken;
                 return this.request({
                     'method': "POST",
                     'data': {
