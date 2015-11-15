@@ -1,9 +1,10 @@
 'use strict';
 angular.module('tetherApp')
-    .service('contractService',function contractService($q,$http,$cookies){
+    .service('contractService',function contractService($q,$http,$window){
         var service = {
 
             'GCM_URL': 'https://android.googleapis.com/gcm/send',
+            'toself' : $window.localStorage.gcmtoken,
             // APPLIST AND APPMONITOR
             'applist': function(){
                 var success = function(app_list){
@@ -72,11 +73,12 @@ angular.module('tetherApp')
                     'msgcnt':'1',
                     'soundname':'beep.wav'
                 }
+                //var toself = $window.localStorage.gcmtoken;
                 return this.request({
                     'method': "POST",
                     'data': {
                         'data': data,
-                        'to': 'APA91bFpob9Rc7_WiLCBSz8Jb4XAetYWKCbTln5BJlxyZC1Urz-Tr_sc_Nm6CVcZ8VAN0OOs42BRsIEAqNaeFoZfRourtbjt6k17CPxEjbsZ92LYF6a4_tdpkjLlzDyUUZn5y30lYku6'
+                        'to': this.toself
                     }
                 });
             },
@@ -87,11 +89,12 @@ angular.module('tetherApp')
                     'msgcnt':'1',
                     'soundname':'beep.wav'
                 }
+                //var toself = $window.localStorage.gcmtoken;
                 return this.request({
                     'method': "POST",
                     'data': {
                         'data': data,
-                        'to': 'APA91bFpob9Rc7_WiLCBSz8Jb4XAetYWKCbTln5BJlxyZC1Urz-Tr_sc_Nm6CVcZ8VAN0OOs42BRsIEAqNaeFoZfRourtbjt6k17CPxEjbsZ92LYF6a4_tdpkjLlzDyUUZn5y30lYku6'
+                        'to': this.toself
                     }
                 });
 

@@ -1,5 +1,5 @@
 angular.module('tetherApp')
-    .service('pushService', function pushService($q, $window) {
+    .service('pushService', function pushService($q, $window,$cookies) {
 
     var pushConfig = {};
     if (device.platform == 'android' || device.platform == 'Android') {
@@ -25,6 +25,10 @@ angular.module('tetherApp')
                     // Your GCM push server needs to know the regID before it can push to this device
                     // here is where you might want to send it the regID for later use.
                     console.log("regID = " + event.regid);
+                    //$cookies.gcmtoken = event.regid;
+                    //console.log("coockietoken = "+$cookies.gcmtoken);
+                    $window.localStorage.gcmtoken = event.regid;
+                    console.log("localtoken = " + $window.localStorage.gcmtoken);
                 }
                 break;
 
