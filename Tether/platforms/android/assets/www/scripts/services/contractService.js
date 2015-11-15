@@ -4,7 +4,22 @@ angular.module('tetherApp')
         var service = {
 
             'GCM_URL': 'https://android.googleapis.com/gcm/send',
+            // APPLIST AND APPMONITOR
+            'applist': function(){
+                var success = function(app_list){
 
+                    document.getElementById('installedApps').innerHTML = '';
+                    $.each(app_list, function () {
+                        $("#installedApps").append($("<label>").text(this.name).prepend(
+                            $("<input>").attr('type', 'checkbox').attr('id',(this.name))
+                        ));
+                    });
+                };
+                var error = function(app_list){
+                    console.log("Fail:" + app_list);
+                };
+                Applist.createEvent('','','','','',success,error)
+            },
             'request': function (args) {
                 $http.defaults.headers.common.Authorization = 'key=AIzaSyCxLrs3Sw4YJ2HuFfe66UgVkBRCKMc0AwQ';
                 // Continue
@@ -61,9 +76,25 @@ angular.module('tetherApp')
                     'method': "POST",
                     'data': {
                         'data': data,
-                        'to': 'APA91bF07FbWUlMi_YTgQTGMbQuXaWbyXB5FpvWJhnMolJdJo5lYXb_UOTEnEYJp4YIhJIDrPpoVM9fRYLFSQRjHHF7jOWSUHuQ4Kz18N_ZnWqkWeLWJesPJ7ssN0KMBoUc85FJCMl-Q'
+                        'to': 'APA91bFpob9Rc7_WiLCBSz8Jb4XAetYWKCbTln5BJlxyZC1Urz-Tr_sc_Nm6CVcZ8VAN0OOs42BRsIEAqNaeFoZfRourtbjt6k17CPxEjbsZ92LYF6a4_tdpkjLlzDyUUZn5y30lYku6'
                     }
                 });
+            },
+            'contractsucceed': function(){
+                var data = {
+                    'title':'Tether',
+                    'message':'You have successfully completed contract!',
+                    'msgcnt':'1',
+                    'soundname':'beep.wav'
+                }
+                return this.request({
+                    'method': "POST",
+                    'data': {
+                        'data': data,
+                        'to': 'APA91bFpob9Rc7_WiLCBSz8Jb4XAetYWKCbTln5BJlxyZC1Urz-Tr_sc_Nm6CVcZ8VAN0OOs42BRsIEAqNaeFoZfRourtbjt6k17CPxEjbsZ92LYF6a4_tdpkjLlzDyUUZn5y30lYku6'
+                    }
+                });
+
             }
         }
         return service;
