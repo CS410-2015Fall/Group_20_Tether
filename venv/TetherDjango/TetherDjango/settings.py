@@ -45,6 +45,7 @@ INSTALLED_APPS = (
     'allauth',
     'allauth.account',
     'rest_auth.registration',
+    'userprofile',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -117,6 +118,9 @@ AUTHENTICATION_BACKENDS = (
     # Needed to login by username in Django admin, regardless of `allauth`
     'django.contrib.auth.backends.ModelBackend',
 )
+REST_AUTH_SERIALIZERS = {
+    'USER_DETAILS_SERIALIZER': 'userprofile.serializers.UserSerializer'
+}
 
 ############
 #EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'

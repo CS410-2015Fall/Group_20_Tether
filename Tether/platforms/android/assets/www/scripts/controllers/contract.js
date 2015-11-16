@@ -5,10 +5,23 @@
 'use strict';
 
 angular.module('tetherApp')
-    .controller('contractCtrl',['$scope', '$location', function($scope, $location, $http,
-                                                                $routeParams, $cordovaApplist,
-                                                                $cordovaForegroundActivity){
-
+    .controller('contractCtrl', function ($window,$scope, $location, $http,$routeParams,contractService,userService){
+        // send the token to server need better place for this...
+        // commnet out this section if it cause errors I implemented something in the server
+        // or try copying TetherDjango into your venv and run the server
+        var token = $window.localStorage.gcmtoken;
+        var data = {
+            'gcm_token':token
+        }
+        userService.updateProfile(data)
+            .then(function(data){
+                // success case
+                $scope.complete = true;
+            },function(data){
+                // error case
+                $scope.error = data;
+            });
+        /////////////////////////////////////////////////////////////////////////
         $scope.showButton = true;
         $scope.submitted = false;
 
@@ -39,40 +52,8 @@ angular.module('tetherApp')
 
         };
 
-
         document.addEventListener('getInstalledApps', function (){
-
-            Applist.createEvent('','','','','',function(app_list){
-
-
-                
-                    document.getElementById('installedApps').innerHTML = '';
-
-
-                    $.each(app_list, function () {
-                        $("#installedApps").append($("<label>").text(this.name).prepend(
-                            $("<input>").attr('type', 'checkbox').attr('id',(this.name))
-                        ));
-
-                      /*  $("#installedApps").append(
-                            "<div class='" + "input-group'" + ">"
-                            + "<span class='" + "input-group-addon'" + ">"
-                            + "<input type='" + "checkbox'" + "aria-label='" +"...'" + ">"
-                            + "</span>"
-                            + "<img " + "style='" + "height: 100%" + "style='" + "width: 100%" + "src='" + this.img + "'>"
-                            + "</div>");*/
-
-                    });
-
-                    // try to format check boxes better?
-
-
-                },
-
-                function(app_list){
-                    console.log("Fail:" + app_list);
-                });
-
+            contractService.applist();
         });
 
 
@@ -85,6 +66,8 @@ angular.module('tetherApp')
             $scope.blacklistedApps = [];
             $scope.validHours = true;
             $scope.validAppSelection = true;
+
+            var globalForegroundApp = "";
 
             var obj = JSON.parse(contractJSON);
 
@@ -159,6 +142,8 @@ angular.module('tetherApp')
 
             $scope.startTimer();
 
+
+
         };
 
 
@@ -214,10 +199,16 @@ angular.module('tetherApp')
                 $scope.contractOver = true;
                 $scope.contractSuccess = true;
                 $scope.blacklistedApps = [];
+                // local notification
+                navigator.notification.alert('You have successfully completed contract!');
+                // gcm notification
+                contractService.contractsucceed().then(function(result) {
+                    // Success!
+                }, function(err) {
+                    // An error occured. Show a message to the user
+                });
             });
-
         };
-
 
 
         $scope.forfeit = function() {
@@ -226,7 +217,14 @@ angular.module('tetherApp')
                 $scope.contractSuccess = false;
                 $scope.blacklistedApps = [];
                 clearInterval($scope.refreshContractTimerIntervalId);
-
+                // local notification
+                navigator.notification.alert('You have broken your contract!');
+                // gcm notification
+                contractService.contractbroken().then(function(result) {
+                    // Success!
+                }, function(err) {
+                    // An error occured. Show a message to the user
+                });
         };
 
         $scope.lose = function() {
@@ -236,26 +234,34 @@ angular.module('tetherApp')
                 $scope.contractSuccess = false;
                 $scope.blacklistedApps = [];
                 clearInterval($scope.refreshContractTimerIntervalId);
+                // local notification
+                navigator.notification.alert('You have broken your contract!');
+                // gcm notification
+                contractService.contractbroken().then(function(result) {
+                    // Success!
+                }, function(err) {
+                    // An error occured. Show a message to the user
+                });
             });
 
         };
 
 
         $scope.checkForegroundApp = function(){
-          ForegroundActivity.createEvent('','','', function(foreground_app){
-              $scope.foregroundApp = foreground_app;
-              for (var i = 0; i < $scope.blacklistedApps.length; i++){
-                  if ($scope.foregroundApp == $scope.blacklistedApps[i]){
-                      clearInterval($scope.refreshContractTimerIntervalId);
-                      $scope.$apply(function(){
-                          $scope.blacklistedAppUsed = $scope.blacklistedApps[i];
-                      });
-                      $scope.lose();
-                  }
-              }
-          }, function(foreground_app){
-              console.log("Error" + foreground_app + "from GetForegound plugin")
-          });
+            ForegroundActivity.createEvent('','','', function(foreground_app){
+                $scope.foregroundApp = foreground_app;
+                for (var i = 0; i < $scope.blacklistedApps.length; i++){
+                    if ($scope.foregroundApp == $scope.blacklistedApps[i]){
+                        clearInterval($scope.refreshContractTimerIntervalId);
+                        $scope.$apply(function(){
+                            $scope.blacklistedAppUsed = $scope.blacklistedApps[i];
+                        });
+                        $scope.lose();
+                    }
+                }
+            }, function(foreground_app){
+                console.log("Error" + foreground_app + "from GetForegound plugin")
+            });
         };
 
 
@@ -314,38 +320,10 @@ angular.module('tetherApp')
             $scope.ongoingContract = false;
             $scope.contractOver = false;
 
-
-            Applist.createEvent('','','','','',function(app_list){
-
-                    document.getElementById('installedApps').innerHTML = '';
-
-
-                    $.each(app_list, function () {
-                        $("#installedApps").append($("<label>").text(this.name).prepend(
-                            $("<input>").attr('type', 'checkbox').attr('id',(this.name))
-                        ));
-
-                        /*  $("#installedApps").append(
-                         "<div class='" + "input-group'" + ">"
-                         + "<span class='" + "input-group-addon'" + ">"
-                         + "<input type='" + "checkbox'" + "aria-label='" +"...'" + ">"
-                         + "</span>"
-                         + "<img " + "style='" + "height: 100%" + "style='" + "width: 100%" + "src='" + this.img + "'>"
-                         + "</div>");*/
-
-                    });
-
-                    // try to format check boxes better?
-
-
-                },
-
-                function(app_list){
-                    console.log("Fail:" + app_list);
-                });
-
-
+            contractService.applist();
         };
+
+
 
 
 
@@ -357,6 +335,6 @@ angular.module('tetherApp')
          $scope.contract = [contract: {apps:[ {name: "FB", img: xxx}, {name: "Google", img:yyy}], durationInMins:"30"}]
          */
 
-    }]);
+    });
 
 
