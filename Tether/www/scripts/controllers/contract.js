@@ -8,6 +8,7 @@ angular.module('tetherApp')
     .controller('contractCtrl', function ($window,$scope, $location, $http,$routeParams,contractService,userService){
         // send the token to server need better place for this...
         // commnet out this section if it cause errors I implemented something in the server
+        // or try copying TetherDjango into your venv and run the server
         var token = $window.localStorage.gcmtoken;
         var data = {
             'gcm_token':token
@@ -198,6 +199,9 @@ angular.module('tetherApp')
                 $scope.contractOver = true;
                 $scope.contractSuccess = true;
                 $scope.blacklistedApps = [];
+                // local notification
+                navigator.notification.alert('You have successfully completed contract!');
+                // gcm notification
                 contractService.contractsucceed().then(function(result) {
                     // Success!
                 }, function(err) {
@@ -213,6 +217,9 @@ angular.module('tetherApp')
                 $scope.contractSuccess = false;
                 $scope.blacklistedApps = [];
                 clearInterval($scope.refreshContractTimerIntervalId);
+                // local notification
+                navigator.notification.alert('You have broken your contract!');
+                // gcm notification
                 contractService.contractbroken().then(function(result) {
                     // Success!
                 }, function(err) {
@@ -227,6 +234,9 @@ angular.module('tetherApp')
                 $scope.contractSuccess = false;
                 $scope.blacklistedApps = [];
                 clearInterval($scope.refreshContractTimerIntervalId);
+                // local notification
+                navigator.notification.alert('You have broken your contract!');
+                // gcm notification
                 contractService.contractbroken().then(function(result) {
                     // Success!
                 }, function(err) {
