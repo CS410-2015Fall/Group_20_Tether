@@ -9,8 +9,10 @@ angular.module('tetherApp')
                                                                 $routeParams, $cordovaApplist,
                                                                 $cordovaForegroundActivity){
 
-        $scope.showButton = true;
+        //$scope.showButton = true;
         $scope.submitted = false;
+        $scope.contractOver = false;
+        $scope.ongoingContract = false;
 
         $scope.validHours = true;
         $scope.validAppSelection = true;
@@ -20,6 +22,8 @@ angular.module('tetherApp')
         $scope.contractMinutes = 0;
         $scope.contractSeconds = 0;
 
+        //$scope.installedApps = [];
+
 
         //Scope variables for monitoring
         $scope.blacklistedApps = [];
@@ -27,24 +31,38 @@ angular.module('tetherApp')
         $scope.blacklistedAppUsed = "";
 
 
-        $scope.createContract = function(){
-            $location.path("/contract");
-            $scope.showButton = false;
 
-            var getInstalledAppEvent = new CustomEvent("getInstalledApps",{
-                'bubbles': true,
-                'cancelable': true
-            });
-            document.getElementById("startContract").dispatchEvent(getInstalledAppEvent);
+        //$scope.createContract = function(){
+            //$location.path("/contract");
+        //$scope.showButton = false;
 
-        };
+        //var getInstalledAppEvent = new CustomEvent("getInstalledApps",{
+          //  'bubbles': true,
+            //'cancelable': true
+       // });
+
+        //getInstalledAppEvent.trigger();
+
+      //  document.getElementById("startContract").dispatchEvent(getInstalledAppEvent);
+
+        //};
 
 
-        document.addEventListener('getInstalledApps', function (){
+        //document.addEventListener('getInstalledApps', function (){
 
             Applist.createEvent('','','','','',function(app_list){
 
-                    document.getElementById('installedApps').innerHTML = '';
+                    //for (var i = 0; i < app_list.length; i++){
+                      //  $scope.installedApps.push(app_list[i]);
+                   // }
+                    //$scope.$apply(function(){
+                      // $scope.installedApps = app_list;
+                    //});
+
+                    //$scope.installedApps = app_list;
+
+                    /////////
+                  //  document.getElementById('installedApps').innerHTML = '';
 
 
                     $.each(app_list, function () {
@@ -71,7 +89,7 @@ angular.module('tetherApp')
                     console.log("Fail:" + app_list);
                 });
 
-        });
+      //  });
 
 
         var contractJSON = '{"contract":{"apps":[],"durationInMins":0}}';
@@ -271,9 +289,18 @@ angular.module('tetherApp')
 
 
 
-        $scope.routeToHome = function(){
-            $location.path('/home');
-        };
+       // $scope.routeToHome = function(){
+            //$location.reload();
+         //   $location.path('/home');
+
+        //};
+
+
+
+
+
+
+
 
         $scope.routeToContract = function(){
             $scope.showButton = true;

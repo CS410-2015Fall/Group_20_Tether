@@ -6,6 +6,10 @@
 </head>
 <body ng-app="tetherApp">
 
+<div ui-content-for="title">
+    <span>Contract</span>
+</div>
+
 <div ng-controller="contractCtrl">
     <h1 ng-hide="submitted">Form Contract</h1>
     <form role="form" ng-submit="" name="contractForm" novalidate ng-hide="submitted">
@@ -36,6 +40,10 @@
 
 
         <div id="installedApps"></div>
+        <div ng-repeat="app in installedApps">
+            {{app }}
+        </div>
+
 
         <button type="submit" class="btn btn-primary" ng-click="submitContract()">Submit</button>
 
@@ -54,11 +62,12 @@
         <div class="container" ng-hide="contractSuccess">"You Lost"</div>
         <div class="container" ng-show="contractSuccess">"You made it - great job!<br> Stay focused!"</div>
 
-        <button class="btn btn-primary" type="submit" ng-click="routeToHome()">Home</button>
+        <!--<button class="btn btn-primary" type="submit" ng-click="routeToHome()">Home</button> -->
         <button class="btn btn-primary" type="submit" ng-click="routeToContract()">New Contract</button>
     </pre>
 
 </div>
+
 
 </body>
 </html>
