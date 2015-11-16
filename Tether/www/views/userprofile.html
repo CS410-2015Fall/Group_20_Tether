@@ -1,3 +1,7 @@
+<div ui-content-for="title">
+    <span>Profile</span>
+</div>
+
 <div id="userProfile_view" ng-controller="UserprofileCtrl">
     <div ng-if="complete == false">
         <form role="form" ng-if="authenticated" name="userProfileForm" ng-submit="updateProfile(userProfileForm, model)" novalidate>

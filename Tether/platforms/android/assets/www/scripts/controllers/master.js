@@ -21,4 +21,42 @@ angular.module('tetherApp')
       console.error("Unable to change routes.  Error: ", rejection)
       $location.path('/restricted').replace();
     });
+
+      //$scope.$on('$routeChangeSuccess', function(ev, current, previous, rejection){
+        //$scope.pageName = $location.path().toUpperCase().substring(1);
+        //$scope.$apply();
+      //});
+
+
+        $scope.goToLogin = function(){
+
+          $location.path('/login');
+        };
+
+        $scope.goToRegister = function(){
+
+          $location.path('/register');
+        };
+
+        $scope.goToLogout = function(){
+
+          $location.path('/logout');
+        };
+
+        $scope.goToProfile = function(){
+
+          $location.path('/userProfile');
+        };
+
+        $scope.goToHome = function(){
+
+          $location.path('/home');
+        };
+
+        $scope.goToFriends = function(){
+
+          $location.path('/friends');
+        };
+
+
   });

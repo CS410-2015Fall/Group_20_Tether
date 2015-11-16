@@ -4,19 +4,19 @@ angular.module('tetherApp', [
   'ngCookies',
   'ngResource',
   'ngSanitize',
-  'ngRoute'
-   //, "mobile-angular-ui"
+  'ngRoute',
+    "mobile-angular-ui"
 ])
     .config(function ($routeProvider) {
         $routeProvider
-            .when('/', {
-                templateUrl: 'views/main.html',
-                resolve: {
-                    authenticated: ['userService', function(userService){
-                        return userService.authenticationStatus();
-                    }],
-                }
-            })
+            //.when('/', {
+              //  templateUrl: 'views/home.html',
+              //  resolve: {
+                //    authenticated: ['userService', function(userService){
+                  //      return userService.authenticationStatus();
+                  //  }],
+               // }
+           // })
             .when('/register', {
                 templateUrl: 'views/register.html',
                 resolve: {
@@ -100,8 +100,18 @@ angular.module('tetherApp', [
                 }
             })
             .when('/home', {
-                templateUrl: 'views/main.html',
-                controller: 'contractCtrl',
+                templateUrl: 'views/home.html',
+                //controller: 'homeCtrl',
+                resolve: {
+                    authenticated: ['userService', function(userService){
+                        return userService.authenticationStatus(true);
+                    }],
+                }
+            })
+
+            .when('/friends', {
+                templateUrl: 'views/friends.html',
+                //controller: 'friendsCtrl',
                 resolve: {
                     authenticated: ['userService', function(userService){
                         return userService.authenticationStatus(true);
@@ -111,7 +121,12 @@ angular.module('tetherApp', [
 
             .when('/contract', {
                 templateUrl: 'views/contract.html',
-                controller: 'contractCtrl'
+                //controller: 'contractCtrl',
+                resolve: {
+                    authenticated: ['userService', function(userService){
+                        return userService.authenticationStatus(true);
+                    }],
+                }
             })
 
 
@@ -120,7 +135,7 @@ angular.module('tetherApp', [
             });
     })
   .run(function(userService){
-    userService.initialize('http://128.189.220.185:8000/rest-auth', false);
-    //userService.initialize('http://128.189.250.55:8000/rest-auth', false);
-  });
+    //userService.initialize('http://206.87.217.207:8000/rest-auth', false);
+    userService.initialize('http://128.189.250.55:8000/rest-auth', false);
 
+  });
