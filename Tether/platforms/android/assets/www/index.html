@@ -26,6 +26,15 @@
         <div ng-view=""></div>
     </div>
 
+    <div ng-controller="contractCtrl">
+
+    <a href="" ng-click="createContract()">
+        <button class="btn-primary" id="startContract" ng-show="showButton" ng-click="createContract()">
+            <span class="glyphicon glyphicon-pencil"></span>Start Contract
+        </button>
+    </a>
+</div>
+
 
     <script src="bower_components/es5-shim/es5-shim.js"></script>
     <script src="bower_components/json3/lib/json3.min.js"></script>
