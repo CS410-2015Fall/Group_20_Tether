@@ -9,18 +9,18 @@ angular.module('tetherApp')
         // send the token to server need better place for this...
         // commnet out this section if it cause errors I implemented something in the server
         // or try copying TetherDjango into your venv and run the server
-        var token = $window.localStorage.gcmtoken;
-        var data = {
-            'gcm_token':token
-        }
-        userService.updateProfile(data)
-            .then(function(data){
-                // success case
-                $scope.complete = true;
-            },function(data){
-                // error case
-                $scope.error = data;
-            });
+        //var token = $window.localStorage.gcmtoken;
+        //var data = {
+        //    'gcm_token':token
+        //}
+        //userService.updateProfile(data)
+        //   .then(function(data){
+        //        // success case
+        //        $scope.complete = true;
+        //    },function(data){
+        //        // error case
+        //        $scope.error = data;
+        //    });
         /////////////////////////////////////////////////////////////////////////
         $scope.showButton = true;
         $scope.submitted = false;
