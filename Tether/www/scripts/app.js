@@ -5,18 +5,10 @@ angular.module('tetherApp', [
   'ngResource',
   'ngSanitize',
   'ngRoute',
-    "mobile-angular-ui"
+  "mobile-angular-ui"
 ])
     .config(function ($routeProvider) {
         $routeProvider
-            //.when('/', {
-              //  templateUrl: 'views/home.html',
-              //  resolve: {
-                //    authenticated: ['userService', function(userService){
-                  //      return userService.authenticationStatus();
-                  //  }],
-               // }
-           // })
             .when('/register', {
                 templateUrl: 'views/register.html',
                 resolve: {
@@ -135,7 +127,6 @@ angular.module('tetherApp', [
             });
     })
   .run(function(userService){
-    //userService.initialize('http://206.87.217.207:8000/rest-auth', false);
     userService.initialize('http://128.189.250.55:8000/rest-auth', false);
 
   });
