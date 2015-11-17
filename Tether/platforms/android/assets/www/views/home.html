@@ -5,15 +5,25 @@
     <title></title>
 </head>
 <body ng-app="tetherApp">
-<div ng-controller="contractCtrl">
 
-    <a href="" ng-click="createContract()">
-        <button class="btn-primary" id="startContract" ng-show="showButton" ng-click="createContract()">
+<div ui-content-for="title">
+    <span>Home</span>
+</div>
+
+
+<div ng-controller="homeCtrl">
+
+        <a class="list-group-item" ng-click="quickMatch()">Quick Match
+            <i class="fa fa-chevron-right pull-right"></i></a>
+
+        <button class="btn-primary" id="startContract"  ng-click="newContract()">
             <span class="glyphicon glyphicon-pencil"></span>Start Contract
         </button>
-    </a>
+
 
 </div>
+
+
 
 </body>
 </html>

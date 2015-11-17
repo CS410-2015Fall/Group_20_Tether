@@ -5,6 +5,10 @@
     <title></title>
 </head>
 <body ng-app="tetherApp">
+<div ui-content-for="title">
+    <span>Contract</span>
+</div>
+
 
 <div ng-controller="contractCtrl">
     <h1 ng-hide="submitted">Form Contract</h1>
@@ -70,7 +74,6 @@
         </div>
         <div ng-show="contractSuccess">"You made it - great job!<br> Stay focused!"
          Points earned: {{ wagerAmount + wagerAmount }}</div>
-        <button class="btn btn-primary" type="submit" ng-click="routeToHome()">Home</button>
         <button class="btn btn-primary" type="submit" ng-click="routeToContract()">New Contract</button>
     </pre>
 </div>

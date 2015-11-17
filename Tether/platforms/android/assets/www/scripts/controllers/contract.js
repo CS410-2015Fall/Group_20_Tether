@@ -22,8 +22,9 @@ angular.module('tetherApp')
         //        $scope.error = data;
         //    });
         /////////////////////////////////////////////////////////////////////////
-        $scope.showButton = true;
         $scope.submitted = false;
+        $scope.contractOver = false;
+        $scope.ongoingContract = false;
 
         $scope.validHours = true;
         $scope.validAppSelection = true;
@@ -41,7 +42,9 @@ angular.module('tetherApp')
         $scope.blacklistedAppUsed = "";
 
 
-        $scope.createContract = function(){
+        contractService.applist();
+
+       /* $scope.createContract = function(){
             $location.path("/contract");
             $scope.showButton = false;
 
@@ -55,7 +58,7 @@ angular.module('tetherApp')
 
         document.addEventListener('getInstalledApps', function (){
             contractService.applist();
-        });
+        }); */
 
 
         var contractJSON = '{"contract":{"apps":[],"durationInMins":0,"wagerAmount":0}}';
@@ -284,29 +287,6 @@ angular.module('tetherApp')
             else return true;
         };
 
-
-
-        $scope.routeToHome = function(){
-        $scope.showButton = true;
-        $scope.submitted = false;
-
-        $scope.validHours = true;
-        $scope.validAppSelection = true;
-        $scope.validWagerAmount = true;
-
-        $scope.contractHours = 0;
-        $scope.contractMinutes = 0;
-        $scope.contractSeconds = 0;
-
-        $scope.wagerAmount = 0;
-
-        //Scope variables for monitoring
-        $scope.blacklistedApps = [];
-        $scope.foregroundApp = "";
-        $scope.blacklistedAppUsed = "";
-
-        $location.path('/');
-        };
 
         $scope.routeToContract = function(){
             $scope.showButton = true;

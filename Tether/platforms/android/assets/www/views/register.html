@@ -1,3 +1,7 @@
+<div ui-content-for="title">
+    <span>Register</span>
+</div>
+
 <div id="register_view" ng-controller="RegisterCtrl">
     <div ng-if="complete == false">
         <form role="form" ng-if="authenticated != true" name="registerForm" ng-submit="register(registerForm)" novalidate>
