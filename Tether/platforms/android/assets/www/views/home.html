@@ -6,22 +6,28 @@
 </head>
 <body ng-app="tetherApp">
 
-<div ui-content-for="title">
-    <span>Home</span>
-</div>
+    <div ui-content-for="title">
+        <span>Home</span>
+    </div>
 
 
-<div ng-controller="homeCtrl">
+    <div ng-controller="homeCtrl">
 
-        <a class="list-group-item" ng-click="quickMatch()">Quick Match
-            <i class="fa fa-chevron-right pull-right"></i></a>
+        <div class="scrollable">
+            <div class="scrollable-content">
 
-        <button class="btn-primary" id="startContract"  ng-click="newContract()">
-            <span class="glyphicon glyphicon-pencil"></span>Start Contract
-        </button>
+                <a class="list-group-item" ng-click="quickMatch()">Quick Match
+                    <i class="fa fa-chevron-right pull-right"></i></a>
+
+                <button class="btn-primary" id="startContract"  ng-click="newContract()">
+                    <span class="glyphicon glyphicon-pencil"></span>Start Contract
+                </button>
+
+            </div>
+        </div>
 
 
-</div>
+    </div>
 
 
 

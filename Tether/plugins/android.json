@@ -29,6 +29,10 @@
                             "count": 1
                         },
                         {
+                            "xml": "<feature name=\"Toast\"><param name=\"android-package\" value=\"nl.xservices.plugins.Toast\" /></feature>",
+                            "count": 1
+                        },
+                        {
                             "xml": "<feature name=\"Device\"><param name=\"android-package\" value=\"org.apache.cordova.device.Device\" /></feature>",
                             "count": 1
                         },
@@ -155,6 +159,9 @@
             "PACKAGE_NAME": "io.cordova.hellocordova"
         },
         "cordova-plugin-whitelist": {
+            "PACKAGE_NAME": "io.cordova.hellocordova"
+        },
+        "cordova-plugin-x-toast": {
             "PACKAGE_NAME": "io.cordova.hellocordova"
         },
         "org.apache.cordova.device": {
