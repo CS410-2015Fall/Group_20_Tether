@@ -4,12 +4,22 @@
     <meta charset="UTF-8">
     <title></title>
 </head>
-<body>
+<body ng-app="tetherApp">
 
 <div ui-content-for="title">
     <span>Friends</span>
 </div>
 
-<div>Friends</div>
+<div ng-controller="friendsCtrl">
+    <div class="scrollable">
+        <div class="scrollable-content">
+    
+            <div>Friends</div>
+        </div>
+    </div>
+</div>
+
+
+
 </body>
 </html>

@@ -18,6 +18,9 @@
         <param name="android-package" value="org.apache.cordova.whitelist.WhitelistPlugin" />
         <param name="onload" value="true" />
     </feature>
+    <feature name="Toast">
+        <param name="android-package" value="nl.xservices.plugins.Toast" />
+    </feature>
     <feature name="Device">
         <param name="android-package" value="org.apache.cordova.device.Device" />
     </feature>
@@ -32,7 +35,7 @@
     </feature>
     <preference name="AndroidPersistentFileLocation" value="Internal" />
     <allow-intent href="market:*" />
-    <icon src="www/images/tetherlogo.png" />
+    <icon src="www/images/tether_iconV2.png" />
     <name>Tether</name>
     <description>
         A sample Apache Cordova application that responds to the deviceready event.

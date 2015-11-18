@@ -5,12 +5,17 @@
     <title></title>
 </head>
 <body ng-app="tetherApp">
+
+
 <div ui-content-for="title">
     <span>Contract</span>
 </div>
 
 
 <div ng-controller="contractCtrl">
+    <div class="scrollable">
+        <div class="scrollable-content">
+
     <h1 ng-hide="submitted">Form Contract</h1>
     <form role="form" ng-submit="" name="contractForm" novalidate ng-hide="submitted">
         <div class="form-group">
@@ -76,6 +81,10 @@
          Points earned: {{ wagerAmount + wagerAmount }}</div>
         <button class="btn btn-primary" type="submit" ng-click="routeToContract()">New Contract</button>
     </pre>
+
+
+        </div>
+    </div>
 </div>
 
 </body>

@@ -39,8 +39,8 @@
                             <i class="fa fa-chevron-right pull-right"></i></a>
                         <a ng-hide="authenticated" class="list-group-item" ng-click="goToRegister()">Register
                             <i class="fa fa-chevron-right pull-right"></i></a>
-                        <a ng-show="authenticated" class="list-group-item" ng-click="goToLogout()">Logout
-                            <i class="fa fa-chevron-right pull-right"></i></a>
+                       <!-- <a ng-show="authenticated" class="list-group-item" ng-click="goToLogout()">Logout
+                            <i class="fa fa-chevron-right pull-right"></i></a> -->
                         <a ng-show="authenticated" class="list-group-item" ng-click="goToHome()">Home
                             <i class="fa fa-chevron-right pull-right"></i></a>
                         <a ng-show="authenticated" class="list-group-item" ng-click="goToFriends()">Friends
@@ -52,7 +52,7 @@
             </div>
         </div>
 
-   <div class="app"
+   <div class="app" style="background: whitesmoke"
         ui-swipe-right='Ui.turnOn("uiSidebarLeft")'
         ui-swipe-left='Ui.turnOff("uiSidebarLeft")'>
 
@@ -65,6 +65,13 @@
                    <i class="fa fa-bars"></i> Menu
                </div>
            </div>
+
+           <div class="btn-group pull-right" ng-click="goToLogout()">
+               <div class="btn btn-navbar" ng-show="authenticated">
+                   Logout
+               </div>
+           </div>
+
        </div>
 
         <!-- Add application content here -->
@@ -72,7 +79,14 @@
             <div class="app-content">
                 <div ng-view=""></div>
             </div>
+
         </div>
+
+
+
+
+
+
 
 
 
