@@ -10,14 +10,71 @@
     <span>Friends</span>
 </div>
 
-<div ng-controller="friendsCtrl">
-    <div class="scrollable">
-        <div class="scrollable-content">
-    
-            <div>Friends</div>
-        </div>
+<div ng-controller="friendsCtrl" class="scrollable">
+
+
+    <div class="scrollable-header">
+
+        <a class="list-group-item">
+
+            <input class="form-control" type="search" ng-model="search" placeholder="Search friend list...">
+
+        </a>
     </div>
+
+    <div class="scrollable-content">
+
+        <div ng-show="noFriends">
+            <a class="list-group-item">
+                You have no friends! Add some below!
+            </a>
+        </div>
+
+        <div ng-repeat="(friendIndex, friend) in serverReturned.friends | filter:search">
+
+            <a class="list-group-item">
+                <i class="fa fa-remove pull-left" ng-click="confirmDelete(friend, friendIndex)"></i>
+
+                {{friend}}
+                <i class="fa fa-edit pull-right fa-lg" ng-click="propose(friend)"></i>
+            </a>
+
+            <a class="list-group-item" ng-show="isShowing(friendIndex)">
+                Are you sure you want to remove this friend?
+                <button type="button" class="btn btn-default" ng-click="cancelDelete()">Cancel</button>
+                <button type="submit" class="btn btn-primary" ng-click="deleteFriend(friend)">Confirm</button>
+            </a>
+
+        </div>
+
+    </div>
+
+
+    <div class="scrollable-footer" style="background: lightblue">
+        <form id="id_addFriendForm" style="background: lightblue">
+            <div class="form" style="background: lightblue">
+                <input name="userToAdd" id="id_userToAdd" type="text" placeholder="Enter a valid username to add ..." class="form-control" required />
+            </div>
+        </form>
+
+        <div class="btn-group pull-right" style="background: lightblue">
+            <div class="btn btn-navbar" ng-click="addFriend()">
+                Add Friend
+                <i class="fa fa-user-plus"></i>
+            </div>
+        </div>
+        <div class="alert alert-danger" ng-show="friendAlreadyExists">You have already added this friend!</div>
+        <div class="alert alert-danger" ng-show="friendAddedNotValid">Please enter a valid username!</div>
+
+    </div>
+
+
+
+
 </div>
+
+
+
 
 
 

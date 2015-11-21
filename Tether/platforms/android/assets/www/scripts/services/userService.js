@@ -97,6 +97,9 @@ angular.module('tetherApp')
                 }
                 userService.authenticated = true;
                 $rootScope.$broadcast("userService.logged_in", data);
+
+                // here is where we make call to get server user information from first time on login
+                // anytime you update elsewhere, you have to re request this all
             });
         },
         'logout': function(){
@@ -136,6 +139,7 @@ angular.module('tetherApp')
                 'url': "/user/"
             }); 
         },
+
         'updateProfile': function(data){
             return this.request({
                 'method': "PATCH",
