@@ -139,6 +139,7 @@ angular.module('tetherApp')
                 'url': "/user/"
             }); 
         },
+
         'updateProfile': function(data){
             return this.request({
                 'method': "PATCH",

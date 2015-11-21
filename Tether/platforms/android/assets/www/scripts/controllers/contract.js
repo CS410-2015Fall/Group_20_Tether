@@ -329,7 +329,6 @@ angular.module('tetherApp')
             $scope.showButton = true;
             $scope.submitted = false;
 
-            $scope.wagerAmount = 0;
 
             $scope.validHours = true;
             $scope.validAppSelection = true;
@@ -339,7 +338,6 @@ angular.module('tetherApp')
             $scope.contractMinutes = 0;
             $scope.contractSeconds = 0;
 
-            $scope.wagerAmount = 0;
 
             //Scope variables for monitoring
             $scope.blacklistedApps = [];
