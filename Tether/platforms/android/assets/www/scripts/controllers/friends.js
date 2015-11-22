@@ -128,6 +128,9 @@ angular.module('tetherApp')
 
         $scope.propose = function(proposeTo){
             console.log("Proposing to" + proposeTo);
+
+            $location.path('/contract');
+            $scope.$apply();
             //pass to service - set username
             // take to contract page set up proposal
             // need to add contract view where they are waiting/set timer that on confirmation it does so
