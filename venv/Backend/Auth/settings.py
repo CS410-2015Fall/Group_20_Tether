@@ -125,6 +125,11 @@ AUTHENTICATION_BACKENDS = (
     'django.contrib.auth.backends.ModelBackend',
 )
 
+REST_AUTH_SERIALIZERS = {
+    'USER_DETAILS_SERIALIZER': 'Users.serializers.UserSerializer'
+}
+
+AUTH_PROFILE_MODULE = 'Users.UserProfile'
 ############
 #EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 # gmail to send email

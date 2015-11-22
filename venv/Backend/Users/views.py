@@ -1,14 +1,21 @@
 from django.shortcuts import render
+from django.shortcuts import render_to_response
 from django.http import HttpRequest
 from django.http import HttpResponse
-from Users.models import UserProfile
+from django.http import HttpResponseRedirect
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login
-from rest_framework import viewsets
-# import json
-from rest_framework.authtoken.models import Token
-from rest_auth.serializers import UserDetailsSerializer
 
+from rest_framework import viewsets
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from rest_framework import authentication, permissions
+
+# import json
+from Users.models import UserProfile
+from rest_framework.authtoken.models import Token
+from rest_framework import serializers
+from rest_auth.serializers import UserDetailsSerializer
 
 
 # Create your views here.
@@ -29,25 +36,31 @@ def get_user_profile(request):
 	user = request.user
 	# user = UserProfile.objects.filter(username = request.user)
 
-
-
 	html = "<html><body>username is: %s.</body></html>" % user
 
-	# if request.method == "GET":
-	# 	requeststring = request
-	# 	print (request)
-	# 	respnose
-	# 	data = json.loads(request)
-	# 	print (data)
-	# # # 	try:
-	# # 		token = 	
+
+# class UserProfileView(request):
+#     """
+#     Returns User's profiles in JSON format.
+
+#     Accepts the following GET parameters: token
+#     Accepts the following POST parameters:
+#         Required: token
+#         Optional: userInfo, friends, contracts, GCM_token
+
+#     """
+
+#     serializer_class = UserSerializer
+#     permission_classes = (IsAuthenticated,)
+
+#     def get_object(self):
+#         return self.request.user
+
 
 def get_friends(request):
-	all_friends = UserProfile.objects.values('friends')
-	all_friends_names = all_friends.values('username')
-	all_friends_bio = all_friends.values('userInfo')
+	all_friends = UserProfile.objects.values('friend_with')
+	all_friends_names = all_friends.values('user')
 
-	html = "<html><body>username is: %s.</body></html>" % all_friends_names
-
+	html = "<html><body>Friends are: %s.</body></html>" % all_friends_names
 	return HttpResponse(html) 	
 
