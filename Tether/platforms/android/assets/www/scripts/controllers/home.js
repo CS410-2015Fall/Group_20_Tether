@@ -24,8 +24,8 @@ angular.module('tetherApp')
                 var proposeTo = $scope.getRandomFriend();
                 console.log("proposing to: " + proposeTo);
 
-                //get random friend and take to contract page with last contract filled out?
-                // contract should also have a "use last contract button"
+                $window.localStorage.proposingTo = proposeTo;
+
                 $location.path('/contract');
                 $scope.$apply();
             }
@@ -33,11 +33,11 @@ angular.module('tetherApp')
         };
 
 
-        $scope.newContract = function(proposeTo){
+        $scope.propose = function(proposeTo){
             console.log("proposing to: " + proposeTo);
 
+            $window.localStorage.proposingTo = proposeTo;
 
-            /// stuff here
             $location.path('/contract');
             $scope.$apply();
         };
@@ -127,14 +127,6 @@ angular.module('tetherApp')
         };
 
 
-
-
-        $scope.propose = function(proposeTo){
-            console.log("Proposing to" + proposeTo);
-            //pass to service - set username
-            // take to contract page set up proposal
-            // need to add contract view where they are waiting/set timer that on confirmation it does so
-        };
 
         $scope.updateFriends();
         $scope.createRandomFriends();

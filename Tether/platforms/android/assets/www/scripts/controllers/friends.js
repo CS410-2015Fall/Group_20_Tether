@@ -4,7 +4,7 @@
 
 
 angular.module('tetherApp')
-    .controller('friendsCtrl', function($scope, $rootScope, $location, $http, userService,
+    .controller('friendsCtrl', function($scope, $window, $rootScope, $location, $http, userService,
                                                                 SharedState){
 
         //$scope.model = {'friendToAdd':''};
@@ -128,6 +128,8 @@ angular.module('tetherApp')
 
         $scope.propose = function(proposeTo){
             console.log("Proposing to" + proposeTo);
+
+            $window.localStorage.proposingTo = proposeTo;
 
             $location.path('/contract');
             $scope.$apply();

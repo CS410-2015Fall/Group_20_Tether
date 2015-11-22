@@ -41,6 +41,8 @@ angular.module('tetherApp')
         $scope.foregroundApp = "";
         $scope.blacklistedAppUsed = "";
 
+        $scope.friend = $window.localStorage.proposingTo;
+
 
 
 
@@ -63,7 +65,7 @@ angular.module('tetherApp')
          }); */
 
 
-        var contractJSON = '{"contract":{"apps":[],"durationInMins":0,"wagerAmount":0}}';
+        var contractJSON = '{"contract":{"apps":[],"durationInMins":0,"wagerAmount":0,"friend":"","gcmTokenFromProposer":""}}';
 
         $scope.submitContract = function(){
 
@@ -143,6 +145,9 @@ angular.module('tetherApp')
                 obj["contract"].wagerAmount = $scope.wagerAmount;
                 $scope.validWagerAmount = true;
             }
+
+            obj["contract"].friend = $scope.friend;
+            obj["contract"].gcmTokenFromProposer = $window.localStorage.gcmtoken;
 
             contractJSON = JSON.stringify(obj);
             console.log(JSON.stringify(contractJSON));
