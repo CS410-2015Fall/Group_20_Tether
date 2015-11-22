@@ -2,10 +2,29 @@
     <span>Profile</span>
 </div>
 
-<div class="scrollable">
-    <div class="scrollable-content">
+<div id="userProfile_view" ng-controller="UserprofileCtrl">
 
-        <div id="userProfile_view" ng-controller="UserprofileCtrl">
+    <div class="scrollable">
+
+        <div class="scrollable-header">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <div class="panel-title">
+                        {{model.first_name + ', ' model.last_name}}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="scrollable-content">
+
+            <div>
+                <div> Your score: {{model.score}} </div>
+                <div> Total wins: {{model.wins}} </div>
+                <div> Total contracts: {{model.totalContracts}} </div>
+                <div> The ratio: {{model.wins /  model.totalContracts}} </div>
+            </div>
+
             <div ng-if="complete == false">
                 <form role="form" ng-if="authenticated" name="userProfileForm" ng-submit="updateProfile(userProfileForm, model)" novalidate>
                     <div class="form-group">
@@ -30,6 +49,7 @@
             <div ng-if="complete == true">
                 <div class="alert alert-success">You have updated your profile.</div>
             </div>
+
         </div>
     </div>
 </div>
