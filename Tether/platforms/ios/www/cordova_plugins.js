@@ -58,6 +58,17 @@ module.exports = [
         ]
     },
     {
+        "file": "plugins/cordova-plugin-x-toast/www/Toast.js",
+        "id": "cordova-plugin-x-toast.Toast",
+        "clobbers": [
+            "window.plugins.toast"
+        ]
+    },
+    {
+        "file": "plugins/cordova-plugin-x-toast/test/tests.js",
+        "id": "cordova-plugin-x-toast.tests"
+    },
+    {
         "file": "plugins/cordova-plugin-file/www/DirectoryEntry.js",
         "id": "cordova-plugin-file.DirectoryEntry",
         "clobbers": [
@@ -215,6 +226,7 @@ module.exports.metadata =
     "org.apache.cordova.dialogs": "0.3.0",
     "org.apache.cordova.vibration": "0.3.13",
     "cordova-plugin-media": "1.0.1",
+    "cordova-plugin-x-toast": "2.2.1",
     "cordova-plugin-file": "3.0.0"
 }
 // BOTTOM OF METADATA

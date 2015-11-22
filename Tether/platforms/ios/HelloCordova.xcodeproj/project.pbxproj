@@ -50,6 +50,9 @@
 		730ED85E1E9041D5BBD7800D /* CDVLocalFilesystem.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A2F01A0BC554741A4EBEB91 /* CDVLocalFilesystem.m */; };
 		3472004F3D2F46B08AF5AE68 /* CDVAssetLibraryFilesystem.m in Sources */ = {isa = PBXBuildFile; fileRef = 26800AFADB1645CDA0BA2C38 /* CDVAssetLibraryFilesystem.m */; };
 		4221025402984A19900AE03A /* CDVSound.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D2BD21D5303413CA74302D3 /* CDVSound.m */; };
+		BC6855D45FBA453DB4FF2203 /* Toast+UIView.m in Sources */ = {isa = PBXBuildFile; fileRef = 08CFC504AE6540AD85DBFC38 /* Toast+UIView.m */; };
+		7A39ACE4F19D4429A7792067 /* Toast.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A7A1A300D3944DAA83E2A62 /* Toast.m */; };
+		CB13560D081D44D1A3CDA533 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D3E31AA757444F1B9E7F62D /* QuartzCore.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -135,6 +138,11 @@
 		D24E84AFC0B8489FB0122555 /* CDVAssetLibraryFilesystem.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "CDVAssetLibraryFilesystem.h"; path = "cordova-plugin-file/CDVAssetLibraryFilesystem.h"; sourceTree = "<group>"; fileEncoding = 4; };
 		9D2BD21D5303413CA74302D3 /* CDVSound.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = "CDVSound.m"; path = "cordova-plugin-media/CDVSound.m"; sourceTree = "<group>"; fileEncoding = 4; };
 		35CAA5BE16314368B0E94693 /* CDVSound.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "CDVSound.h"; path = "cordova-plugin-media/CDVSound.h"; sourceTree = "<group>"; fileEncoding = 4; };
+		08CFC504AE6540AD85DBFC38 /* Toast+UIView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = "Toast+UIView.m"; path = "cordova-plugin-x-toast/Toast+UIView.m"; sourceTree = "<group>"; fileEncoding = 4; };
+		9A7A1A300D3944DAA83E2A62 /* Toast.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = "Toast.m"; path = "cordova-plugin-x-toast/Toast.m"; sourceTree = "<group>"; fileEncoding = 4; };
+		A9BF5C08C9C543A6B9F7BD02 /* Toast+UIView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "Toast+UIView.h"; path = "cordova-plugin-x-toast/Toast+UIView.h"; sourceTree = "<group>"; fileEncoding = 4; };
+		62748DE5B87148FC9289BF98 /* Toast.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "Toast.h"; path = "cordova-plugin-x-toast/Toast.h"; sourceTree = "<group>"; fileEncoding = 4; };
+		9D3E31AA757444F1B9E7F62D /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = "QuartzCore.framework"; path = "System/Library/Frameworks/QuartzCore.framework"; sourceTree = SDKROOT; fileEncoding = 4; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -147,6 +155,7 @@
 				288765FD0DF74451002DB57D /* CoreGraphics.framework in Frameworks */,
 				305D5FD1115AB8F900A74A75 /* MobileCoreServices.framework in Frameworks */,
 				E9EDC8CD83004FA2B8DDBEF5 /* AudioToolbox.framework in Frameworks */,
+				CB13560D081D44D1A3CDA533 /* QuartzCore.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -221,6 +230,7 @@
 				288765FC0DF74451002DB57D /* CoreGraphics.framework */,
 				305D5FD0115AB8F900A74A75 /* MobileCoreServices.framework */,
 				8340F10F90FE434F97FF8450 /* AudioToolbox.framework */,
+				9D3E31AA757444F1B9E7F62D /* QuartzCore.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -254,6 +264,10 @@
 				D24E84AFC0B8489FB0122555 /* CDVAssetLibraryFilesystem.h */,
 				9D2BD21D5303413CA74302D3 /* CDVSound.m */,
 				35CAA5BE16314368B0E94693 /* CDVSound.h */,
+				08CFC504AE6540AD85DBFC38 /* Toast+UIView.m */,
+				9A7A1A300D3944DAA83E2A62 /* Toast.m */,
+				A9BF5C08C9C543A6B9F7BD02 /* Toast+UIView.h */,
+				62748DE5B87148FC9289BF98 /* Toast.h */,
 			);
 			name = Plugins;
 			path = "HelloCordova/Plugins";
@@ -448,6 +462,8 @@
 				730ED85E1E9041D5BBD7800D /* CDVLocalFilesystem.m in Sources */,
 				3472004F3D2F46B08AF5AE68 /* CDVAssetLibraryFilesystem.m in Sources */,
 				4221025402984A19900AE03A /* CDVSound.m in Sources */,
+				BC6855D45FBA453DB4FF2203 /* Toast+UIView.m in Sources */,
+				7A39ACE4F19D4429A7792067 /* Toast.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
