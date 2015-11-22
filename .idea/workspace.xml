@@ -2,8 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="0c0fa9e8-d3ef-4fb7-a1ed-5609c166f232" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Tether/platforms/android/assets/www/scripts/app.js" afterPath="$PROJECT_DIR$/Tether/platforms/android/assets/www/scripts/app.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Tether/www/scripts/app.js" afterPath="$PROJECT_DIR$/Tether/www/scripts/app.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Tether/platforms/android/assets/www/views/contract.html" afterPath="$PROJECT_DIR$/Tether/platforms/android/assets/www/views/contract.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Tether/www/views/contract.html" afterPath="$PROJECT_DIR$/Tether/www/views/contract.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Tether/platforms/android/assets/www/scripts/controllers/contract.js" afterPath="$PROJECT_DIR$/Tether/platforms/android/assets/www/scripts/controllers/contract.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Tether/www/scripts/controllers/contract.js" afterPath="$PROJECT_DIR$/Tether/www/scripts/controllers/contract.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Tether/platforms/android/assets/www/scripts/controllers/friends.js" afterPath="$PROJECT_DIR$/Tether/platforms/android/assets/www/scripts/controllers/friends.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Tether/www/scripts/controllers/friends.js" afterPath="$PROJECT_DIR$/Tether/www/scripts/controllers/friends.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Tether/platforms/android/assets/www/views/home.html" afterPath="$PROJECT_DIR$/Tether/platforms/android/assets/www/views/home.html" />
@@ -35,7 +37,7 @@
         <entry file="file://$PROJECT_DIR$/Tether/www/views/friends.html">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="-11.875">
-              <caret line="38" column="69" selection-start-line="38" selection-start-column="69" selection-end-line="38" selection-end-column="69" />
+              <caret line="30" column="14" selection-start-line="30" selection-start-column="14" selection-end-line="30" selection-end-column="14" />
               <folding>
                 <element signature="n#style#0;n#div#2;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#form#0;n#div#2;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
@@ -46,21 +48,31 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="contractService.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Tether/www/scripts/services/contractService.js">
+      <file leaf-file-name="contract.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Tether/www/scripts/controllers/contract.js">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="15" column="27" selection-start-line="15" selection-start-column="27" selection-end-line="15" selection-end-column="27" />
+              <caret line="151" column="47" selection-start-line="151" selection-start-column="47" selection-end-line="151" selection-end-column="47" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="friends.js" pinned="false" current-in-tab="false">
+      <file leaf-file-name="contract.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Tether/www/views/contract.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="-11.875">
+              <caret line="19" column="59" selection-start-line="19" selection-start-column="59" selection-end-line="19" selection-end-column="59" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="friends.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Tether/www/scripts/controllers/friends.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="134" column="28" selection-start-line="134" selection-start-column="28" selection-end-line="134" selection-end-column="28" />
+            <state vertical-scroll-proportion="0.67725754">
+              <caret line="30" column="71" selection-start-line="30" selection-start-column="71" selection-end-line="30" selection-end-column="71" />
               <folding />
             </state>
           </provider>
@@ -79,21 +91,19 @@
       <file leaf-file-name="home.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Tether/www/scripts/controllers/home.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="41" column="28" selection-start-line="40" selection-start-column="12" selection-end-line="41" selection-end-column="28" />
+            <state vertical-scroll-proportion="-6.6666665">
+              <caret line="23" column="57" selection-start-line="23" selection-start-column="57" selection-end-line="23" selection-end-column="57" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="home.html" pinned="false" current-in-tab="true">
+      <file leaf-file-name="home.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Tether/www/views/home.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.4965157">
-              <caret line="19" column="40" selection-start-line="19" selection-start-column="40" selection-end-line="19" selection-end-column="40" />
-              <folding>
-                <element signature="n#style#0;n#a#0;n#div#1;n#div#0;n#div#1;n#div#1;n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
-              </folding>
+            <state vertical-scroll-proportion="-11.875">
+              <caret line="74" column="30" selection-start-line="74" selection-start-column="30" selection-end-line="74" selection-end-column="30" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -141,7 +151,6 @@
         <option value="$PROJECT_DIR$/Tether/platforms/android/AndroidManifest.xml" />
         <option value="$PROJECT_DIR$/Tether/www/scripts/services/pushService.js" />
         <option value="$PROJECT_DIR$/Tether/www/scripts/services/contractService.js" />
-        <option value="$PROJECT_DIR$/Tether/www/views/contract.html" />
         <option value="$PROJECT_DIR$/Tether/www/views/logout.html" />
         <option value="$PROJECT_DIR$/Tether/www/views/register.html" />
         <option value="$PROJECT_DIR$/Tether/www/views/passwordchange.html" />
@@ -150,14 +159,15 @@
         <option value="$PROJECT_DIR$/Tether/www/views/userprofile.html" />
         <option value="$PROJECT_DIR$/Tether/www/views/login.html" />
         <option value="$PROJECT_DIR$/Tether/config.xml" />
-        <option value="$PROJECT_DIR$/Tether/www/scripts/controllers/contract.js" />
         <option value="$PROJECT_DIR$/Tether/www/scripts/controllers/login.js" />
         <option value="$PROJECT_DIR$/Tether/www/scripts/services/userService.js" />
         <option value="$PROJECT_DIR$/Tether/www/index.html" />
         <option value="$PROJECT_DIR$/Tether/www/views/friends.html" />
         <option value="$PROJECT_DIR$/Tether/www/scripts/app.js" />
-        <option value="$PROJECT_DIR$/Tether/www/views/home.html" />
+        <option value="$PROJECT_DIR$/Tether/www/views/contract.html" />
         <option value="$PROJECT_DIR$/Tether/www/scripts/controllers/home.js" />
+        <option value="$PROJECT_DIR$/Tether/www/scripts/controllers/contract.js" />
+        <option value="$PROJECT_DIR$/Tether/www/views/home.html" />
         <option value="$PROJECT_DIR$/Tether/www/scripts/controllers/friends.js" />
       </list>
     </option>
@@ -792,13 +802,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Tether/www/views/contract.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="48" column="31" selection-start-line="48" selection-start-column="31" selection-end-line="48" selection-end-column="31" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Tether/www/scripts/services/pushService.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="1.2060301">
@@ -895,18 +898,18 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Tether/www/scripts/controllers/contract.js">
+    <entry file="file://$PROJECT_DIR$/Tether/www/scripts/services/contractService.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-0.32608697">
-          <caret line="7" column="100" selection-start-line="7" selection-start-column="100" selection-end-line="7" selection-end-column="100" />
+        <state vertical-scroll-proportion="0.37625417">
+          <caret line="15" column="27" selection-start-line="15" selection-start-column="27" selection-end-line="15" selection-end-column="27" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Tether/www/scripts/services/contractService.js">
+    <entry file="file://$PROJECT_DIR$/Tether/www/views/contract.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="15" column="27" selection-start-line="15" selection-start-column="27" selection-end-line="15" selection-end-column="27" />
+        <state vertical-scroll-proportion="-11.875">
+          <caret line="19" column="59" selection-start-line="19" selection-start-column="59" selection-end-line="19" selection-end-column="59" />
           <folding />
         </state>
       </provider>
@@ -914,7 +917,7 @@
     <entry file="file://$PROJECT_DIR$/Tether/www/views/friends.html">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-11.875">
-          <caret line="38" column="69" selection-start-line="38" selection-start-column="69" selection-end-line="38" selection-end-column="69" />
+          <caret line="30" column="14" selection-start-line="30" selection-start-column="14" selection-end-line="30" selection-end-column="14" />
           <folding>
             <element signature="n#style#0;n#div#2;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#form#0;n#div#2;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
@@ -924,29 +927,35 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/Tether/www/views/home.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-11.875">
+          <caret line="74" column="30" selection-start-line="74" selection-start-column="30" selection-end-line="74" selection-end-column="30" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/Tether/www/scripts/controllers/home.js">
       <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-6.6666665">
+          <caret line="23" column="57" selection-start-line="23" selection-start-column="57" selection-end-line="23" selection-end-column="57" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Tether/www/scripts/controllers/contract.js">
+      <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="41" column="28" selection-start-line="40" selection-start-column="12" selection-end-line="41" selection-end-column="28" />
+          <caret line="151" column="47" selection-start-line="151" selection-start-column="47" selection-end-line="151" selection-end-column="47" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Tether/www/scripts/controllers/friends.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="134" column="28" selection-start-line="134" selection-start-column="28" selection-end-line="134" selection-end-column="28" />
+        <state vertical-scroll-proportion="0.67725754">
+          <caret line="30" column="71" selection-start-line="30" selection-start-column="71" selection-end-line="30" selection-end-column="71" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Tether/www/views/home.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.4965157">
-          <caret line="19" column="40" selection-start-line="19" selection-start-column="40" selection-end-line="19" selection-end-column="40" />
-          <folding>
-            <element signature="n#style#0;n#a#0;n#div#1;n#div#0;n#div#1;n#div#1;n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
