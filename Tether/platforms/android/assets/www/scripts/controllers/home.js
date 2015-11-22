@@ -7,7 +7,6 @@
 angular.module('tetherApp')
     .controller('homeCtrl',function($scope, $window, $location, $http,
                                                                 $routeParams, userService){
-
         //Friends stuff
 
         $scope.noFriends = false;

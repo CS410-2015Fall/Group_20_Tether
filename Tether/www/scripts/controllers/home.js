@@ -7,20 +7,6 @@
 angular.module('tetherApp')
     .controller('homeCtrl',function($scope, $window, $location, $http,
                                                                 $routeParams, userService){
-        // update user profile with the gcm token on server
-        var token = $window.localStorage.gcmtoken;
-        var data = {
-            'gcm_token':token
-        }
-        userService.updateProfile(data)
-           .then(function(data){
-                // success case
-                $scope.complete = true;
-            },function(data){
-                // error case
-                $scope.error = data;
-            });
-
         //Friends stuff
 
         $scope.noFriends = false;

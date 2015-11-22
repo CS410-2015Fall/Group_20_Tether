@@ -1,5 +1,5 @@
 angular.module('tetherApp')
-    .service('pushService', function pushService($q, $window,$cookies) {
+    .service('pushService', function pushService($q, $window) {
 
     var pushConfig = {};
     if (device.platform == 'android' || device.platform == 'Android') {
@@ -47,15 +47,28 @@ angular.module('tetherApp')
                         console.log('BACKGROUND NOTIFICATION');
                     }
                 }
-
-                navigator.notification.alert(event.payload.message);
-                console.log('MESSAGE -> MSG: ' + event.payload.message);
-                //Only works for GCM
-                console.log('MESSAGE -> MSGCNT: ' + event.payload.msgcnt);
-                //Only works on Amazon Fire OS
-                console.log('MESSAGE -> TIME: ' + event.payload.timeStamp);
+                if(event.payload.contractjson){
+                    navigator.notification.confirm(event.payload.message,
+                        function(button){
+                            if (button = 1){
+                                $window.localStorage.contractjson = event.payload.contractjson;
+                                console.log(event.payload.contractjson);
+                                alert("You have accepted the contract, go to your contracts page to view the contract");
+                            }
+                            else{
+                                alert("You have rejected the contract");
+                            }
+                        },'','Accept, Reject');
+                    console.log('MESSAGE -> MSG: ' + event.payload.message);
+                    //Only works for GCM
+                    console.log('MESSAGE -> MSGCNT: ' + event.payload.msgcnt);
+                } else{
+                    navigator.notification.alert(event.payload.message);
+                    console.log('MESSAGE -> MSG: ' + event.payload.message);
+                    //Only works for GCM
+                    console.log('MESSAGE -> MSGCNT: ' + event.payload.msgcnt);
+                }
                 break;
-
             case 'error':
                 console.log('ERROR -> MSG:' + event.msg);
                 break;

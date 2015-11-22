@@ -5,7 +5,7 @@
 'use strict';
 
 angular.module('tetherApp')
-    .controller('contractCtrl', function ($window,$scope, $location, $http,$routeParams,contractService){
+    .controller('contractCtrl', function ($window,$scope, $location, $http,$routeParams,contractService,userService){
         // gcm of the receiver retrieved from frinds.gcm_token
         // set to self for now
         var togcm = $window.localStorage.gcmtoken;
@@ -27,7 +27,12 @@ angular.module('tetherApp')
         $scope.blacklistedApps = [];
         $scope.foregroundApp = "";
         $scope.blacklistedAppUsed = "";
-
+        $scope.proposer = "";
+        userService.profile().then(function(data){
+            var text = JSON.stringify(data);
+            var jdata = JSON.parse(text);
+            $scope.proposer=jdata.username;
+        });
         $scope.friend = $window.localStorage.proposingTo;
 
 
@@ -52,7 +57,7 @@ angular.module('tetherApp')
          }); */
 
 
-        var contractJSON = '{"contract":{"apps":[],"durationInMins":0,"wagerAmount":0,"friend":"","gcmTokenFromProposer":""}}';
+        var contractJSON = '{"contract":{"apps":[],"durationInMins":0,"wagerAmount":0,"friend":"","gcmTokenFromProposer":"","proposer":""}}';
 
         $scope.submitContract = function(){
 
@@ -135,6 +140,7 @@ angular.module('tetherApp')
 
             obj["contract"].friend = $scope.friend;
             obj["contract"].gcmTokenFromProposer = $window.localStorage.gcmtoken;
+            obj["contract"].proposer = $scope.proposer;
 
             contractJSON = JSON.stringify(obj);
             console.log(JSON.stringify(contractJSON));
