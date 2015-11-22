@@ -16,57 +16,81 @@
     <div class="scrollable">
 
 
-        <div class="scrollable-header" ng-click="quickMatch()">
-            <div class="btn-group btn-group-justified" role="group">
-                <div class="btn-group" role="group">
-                    <a class="list-group-item">Random Match
+        <div class="scrollable-header">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+
+                    <div class="panel-title">
+                        Welcome {{user}}
+                    </div>
+
+                </div>
+                <div class="panel-body">
+                    <a ng-click="quickMatch()">Random Match
                         <i class="fa fa-chevron-right pull-right"></i></a>
                     <div class="alert alert-danger" ng-show="noFriends">You have no friends to match with!</div>
                 </div>
             </div>
+            <!--<div class="btn-group btn-group-justified" role="group">
+                <div class="btn-group" role="group">
+
+                </div>
+            </div> -->
         </div>
 
         <div class="scrollable-content">
             <div id="homeSummaryStats">
-                <div class="panel panel-default">
-                    Summary Stuff
+                <div class="panel panel-primary">
+                    <div class="panel-heading">
+                        <div class="panel-title">
+                            Status & Achievements
+                        </div>
+                    </div>
+
+                    <div class="panel-body">
+
+                        Levels and stuff and progress bars etc etc etc
+
+                    </div>
                 </div>
 
             </div>
 
             <div id="threeRandomFriends">
-                <div class="panel panel-default">
+                <div class="panel panel-primary">
 
-                    <div ng-show="noFriends">
-                        <a class="list-group-item">
-                            You have no friends! Add some on the friends page!
-                        </a>
+                    <div class="panel-header">
+
+                        <div class="panel-title">
+                            <div ng-hide="noFriends" ng-click="createRandomFriends()">
+                                    Click here to see three random friends
+                                    <i class="fa fa-refresh pull-right"></i>
+                            </div>
+                        </div>
+
+                        <div ng-show="noFriends">
+                            <a class="list-group-item">
+                                You have no friends! Add some on the friends page!
+                            </a>
+                        </div>
+
                     </div>
 
-                    <div class="scrollable-content">
-
+                    <div class="panel-body">
                         <div ng-repeat="friend in randomFriends | filter:search">
                             <a class="list-group-item">
                                 {{friend}}
                                 <i class="fa fa-edit pull-right fa-lg" ng-click="propose(friend)"></i>
                             </a>
                         </div>
-                        <a class="list-group-item" style="background: lightblue" ng-click="createRandomFriends()">Refresh to see 3 random friends!
-                            <i class="fa fa-refresh pull-right"></i></a>
                     </div>
-
                 </div>
-
-
             </div>
+
+
         </div>
 
-
-
-
     </div>
-
-
 
 
 </div>
