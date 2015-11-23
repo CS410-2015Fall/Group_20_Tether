@@ -27,11 +27,11 @@ angular.module('tetherApp')
         $scope.blacklistedApps = [];
         $scope.foregroundApp = "";
         $scope.blacklistedAppUsed = "";
-        $scope.proposer = "";
+        $scope.from = "";
         userService.profile().then(function(data){
             var text = JSON.stringify(data);
             var jdata = JSON.parse(text);
-            $scope.proposer=jdata.username;
+            $scope.from=jdata.username;
         });
         $scope.friend = $window.localStorage.proposingTo;
 
@@ -57,7 +57,7 @@ angular.module('tetherApp')
          }); */
 
 
-        var contractJSON = '{"contract":{"apps":[],"durationInMins":0,"wagerAmount":0,"friend":"","gcmTokenFromProposer":"","proposer":""}}';
+        var contractJSON = '{"contract":{"apps":[],"durationInMins":0,"wagerAmount":0,"friend":"","gcmTokenFromProposer":"","from":"","status":""}}';
 
         $scope.submitContract = function(){
 
@@ -140,23 +140,31 @@ angular.module('tetherApp')
 
             obj["contract"].friend = $scope.friend;
             obj["contract"].gcmTokenFromProposer = $window.localStorage.gcmtoken;
-            obj["contract"].proposer = $scope.proposer;
-
+            obj["contract"].from = $scope.from;
+            obj["contract"].status = "proposed";
             contractJSON = JSON.stringify(obj);
             console.log(JSON.stringify(contractJSON));
 
             $scope.submitted = true;
             $scope.ongoingContract = true;
             $scope.contractOver = false;
+            // store it yourself
+            var storeAs = "contract"+$scope.from;
+            $window.localStorage.setItem(storeAs,contractJSON);
             // gcm notification
             contractService.sendcontract(togcm,contractJSON).then(function(result) {
                 // Success!
             }, function(err) {
                 // An error occured. Show a message to the user
             });
-            $scope.startTimer();
-            $scope.startToasts();
-
+            //$scope.startTimer();
+            //$scope.startToasts();
+            $scope.checkstatus();
+        };
+        // start contract when other user accepts
+        $scope.checkstatus = function(){
+            //$scope.startTimer();
+            //$scope.startToasts();
         };
 
 

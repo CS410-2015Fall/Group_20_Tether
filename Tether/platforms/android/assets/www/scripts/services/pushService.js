@@ -47,34 +47,24 @@ angular.module('tetherApp')
                         console.log('BACKGROUND NOTIFICATION');
                     }
                 }
-                // todo handle storing the result
                 if(event.payload.contractjson){
-                    navigator.notification.confirm(event.payload.message,
-                        function(button){
-                            if (button = 1){
-                                var json = event.payload.contractjson;
-                                // stringify json
-                                var text = JSON.stringify(json);
-                                console.log("text "+text);
-                                // parse json
-                                var obj = JSON.parse(text);
-                                // get whatever you want
-                                var place = obj.contract.proposer;
-                                console.log("contract stored to "+place);
-                                $window.localStorage.setItem(place, text);
-                                // just for testing
-                                var localcontract = $window.localStorage.getItem(place);
-                                console.log("local contract "+localcontract);
-                                alert("You have accepted the contract, go to your contracts page to view the contract");
-                            }
-                            else{
-                                alert("You have rejected the contract");
-                            }
-                        },'','Accept, Reject');
+                    var json = event.payload.contractjson;
+                    // stringify json
+                    var text = JSON.stringify(json);
+                    console.log("text "+text);
+                    // parse json
+                    var obj = JSON.parse(text);
+                    // store the contract as string
+                    var place = obj.contract.proposer;
+                    console.log("contract stored in "+place);
+                    $window.localStorage.setItem(place, text);
+                    // get the status of the contract
+                    // pending, accepted, declined, success, failed
                     console.log('MESSAGE -> MSG: ' + event.payload.message);
                     //Only works for GCM
                     console.log('MESSAGE -> MSGCNT: ' + event.payload.msgcnt);
-                } else{
+                }
+                else{
                     navigator.notification.alert(event.payload.message);
                     console.log('MESSAGE -> MSG: ' + event.payload.message);
                     //Only works for GCM

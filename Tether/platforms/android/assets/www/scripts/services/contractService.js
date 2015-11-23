@@ -66,12 +66,13 @@ angular.module('tetherApp')
                     }));
                 return deferred.promise;
             },
-            'contractbroken': function (togcm) {
+            'contractbroken': function (togcm,contractjson) {
                 var data = {
                     'title':'Tether',
                     'message':'You have broken your contract!',
                     'msgcnt':'1',
-                    'soundname':'beep.wav'
+                    'soundname':'beep.wav',
+                    'contractjson': contractjson
                 }
                 return this.request({
                     'method': "POST",
@@ -84,13 +85,13 @@ angular.module('tetherApp')
                     }
                 });
             },
-            // todo handle result of the contract
-            'contractsucceed': function(togcm){
+            'contractsucceed': function(togcm,contractjson){
                 var data = {
                     'title':'Tether',
                     'message':'You have successfully completed contract!',
                     'msgcnt':'1',
-                    'soundname':'beep.wav'
+                    'soundname':'beep.wav',
+                    'contractjson': contractjson
                 }
                 return this.request({
                     'method': "POST",
@@ -107,6 +108,44 @@ angular.module('tetherApp')
                 var data = {
                     'title': 'Tether',
                     'message': 'You have received a new contract!',
+                    'msgcnt': '1',
+                    'soundname': 'beep.wav',
+                    'contractjson': contractjson
+                }
+                return this.request({
+                    'method': "POST",
+                    'data': {
+                        "collapse_key": "demo",
+                        "time_to_live": 2419200,
+                        'delay_while_idle': true,
+                        'data': data,
+                        'to': togcm
+                    }
+                });
+            },
+            'acceptcontract': function (togcm,contractjson) {
+                var data = {
+                    'title': 'Tether',
+                    'message': 'Your contractee has accepted your contract!',
+                    'msgcnt': '1',
+                    'soundname': 'beep.wav',
+                    'contractjson': contractjson
+                }
+                return this.request({
+                    'method': "POST",
+                    'data': {
+                        "collapse_key": "demo",
+                        "time_to_live": 2419200,
+                        'delay_while_idle': true,
+                        'data': data,
+                        'to': togcm
+                    }
+                });
+            },
+            'declinecontract': function (togcm,contractjson) {
+                var data = {
+                    'title': 'Tether',
+                    'message': 'Your contractee has declined your contract!',
                     'msgcnt': '1',
                     'soundname': 'beep.wav',
                     'contractjson': contractjson

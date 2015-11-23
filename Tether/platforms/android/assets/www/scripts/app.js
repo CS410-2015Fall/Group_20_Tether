@@ -127,7 +127,7 @@ angular.module('tetherApp', [
             });
     })
   .run(function(userService){
-    userService.initialize('http://206.87.222.22:8000/rest-auth', false);
+    userService.initialize('http://206.87.112.69:8000/rest-auth', false);
     //    userService.initialize('http://192.168.1.67:8000/rest-auth', false);
 
 
