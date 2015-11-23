@@ -47,12 +47,24 @@ angular.module('tetherApp')
                         console.log('BACKGROUND NOTIFICATION');
                     }
                 }
+                // todo handle storing the result
                 if(event.payload.contractjson){
                     navigator.notification.confirm(event.payload.message,
                         function(button){
                             if (button = 1){
-                                $window.localStorage.contractjson = event.payload.contractjson;
-                                console.log(event.payload.contractjson);
+                                var json = event.payload.contractjson;
+                                // stringify json
+                                var text = JSON.stringify(json);
+                                console.log("text "+text);
+                                // parse json
+                                var obj = JSON.parse(text);
+                                // get whatever you want
+                                var place = obj.contract.proposer;
+                                console.log("contract stored in "+place);
+                                $window.localStorage.setItem(place, text);
+                                // just for testing
+                                var localcontract = $window.localStorage.getItem(place);
+                                console.log("local contract "+localcontract);
                                 alert("You have accepted the contract, go to your contracts page to view the contract");
                             }
                             else{

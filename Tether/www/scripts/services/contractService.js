@@ -84,6 +84,7 @@ angular.module('tetherApp')
                     }
                 });
             },
+            // todo handle result of the contract
             'contractsucceed': function(togcm){
                 var data = {
                     'title':'Tether',
