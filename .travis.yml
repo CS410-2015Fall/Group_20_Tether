@@ -1,14 +1,17 @@
-language: python
-python:
-  - "2.6"
-  - "2.7"
-  - "3.2"
-  - "3.3"
-  - "3.4"
-  - "3.5"
-  - "3.5-dev" # 3.5 development branch
-  - "nightly" # currently points to 3.6-dev
-# command to install dependencies
-# install: "pip install -r requirements.txt"
-# command to run tests
-# script: nosetests
+language: node_js
+node_js:
+  - "0.10"
+
+before_script:
+  - export DISPLAY=:99.0
+  - sh -e /etc/init.d/xvfb start
+  - npm start > /dev/null &
+  - npm run update-webdriver
+  - sleep 1 # give server time to start
+
+script:
+  # Unit testing
+  - node_modules/.bin/karma start Desktop/2015W/CPSC410/Group_20_Tether/karma.conf.js --no-auto-watch --single-run --reporters=dots --browsers=Chrome
+
+  # End to end testing
+  # - node_modules/.bin/protractor e2e-tests/protractor.conf.js --browser=firefox
