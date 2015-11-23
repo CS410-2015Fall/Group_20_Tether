@@ -1,3 +1,4 @@
+sudo: false
 language: node_js
 node_js:
   - "0.10"
@@ -8,7 +9,7 @@ before_script:
 
 script:
   # Unit testing
-  - node_modules/.bin/karma start Desktop/2015W/CPSC410/Group_20_Tether/karma.conf.js --no-auto-watch --single-run --reporters=dots --browsers=Chrome
+  - node_modules/.bin/karma start karma.conf.js --no-auto-watch --single-run --reporters=dots --browsers=Chrome
 
   # End to end testing
   # - node_modules/.bin/protractor e2e-tests/protractor.conf.js --browser=firefox
