@@ -11,7 +11,10 @@
 </div>
 
 
+
 <div ng-controller="homeCtrl">
+
+
 
     <div class="scrollable">
 
@@ -25,8 +28,8 @@
                     </div>
 
                 </div>
-                <div class="panel-body">
-                    <a ng-click="quickMatch()">Random Match
+                <div class="panel-body" ng-click="quickMatch()">
+                    <a>Random Match
                         <i class="fa fa-chevron-right pull-right"></i></a>
                     <div class="alert alert-danger" ng-show="noFriends">You have no friends to match with!</div>
                 </div>
@@ -59,7 +62,7 @@
             <div id="threeRandomFriends">
                 <div class="panel panel-primary">
 
-                    <div class="panel-header">
+                    <div class="panel-heading">
 
                         <div class="panel-title">
                             <div ng-hide="noFriends" ng-click="createRandomFriends()">

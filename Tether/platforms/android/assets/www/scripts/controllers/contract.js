@@ -36,6 +36,14 @@ angular.module('tetherApp')
 
         $scope.wagerAmount = 0;
 
+        $scope.from = "";
+
+        userService.profile().then(function(data){
+            var text = JSON.stringify(data);
+            var jdata = JSON.parse(text);
+            $scope.from = jdata.username;
+        });
+
         //Scope variables for monitoring
         $scope.blacklistedApps = [];
         $scope.foregroundApp = "";
@@ -65,7 +73,7 @@ angular.module('tetherApp')
          }); */
 
 
-        var contractJSON = '{"contract":{"apps":[],"durationInMins":0,"wagerAmount":0,"friend":"","gcmTokenFromProposer":""}}';
+        var contractJSON = '{"contract":{"apps":[],"durationInMins":0,"hours":"","mins":"","wagerAmount":0,"friend":"","gcmTokenFromProposer":"","from":"","status":"","timeStart":""}}';
 
         $scope.submitContract = function(){
 
@@ -148,6 +156,10 @@ angular.module('tetherApp')
 
             obj["contract"].friend = $scope.friend;
             obj["contract"].gcmTokenFromProposer = $window.localStorage.gcmtoken;
+            obj["contract"].status = "proposed";
+            obj["contract"].hours = durationHrs;
+            obj["contract"].mins = durationMins;
+            obj["contract"].from = $scope.from;
 
             contractJSON = JSON.stringify(obj);
             console.log(JSON.stringify(contractJSON));
@@ -155,6 +167,9 @@ angular.module('tetherApp')
             $scope.submitted = true;
             $scope.ongoingContract = true;
             $scope.contractOver = false;
+
+            var storeAs = "contract" + $scope.from;
+            $window.localStorage.setItem(storeAs, contractJSON);
 
             $scope.startTimer();
 
@@ -350,6 +365,8 @@ angular.module('tetherApp')
             $scope.blacklistedAppUsed = "";
             $scope.ongoingContract = false;
             $scope.contractOver = false;
+
+            contractJSON = '{"contract":{"apps":[],"durationInMins":0,"wagerAmount":0,"friend":"","gcmTokenFromProposer":"","from":"","status":""}}';
 
             contractService.applist();
         };

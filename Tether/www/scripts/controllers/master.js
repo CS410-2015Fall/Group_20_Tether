@@ -58,5 +58,10 @@ angular.module('tetherApp')
           $location.path('/friends');
         };
 
+        $scope.goToManageContracts = function(){
+
+            $location.path('/manageContracts');
+        };
+
 
   });
