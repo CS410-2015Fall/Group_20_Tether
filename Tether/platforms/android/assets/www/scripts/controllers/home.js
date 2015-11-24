@@ -135,6 +135,8 @@ angular.module('tetherApp')
                     }
                 }
             }
+            $window.localStorage.removeItem("myCurrentContract")
+
         }
 
 

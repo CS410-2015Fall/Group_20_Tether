@@ -26,7 +26,7 @@
                     <div class="panel-title">
                         Welcome {{user}}
                     </div>
-
+                    <button class="button" ng-click="clearAll()">Click to clear localcontracts - testing only</button>
                 </div>
                 <div class="panel-body" ng-click="quickMatch()">
                     <a>Random Match
@@ -83,7 +83,7 @@
                         <div ng-repeat="friend in randomFriends | filter:search">
                             <a class="list-group-item">
                                 {{friend}}
-                                <i class="fa fa-edit pull-right fa-lg" ng-click="propose(friend)"></i>
+                                <i class="fa fa-edit pull-right fa-2x" ng-click="propose(friend)"></i>
                             </a>
                         </div>
                     </div>

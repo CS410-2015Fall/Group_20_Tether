@@ -25,6 +25,7 @@ angular.module('tetherApp')
         $scope.showDetails = "";
 
 
+
         $scope.isShowing = function(index){
             return  $scope.showDetails === index;
         };
@@ -61,12 +62,15 @@ angular.module('tetherApp')
                 var hoursLeft = parseInt(seconds_left / 3600);
                 seconds_left = seconds_left % 3600;
                 var minsLeft = parseInt(seconds_left / 60);
+                var sec = parseInt(seconds_left % 60);
 
                 $scope.selectedContractHours = hoursLeft;
                 $scope.selectedContractMins = minsLeft;
+                $scope.selectedContractSeconds = sec;
             } else {
                 $scope.selectedContractHours = 0;
                 $scope.selectedContractMins = 0;
+                $scope.selectedContractSeconds = 0;
             }
 
         };
@@ -117,7 +121,8 @@ angular.module('tetherApp')
         $scope.getNumOngoingContracts = function(){
             $scope.ongoingContracts = [];
             for(var i = 0; i < $scope.contracts.length; i++){
-                if ($scope.contracts[i].val["contract"]["status"] === "ongoing"){
+                if ($scope.contracts[i].val["contract"]["status"] === "accepted" ||
+                    $scope.contracts[i].val["contract"]["status"] === "rejected"){
                     $scope.numOngoingContracts = $scope.numOngoingContracts + 1;
                     $scope.ongoingContracts.push($scope.contracts[i]);
                 }
@@ -180,12 +185,16 @@ angular.module('tetherApp')
         };
 
 
-        $scope.rejectContract = function(user,theirGcmToken) {
+        $scope.rejectContract = function(user,theirGcmToken,contractJSON) {
+
+            contractJSON["contract"].status="rejected";
+            // send response back to user
+
+
+
             var deleteKey = "contract" + user.toString();
             $window.localStorage.removeItem(deleteKey);
 
-
-            //sent notification to other user
 
 
 
@@ -195,7 +204,7 @@ angular.module('tetherApp')
 
         $scope.acceptAndWatch = function(user, theirGcmToken, contractJSON) {
             var setKey = "contract" + user.toString();
-            contractJSON["contract"].status = "ongoing";
+            contractJSON["contract"].status = "accepted";
             contractJSON["contract"].timeStart = new Date().getTime();
             $window.localStorage.removeItem(setKey);
             $window.localStorage.setItem(setKey, JSON.stringify(contractJSON));
@@ -209,7 +218,7 @@ angular.module('tetherApp')
             //send notification to other user
             var setOverride = "contract" + user.toString();
             var setMyKey = "myCurrentContract";
-            contractJSON["contract"].status = "ongoing";
+            contractJSON["contract"].status = "accepted";
 
 
             $window.localStorage.setItem(setOverride, JSON.stringify(contractJSON));
@@ -232,6 +241,7 @@ angular.module('tetherApp')
                     }
                 }
             }
+            $window.localStorage.removeItem("myCurrentContract")
         }
 
 

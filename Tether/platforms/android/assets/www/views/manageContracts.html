@@ -56,7 +56,7 @@
                                         For {{contract.val.contract.hours}} hours and {{contract.val.contract.mins}} minutes.<br>
                                         Wager amount: {{contract.val.contract.wagerAmount}}
                                     </div>
-                                    <a class="list-group-item" style="background: lightcoral" ng-click="rejectContract(contract.val.contract.from, contract.val.contract.gcmTokenFromProposer)">
+                                    <a class="list-group-item" style="background: lightcoral" ng-click="rejectContract(contract.val.contract.from, contract.val.contract.gcmTokenFromProposer, contract.val)">
                                             <i class="fa fa-remove"></i>Reject
                                     </a>
                                     <a class="list-group-item" style="background: lightblue" ng-click="acceptAndWatch(contract.val.contract.from, contract.val.contract.gcmTokenFromProposer, contract.val)">
@@ -130,7 +130,7 @@
                                         </div>
                                     </div>
                                     <a class="list-group-item">
-                                        <i class="fa fa-clock"></i>Time remaining: {{selectedContractHours}} hours and {{selectedContractMins}} minutes.
+                                        <i class="fa fa-clock"></i>Time remaining: {{selectedContractHours}} hours, {{selectedContractMins}} minutes, and {{selectedContractSeconds}} seconds.
                                     </a>
                                 </div>
                                 <div class="btn-group" ng-show="isShowing(contractIndex)">
