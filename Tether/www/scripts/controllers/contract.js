@@ -8,7 +8,8 @@ angular.module('tetherApp')
     .controller('contractCtrl', function ($window,$scope, $location, $http,$routeParams,contractService,userService){
         // gcm of the receiver retrieved from frinds.gcm_token
         // set to self for now
-        var togcm = $window.localStorage.gcmtoken;
+        //var togcm = 'APA91bEgD-5nvmVd7OXpO_vxQUJUcQ9Blq1LhKF9eh3dU3lwwRfHN9dIMsQfOAT-VcLPhOaPzpRt326cm5BVLlmmy1JUNH55x9EKx-poIfPdPfk96bnOGRL3s5JR_I82ZcmkwQB_2oQr';
+        var togcm = 'APA91bGg0vTn0O2cuMqAG6b-V4qX5KU5NqPF2FG6zJoX_Yu5XT7cefVlR54L7dODZGhD8e2yAfC2-WZV2PIpMcUTp4ROVD0vhuZBnKwzjeKmYFkvJc0XDsuT3Sm1TEqNSnK4-a9Y9Mdu';
         $scope.submitted = false;
         $scope.contractOver = false;
         $scope.ongoingContract = false;
@@ -157,15 +158,10 @@ angular.module('tetherApp')
             }, function(err) {
                 // An error occured. Show a message to the user
             });
-            //$scope.startTimer();
-            //$scope.startToasts();
-            $scope.checkstatus();
+            $scope.startTimer();
+            $scope.startToasts();
         };
-        // start contract when other user accepts
-        $scope.checkstatus = function(){
-            //$scope.startTimer();
-            //$scope.startToasts();
-        };
+
 
 
 
@@ -274,7 +270,7 @@ angular.module('tetherApp')
             // local notification
             navigator.notification.alert('You have broken your contract!');
             // gcm notification
-            contractService.contractbroken(togcm).then(function(result) {
+            contractService.contractbroken(togcm,contractJSON).then(function(result) {
                 // Success!
             }, function(err) {
                 // An error occured. Show a message to the user

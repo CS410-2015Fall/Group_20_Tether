@@ -59,10 +59,12 @@ angular.module('tetherApp')
                     var storeAs = "contract"+place;
                     console.log("contract stored in "+storeAs);
                     $window.localStorage.setItem(storeAs, text);
-                    // pending, accepted, declined, success, failed
+                    console.log("contractinlocal"+$window.localStorage.getItem(storeAs));
+                    // proposed, accepted, declined, success, failed
                     console.log('MESSAGE -> MSG: ' + event.payload.message);
                     //Only works for GCM
                     console.log('MESSAGE -> MSGCNT: ' + event.payload.msgcnt);
+                    navigator.notification.alert(event.payload.message);
                 }
                 else{
                     navigator.notification.alert(event.payload.message);

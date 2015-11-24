@@ -8,7 +8,8 @@ angular.module('tetherApp')
     .controller('contractCtrl', function ($window,$scope, $location, $http,$routeParams,contractService,userService){
         // gcm of the receiver retrieved from frinds.gcm_token
         // set to self for now
-        var togcm = $window.localStorage.gcmtoken;
+        //var togcm = 'APA91bEgD-5nvmVd7OXpO_vxQUJUcQ9Blq1LhKF9eh3dU3lwwRfHN9dIMsQfOAT-VcLPhOaPzpRt326cm5BVLlmmy1JUNH55x9EKx-poIfPdPfk96bnOGRL3s5JR_I82ZcmkwQB_2oQr';
+        var togcm = 'APA91bGg0vTn0O2cuMqAG6b-V4qX5KU5NqPF2FG6zJoX_Yu5XT7cefVlR54L7dODZGhD8e2yAfC2-WZV2PIpMcUTp4ROVD0vhuZBnKwzjeKmYFkvJc0XDsuT3Sm1TEqNSnK4-a9Y9Mdu';
         $scope.submitted = false;
         $scope.contractOver = false;
         $scope.ongoingContract = false;
@@ -27,11 +28,11 @@ angular.module('tetherApp')
         $scope.blacklistedApps = [];
         $scope.foregroundApp = "";
         $scope.blacklistedAppUsed = "";
-        $scope.proposer = "";
+        $scope.from = "";
         userService.profile().then(function(data){
             var text = JSON.stringify(data);
             var jdata = JSON.parse(text);
-            $scope.proposer=jdata.username;
+            $scope.from=jdata.username;
         });
         $scope.friend = $window.localStorage.proposingTo;
 
@@ -57,7 +58,7 @@ angular.module('tetherApp')
          }); */
 
 
-        var contractJSON = '{"contract":{"apps":[],"durationInMins":0,"wagerAmount":0,"friend":"","gcmTokenFromProposer":"","proposer":"","status":""}}';
+        var contractJSON = '{"contract":{"apps":[],"durationInMins":0,"wagerAmount":0,"friend":"","gcmTokenFromProposer":"","from":"","status":""}}';
 
         $scope.submitContract = function(){
 
@@ -140,8 +141,8 @@ angular.module('tetherApp')
 
             obj["contract"].friend = $scope.friend;
             obj["contract"].gcmTokenFromProposer = $window.localStorage.gcmtoken;
-            obj["contract"].proposer = $scope.proposer;
-            obj["contract"].status = "pending";
+            obj["contract"].from = $scope.from;
+            obj["contract"].status = "proposed";
             contractJSON = JSON.stringify(obj);
             console.log(JSON.stringify(contractJSON));
 
@@ -149,22 +150,18 @@ angular.module('tetherApp')
             $scope.ongoingContract = true;
             $scope.contractOver = false;
             // store it yourself
-            $window.localStorage.setItem($scope.proposer,contractJSON);
+            var storeAs = "contract"+$scope.from;
+            $window.localStorage.setItem(storeAs,contractJSON);
             // gcm notification
             contractService.sendcontract(togcm,contractJSON).then(function(result) {
                 // Success!
             }, function(err) {
                 // An error occured. Show a message to the user
             });
-            //$scope.startTimer();
-            //$scope.startToasts();
-            $scope.checkstatus();
+            $scope.startTimer();
+            $scope.startToasts();
         };
-        // start contract when other user accepts
-        $scope.checkstatus = function(){
-            //$scope.startTimer();
-            //$scope.startToasts();
-        };
+
 
 
 
@@ -273,7 +270,7 @@ angular.module('tetherApp')
             // local notification
             navigator.notification.alert('You have broken your contract!');
             // gcm notification
-            contractService.contractbroken(togcm).then(function(result) {
+            contractService.contractbroken(togcm,contractJSON).then(function(result) {
                 // Success!
             }, function(err) {
                 // An error occured. Show a message to the user
