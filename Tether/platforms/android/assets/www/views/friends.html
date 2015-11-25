@@ -33,10 +33,10 @@
         <div ng-repeat="(friendIndex, friend) in serverReturned.friends | filter:search">
 
             <a class="list-group-item">
-                <i class="fa fa-remove pull-left" ng-click="confirmDelete(friend, friendIndex)"></i>
+                <i class="fa fa-remove pull-left fa-lg" ng-click="confirmDelete(friend, friendIndex)"></i>
 
                 {{friend}}
-                <i class="fa fa-edit pull-right fa-lg" ng-click="propose(friend)"></i>
+                <i class="fa fa-edit pull-right fa-2x" ng-click="propose(friend)"></i>
             </a>
 
             <a class="list-group-item" ng-show="isShowing(friendIndex)">
