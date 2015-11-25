@@ -24,4 +24,5 @@ urlpatterns = [
     url(r'^allprofiles/', views.get_all_user_profile),
     # url(r'^profile/', views.profile),
     url(r'^friends/', views.get_friends),
+    url(r'^friendship/', include('friendship.urls')),
 ]

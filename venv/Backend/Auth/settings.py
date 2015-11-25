@@ -47,6 +47,7 @@ INSTALLED_APPS = (
     'rest_auth.registration',
     'Users',
     'Auth',
+    'friendship',
 )
 
 MIDDLEWARE_CLASSES = (
