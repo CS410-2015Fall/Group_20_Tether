@@ -19,20 +19,20 @@
         <div class="scrollable-header">
 
 
-                        <div ng-show="noContractsInStorage">
-                            You have no contracts to manage!
-                        </div>
-                        <div class="btn-group" role="group">
-                            <button class="btn btn-primary" type="button" ng-click="displayPending()">
-                                Pending <span class="badge">{{numProposedContracts}}</span>
-                            </button>
-                            <button class="btn btn-danger" type="button" ng-click="displayOngoing()">
-                                Watching <span class="badge">{{numOngoingContracts}}</span>
-                            </button>
-                            <button class="btn btn-success" type="button" ng-click="displayFinished()">
-                                Completed <span class="badge">{{numFinishedContracts}}</span>
-                            </button>
-                        </div>
+            <div ng-show="noContractsInStorage">
+                You have no contracts to manage!
+            </div>
+            <div class="btn-group" role="group">
+                <button class="btn btn-primary" type="button" ng-click="displayPending()">
+                    Pending <span class="badge">{{numProposedContracts}}</span>
+                </button>
+                <button class="btn btn-danger" type="button" ng-click="displayOngoing()">
+                    Watching <span class="badge">{{numOngoingContracts}}</span>
+                </button>
+                <button class="btn btn-success" type="button" ng-click="displayFinished()">
+                    Completed <span class="badge">{{numFinishedContracts}}</span>
+                </button>
+            </div>
 
         </div>
 
@@ -56,8 +56,8 @@
                                         For {{contract.val.contract.hours}} hours and {{contract.val.contract.mins}} minutes.<br>
                                         Wager amount: {{contract.val.contract.wagerAmount}}
                                     </div>
-                                    <a class="list-group-item" style="background: lightcoral" ng-click="rejectContract(contract.val.contract.from, contract.val.contract.gcmTokenFromProposer)">
-                                            <i class="fa fa-remove"></i>Reject
+                                    <a class="list-group-item" style="background: lightcoral" ng-click="rejectContract(contract.val.contract.from, contract.val.contract.gcmTokenFromProposer, contract.val)">
+                                        <i class="fa fa-remove"></i>Reject
                                     </a>
                                     <a class="list-group-item" style="background: lightblue" ng-click="acceptAndWatch(contract.val.contract.from, contract.val.contract.gcmTokenFromProposer, contract.val)">
                                         <i class="fa fa-eye"></i>Accept - Monitor Only
@@ -67,7 +67,7 @@
                                     </a>
 
                                     <div class="list-group-item" ng-hide="isShowing(contractIndex)" ng-click="viewDetails(contractIndex, contract.val)">
-                                            <i class="fa fa-info"></i> Show Details
+                                        <i class="fa fa-info"></i> Show Details
                                     </div>
 
                                 </div>
@@ -130,7 +130,7 @@
                                         </div>
                                     </div>
                                     <a class="list-group-item">
-                                        <i class="fa fa-clock"></i>Time remaining: {{selectedContractHours}} hours and {{selectedContractMins}} minutes.
+                                        <i class="fa fa-clock"></i>Time remaining: {{selectedContractHours}} hours, {{selectedContractMins}} minutes, and {{selectedContractSeconds}} seconds.
                                     </a>
                                 </div>
                                 <div class="btn-group" ng-show="isShowing(contractIndex)">
@@ -155,7 +155,7 @@
                         </div>
                     </div>
                     <div ng-repeat="contract in finishedContracts">
-                            {{contract.val}}
+                        {{contract.val}}
                     </div>
                 </div>
             </div>
