@@ -129,6 +129,7 @@ angular.module('tetherApp')
 
 
         $scope.updateFriends();
+        $scope.getUser();
         $scope.createRandomFriends();
 
     });
