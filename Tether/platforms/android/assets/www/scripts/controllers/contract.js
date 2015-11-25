@@ -310,8 +310,6 @@ angular.module('tetherApp')
                 });
 
 
-                var storeAs = "contract" + $scope.from;
-                $window.localStorage.removeItem(storeAs);
                 $window.localStorage.removeItem("myCurrentContract");
             });
         };
@@ -337,8 +335,7 @@ angular.module('tetherApp')
                 // An error occured. Show a message to the user
             });
 
-            var storeAs = "contract" + $scope.from;
-            $window.localStorage.removeItem(storeAs);
+
             $window.localStorage.removeItem("myCurrentContract");
         };
 
@@ -363,8 +360,6 @@ angular.module('tetherApp')
                     // An error occured. Show a message to the user
                 });
 
-                var storeAs = "contract" + $scope.from;
-                $window.localStorage.removeItem(storeAs);
                 $window.localStorage.removeItem("myCurrentContract");
 
             });
@@ -466,7 +461,13 @@ angular.module('tetherApp')
                 $scope.ongoingContract = true;
                 $scope.contractOver = false;
 
-                $scope.blacklistedApps = currentContract["contract"].apps;
+                var tempApps = currentContract["contract"].apps;
+
+                for (var i = 0; i < tempApps.length; i++){
+                    $scope.blacklistedApps.push(tempApps[i].name);
+                }
+
+                //$scope.blacklistedApps = currentContract["contract"].apps;
                 $scope.contractHours = currentContract["contract"].hours;
                 $scope.contractMinutes = currentContract["contract"].mins;
                 $scope.contractSeconds = currentContract["contract"].seconds;
