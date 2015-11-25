@@ -67,6 +67,12 @@ angular.module('tetherApp')
             }));
             return deferred.promise;
         },
+        'users':function(){
+            return this.request({
+                'method':"GET",
+                'url':"userprofile/users"
+            })
+        },
         'register': function(username,password1,password2,email,more){
             var data = {
                 'username':username,
@@ -77,7 +83,7 @@ angular.module('tetherApp')
             data = angular.extend(data,more);
             return this.request({
                 'method': "POST",
-                'url': "/registration/",
+                'url': "rest-auth/registration/",
                 'data' :data
             });
         },
@@ -85,7 +91,7 @@ angular.module('tetherApp')
             var userService = this;
             return this.request({
                 'method': "POST",
-                'url': "/login/",
+                'url': "rest-auth/login/",
                 'data':{
                     'username':username,
                     'password':password
@@ -106,7 +112,7 @@ angular.module('tetherApp')
             var userService = this;
             return this.request({
                 'method': "POST",
-                'url': "/logout/"
+                'url': "rest-auth/logout/"
             }).then(function(data){
                 delete $http.defaults.headers.common.Authorization;
                 delete $cookies.token;
@@ -118,7 +124,7 @@ angular.module('tetherApp')
         'changePassword': function(password1,password2){
             return this.request({
                 'method': "POST",
-                'url': "/password/change/",
+                'url': "rest-auth/password/change/",
                 'data':{
                     'new_password1':password1,
                     'new_password2':password2
@@ -128,7 +134,7 @@ angular.module('tetherApp')
         'resetPassword': function(email){
             return this.request({
                 'method': "POST",
-                'url': "/password/reset/",
+                'url': "rest-auth/password/reset/",
                 'data':{
                     'email':email
                 }
@@ -137,28 +143,28 @@ angular.module('tetherApp')
         'profile': function(){
             return this.request({
                 'method': "GET",
-                'url': "/user/"
+                'url': "rest-auth/user/"
             }); 
         },
 
         'updateProfile': function(data){
             return this.request({
                 'method': "PATCH",
-                'url': "/user/",
+                'url': "rest-auth/user/",
                 'data':data
             }); 
         },
         'verify': function(key){
             return this.request({
                 'method': "POST",
-                'url': "/registration/verify-email/",
+                'url': "rest-auth/registration/verify-email/",
                 'data': {'key': key} 
             });            
         },
         'confirmReset': function(uid,token,password1,password2){
             return this.request({
                 'method': "POST",
-                'url': "/password/reset/confirm/",
+                'url': "rest-auth/password/reset/confirm/",
                 'data':{
                     'uid': uid,
                     'token': token,
@@ -176,7 +182,7 @@ angular.module('tetherApp')
             if(this.authPromise == null || force){
                 this.authPromise = this.request({
                     'method': "GET",
-                    'url': "/user/"
+                    'url': "rest-auth/user/"
                 })
             }
             var da = this;

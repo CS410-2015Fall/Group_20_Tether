@@ -6,6 +6,18 @@
 angular.module('tetherApp')
     .controller('friendsCtrl', function($scope, $window, $rootScope, $location, $http, userService,
                                                                 SharedState){
+        $scope.allusers =[];
+        userService.users().then(function (data){
+            var s = data;
+            var jsons=[];
+            for (var i=s.length;i--;){
+                jsons[i]=JSON.stringify(s[i]);
+                var jdata = JSON.parse(jsons[i]);
+                $scope.allusers.push(jdata.username);
+                console.log(jdata.username);
+            }
+            console.log(JSON.stringify($scope.allusers));
+        });
 
         //$scope.model = {'friendToAdd':''};
         $scope.noFriends = false;
