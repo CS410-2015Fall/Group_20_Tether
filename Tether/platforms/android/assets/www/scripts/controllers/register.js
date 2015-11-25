@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('tetherApp')
-    .controller('RegisterCtrl', function ($scope, userService, validationService) {
+    .controller('RegisterCtrl', function ($location,$scope, userService, validationService) {
       $scope.model = {'username':'','password':'','email':''};
       $scope.complete = false;
       $scope.register = function(formData){

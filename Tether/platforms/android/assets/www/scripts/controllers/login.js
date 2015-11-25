@@ -15,9 +15,6 @@ angular.module('tetherApp')
               // An error occured. Show a message to the user
           });
 
-        // Update server with new GCM registration
-        //
-
 
         userService.login($scope.model.username, $scope.model.password)
         .then(function(data){

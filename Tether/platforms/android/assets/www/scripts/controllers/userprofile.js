@@ -9,9 +9,20 @@ angular.module('tetherApp')
   	});
     $scope.updateProfile = function(formData, model){
       $scope.errors = [];
-      validationServicee.form_validation(formData,$scope.errors);
+        var json = model;
+        var text = JSON.stringify(json);
+        var obj = JSON.parse(text);
+        var firstname =obj.first_name;
+        var lastname =obj.last_name;
+        var email = obj.email;
+        var updated = {
+            'first_name':firstname,
+            'last_name':lastname,
+            'email':email
+        };
+      validationService.form_validation(formData,$scope.errors);
       if(!formData.$invalid){
-        userService.updateProfile(model)
+        userService.updateProfile(updated)
         .then(function(data){
         	// success case
         	$scope.complete = true;

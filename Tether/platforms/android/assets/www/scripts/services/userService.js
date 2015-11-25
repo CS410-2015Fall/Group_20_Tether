@@ -110,6 +110,7 @@ angular.module('tetherApp')
             }).then(function(data){
                 delete $http.defaults.headers.common.Authorization;
                 delete $cookies.token;
+                console.log($cookies.token);
                 userService.authenticated = false;
                 $rootScope.$broadcast("userService.logged_out");
             });
