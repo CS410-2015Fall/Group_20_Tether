@@ -4,6 +4,7 @@ angular.module('tetherApp')
     .controller('RegisterCtrl', function ($scope, userService, validationService) {
       $scope.model = {'username':'','password':'','email':''};
       $scope.complete = false;
+
       $scope.register = function(formData){
         $scope.errors = [];
           validationService.form_validation(formData,$scope.errors);

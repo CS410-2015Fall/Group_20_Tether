@@ -41,12 +41,11 @@ angular.module('tetherApp')
         $scope.foregroundApp = "";
         $scope.blacklistedAppUsed = "";
 
-        $scope.friend = $window.localStorage.proposingTo;
+        // TODO: UNCOMMENT the following 2 lines
 
+        //$scope.friend = $window.localStorage.proposingTo;
 
-
-
-        contractService.applist();
+        //contractService.applist();
 
         /* $scope.createContract = function(){
          $location.path("/contract");
@@ -322,11 +321,13 @@ angular.module('tetherApp')
             if ((durationHrs == 0) && (durationMins == 0) && (durationSecs == 0)){
                 // set new toast here requesting it is required
                 //for testing
-                console.log("Hour input denied");
+                console.log("Duration input denied");
                 return false;
             }
-
-            else return true;
+            else {
+                console.log("Duration input accepted");
+                return true;
+            }
         };
 
 

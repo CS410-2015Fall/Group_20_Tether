@@ -4,6 +4,7 @@ angular.module('tetherApp')
   .controller('LoginCtrl', function ($scope, $location, userService, validationService, pushService) {
     $scope.model = {'username':'','password':''};
   	$scope.complete = false;
+
     $scope.login = function(formData){
       $scope.errors = [];
       validationService.form_validation(formData,$scope.errors);

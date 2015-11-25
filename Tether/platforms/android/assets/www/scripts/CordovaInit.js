@@ -26,7 +26,7 @@ var cordovaInit = function() {
 	}
 };
 
-$(function() {
+(function() {
 	console.log('Bootstrapping!');
 	new cordovaInit();
 });

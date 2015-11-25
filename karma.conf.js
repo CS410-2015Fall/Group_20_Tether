@@ -16,8 +16,17 @@ module.exports = function(config) {
     // list of files / patterns to load in the browser
     files: [
       'Desktop/2015W/CPSC410/Group_20_Tether/Tether/www/bower_components/angular/angular.js',
-      'Desktop/2015W/CPSC410/Group_20_Tether/Tether/www/bower_components/angular-route/angular-route.js'
-      //'test/**/*.js'
+      'Desktop/2015W/CPSC410/Group_20_Tether/Tether/www/bower_components/angular-cookies/angular-cookies.js',
+      'Desktop/2015W/CPSC410/Group_20_Tether/Tether/www/bower_components/angular-resource/angular-resource.js',
+      'Desktop/2015W/CPSC410/Group_20_Tether/Tether/www/bower_components/angular-sanitize/angular-sanitize.js',
+      'Desktop/2015W/CPSC410/Group_20_Tether/Tether/www/bower_components/angular-route/angular-route.js',
+      'Desktop/2015W/CPSC410/Group_20_Tether/Tether/www/angularUI_components/dist/js/mobile-angular-ui.core.js',
+      'Desktop/2015W/CPSC410/Group_20_Tether/Tether/www/angularUI_components/dist/js/mobile-angular-ui.js',
+      'Desktop/2015W/CPSC410/Group_20_Tether/Tether/www/bower_components/angular-mocks/angular-mocks.js',
+
+      'Desktop/2015W/CPSC410/Group_20_Tether/Tether/www/scripts/app.js',
+      'Desktop/2015W/CPSC410/Group_20_Tether/Tether/www/scripts/CordovaInit.js',
+      'Desktop/2015W/CPSC410/Group_20_Tether/Tether/www/scripts/*/*.js'
     ],
 
 
@@ -57,7 +66,7 @@ module.exports = function(config) {
 
     // start these browsers
     // available browser launchers: https://npmjs.org/browse/keyword/karma-launcher
-    browsers: ['Chrome'],
+    browsers: ['Safari'],
 
 
     junitReporter : {

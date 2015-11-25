@@ -5,6 +5,7 @@ angular.module('tetherApp', [
   'ngResource',
   'ngSanitize',
   'ngRoute',
+    'ngMock',
   "mobile-angular-ui"
 ])
     .config(function ($routeProvider) {
