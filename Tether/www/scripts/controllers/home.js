@@ -6,7 +6,18 @@
 
 angular.module('tetherApp')
     .controller('homeCtrl',function($scope, $window, $location, $http,
-                                                                $routeParams, userService){
+                                    $routeParams, userService){
+        // Update server with new GCM registration
+        var token = $window.localStorage.gcmtoken;
+        var data = {
+            'gcm_token':token
+        }
+        userService.updateProfile(data).then(function(result) {
+            // Success!
+        }, function(err) {
+            // An error occured. Show a message to the user
+        });
+
 
         //Friends stuff
 
@@ -72,7 +83,7 @@ angular.module('tetherApp')
             userService.profile().then(function (data){
                 //$scope.serverReturned = data; todo
                 $scope.serverReturned = {username: "Lane", email: "lpither@hotmail.com", first_name: "",
-                   last_name: "", friends:["Arthur", "Steven", "Paul", "arga", "AWefawef","wafwefaw"]};
+                    last_name: "", friends:["Arthur", "Steven", "Paul", "arga", "AWefawef","wafwefaw"]};
                 //last_name: "", friends:[]};
                 $scope.checkNoFriends();
             });
