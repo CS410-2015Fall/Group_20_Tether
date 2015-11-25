@@ -26,7 +26,7 @@ angular.module('tetherApp')
         $scope.updateFriends = function(){
 
             userService.profile().then(function (data){
-                //$scope.serverReturned = data;
+                //$scope.serverReturned = data; todo
                 $scope.serverReturned = {username: "Lane", email: "lpither@hotmail.com", first_name: "",
                     last_name: "", friends:["Arthur", "Steven", "Paul"]};
                  $scope.checkNoFriends();
@@ -65,7 +65,7 @@ angular.module('tetherApp')
         $scope.addFriend = function(){
             $scope.friendAlreadyExists = false;
             console.log("Add Friend Button Pressed: Adding " + document.getElementById("id_userToAdd").value);
-            // add friend
+            // add friend todo
             // relay confirm or doesn't exist
             //update friends
 
@@ -108,6 +108,7 @@ angular.module('tetherApp')
         $scope.deleteFriend = function(friendToDelete){
             console.log("DeletingFriend" + friendToDelete);
             $scope.showConfirmDeleteIndex = "";
+            // todo delete from server
             $scope.mockDeleteFriends(friendToDelete);
             $scope.checkNoFriends();
         };

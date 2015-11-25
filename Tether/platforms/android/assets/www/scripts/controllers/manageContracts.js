@@ -6,7 +6,7 @@
 
 angular.module('tetherApp')
     .controller('manageContractCtrl',function($scope, $window, $location, $http,
-                                    $routeParams, userService){
+                                    $routeParams, userService, pushService){
 
 
         $scope.noContractsInStorage = false;
@@ -14,7 +14,7 @@ angular.module('tetherApp')
         $scope.showOngoing = false;
         $scope.showFinished = false;
 
-        $scope.math = $window.math;
+        //$scope.math = $window.math;
 
         $scope.numProposedContracts = 0;
         $scope.numOngoingContracts = 0;
@@ -72,6 +72,8 @@ angular.module('tetherApp')
                 $scope.selectedContractMins = 0;
                 $scope.selectedContractSeconds = 0;
             }
+
+           
 
         };
 
@@ -188,7 +190,12 @@ angular.module('tetherApp')
         $scope.rejectContract = function(user,theirGcmToken,contractJSON) {
 
             contractJSON["contract"].status="rejected";
-            // send response back to user
+            //send notification to other user - TODO
+            ///
+            ///
+            //
+            ///
+            ///
 
 
 
@@ -209,16 +216,28 @@ angular.module('tetherApp')
             $window.localStorage.removeItem(setKey);
             $window.localStorage.setItem(setKey, JSON.stringify(contractJSON));
 
-            //send notifcation to other user
+            //send notification to other user - TODO
+            ///
+            ///
+            //
+            ///
+            ///
 
             $scope.update();
         };
 
         $scope.acceptAndStartOwn = function(user, theirGcmToken, contractJSON) {
-            //send notification to other user
+            //send notification to other user - TODO
+            ///
+            ///
+            //
+            ///
+            ///
+
             var setOverride = "contract" + user.toString();
             var setMyKey = "myCurrentContract";
             contractJSON["contract"].status = "accepted";
+            contractJSON["contract"].timeStart = new Date().getTime();
 
 
             $window.localStorage.setItem(setOverride, JSON.stringify(contractJSON));
