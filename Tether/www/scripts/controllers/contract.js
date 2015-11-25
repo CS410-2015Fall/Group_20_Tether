@@ -175,6 +175,8 @@ angular.module('tetherApp')
             var storeAs = "contract" + $scope.from;
             $window.localStorage.setItem(storeAs, contractJSON);
 
+            //gcm send todo
+
             $scope.waitingForResponse = true;
             $scope.submitted = true;
 
@@ -300,9 +302,11 @@ angular.module('tetherApp')
                 $scope.contractForfeited = false;
                 $scope.blacklistedApps = [];
                 clearInterval($scope.refreshToastMessage);
+
+
                 // local notification
                 navigator.notification.alert('You have successfully completed contract!');
-                // gcm notification
+                // gcm notification todo
                 contractService.contractsucceed().then(function(result) {
                     // Success!
                 }, function(err) {
@@ -326,9 +330,11 @@ angular.module('tetherApp')
             $scope.blacklistedApps = [];
             clearInterval($scope.refreshContractTimerIntervalId);
             clearInterval($scope.refreshToastMessage);
+
+
             // local notification
             navigator.notification.alert('You have broken your contract!');
-            // gcm notification
+            // gcm notification todo
             contractService.contractbroken().then(function(result) {
                 // Success!
             }, function(err) {
@@ -351,9 +357,11 @@ angular.module('tetherApp')
                 $scope.blacklistedApps = [];
                 clearInterval($scope.refreshContractTimerIntervalId);
                 clearInterval($scope.refreshToastMessage);
+
+
                 // local notification
                 navigator.notification.alert('You have broken your contract!');
-                // gcm notification
+                // gcm notification todo
                 contractService.contractbroken().then(function(result) {
                     // Success!
                 }, function(err) {
@@ -388,8 +396,8 @@ angular.module('tetherApp')
         $scope.validateHours = function(durationHrs, durationMins, durationSecs){
 
             if ((durationHrs == 0) && (durationMins == 0) && (durationSecs == 0)){
-                // set new toast here requesting it is required
-                //for testing
+
+
                 console.log("Hour input denied");
                 return false;
             }
@@ -437,7 +445,7 @@ angular.module('tetherApp')
 
 
         $scope.cancelContract = function(){
-            //sent gcm to friend saying you have cancelled and remove from local storage
+            //sent gcm to friend saying you have cancelled and remove from local storage TODO
 
             var storeAs = "contract" + $scope.from;
             $window.localStorage.removeItem(storeAs);

@@ -47,7 +47,7 @@ angular.module('tetherApp')
         $scope.getUser = function(){
 
             userService.profile().then(function (data){
-                //$scope.serverReturned = data;
+                //$scope.serverReturned = data; todo
                 $scope.user = data.username;
             });
         };
@@ -70,7 +70,7 @@ angular.module('tetherApp')
         $scope.updateFriends = function(){
 
             userService.profile().then(function (data){
-                //$scope.serverReturned = data;
+                //$scope.serverReturned = data; todo
                 $scope.serverReturned = {username: "Lane", email: "lpither@hotmail.com", first_name: "",
                    last_name: "", friends:["Arthur", "Steven", "Paul", "arga", "AWefawef","wafwefaw"]};
                 //last_name: "", friends:[]};
