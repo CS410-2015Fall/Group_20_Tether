@@ -6,7 +6,7 @@
 
 angular.module('tetherApp')
     .controller('contractCtrl', function ($window,$scope, $location, $http,$routeParams,contractService,userService){
-
+        var togcm = '';
         $scope.submitted = false;
         $scope.contractOver = false;
         $scope.ongoingContract = false;
@@ -161,6 +161,11 @@ angular.module('tetherApp')
             $window.localStorage.setItem(storeAs, contractJSON);
 
             //gcm send todo
+            contractService.sendcontract(togcm,contractJSON).then(function(result) {
+                // Success!
+            }, function(err) {
+                // An error occured. Show a message to the user
+            });
 
             $scope.waitingForResponse = true;
             $scope.submitted = true;
@@ -292,7 +297,7 @@ angular.module('tetherApp')
                 // local notification
                 navigator.notification.alert('You have successfully completed contract!');
                 // gcm notification todo
-                contractService.contractsucceed().then(function(result) {
+                contractService.contractsucceed(togcm,contractJSON).then(function(result) {
                     // Success!
                 }, function(err) {
                     // An error occured. Show a message to the user
@@ -320,7 +325,7 @@ angular.module('tetherApp')
             // local notification
             navigator.notification.alert('You have broken your contract!');
             // gcm notification todo
-            contractService.contractbroken().then(function(result) {
+            contractService.contractbroken(togcm,contractJSON).then(function(result) {
                 // Success!
             }, function(err) {
                 // An error occured. Show a message to the user
@@ -347,7 +352,7 @@ angular.module('tetherApp')
                 // local notification
                 navigator.notification.alert('You have broken your contract!');
                 // gcm notification todo
-                contractService.contractbroken().then(function(result) {
+                contractService.contractbroken(togcm,contractJSON).then(function(result) {
                     // Success!
                 }, function(err) {
                     // An error occured. Show a message to the user
