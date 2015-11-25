@@ -73,7 +73,7 @@ angular.module('tetherApp')
                 $scope.selectedContractSeconds = 0;
             }
 
-           
+
 
         };
 
