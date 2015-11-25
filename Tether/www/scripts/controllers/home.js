@@ -47,7 +47,7 @@ angular.module('tetherApp')
         $scope.getUser = function(){
 
             userService.profile().then(function (data){
-                //$scope.serverReturned = data;
+                //$scope.serverReturned = data; todo
                 $scope.user = data.username;
             });
         };
@@ -70,7 +70,7 @@ angular.module('tetherApp')
         $scope.updateFriends = function(){
 
             userService.profile().then(function (data){
-                //$scope.serverReturned = data;
+                //$scope.serverReturned = data; todo
                 $scope.serverReturned = {username: "Lane", email: "lpither@hotmail.com", first_name: "",
                    last_name: "", friends:["Arthur", "Steven", "Paul", "arga", "AWefawef","wafwefaw"]};
                 //last_name: "", friends:[]};
@@ -126,9 +126,23 @@ angular.module('tetherApp')
             return $scope.serverReturned.friends[0];
         };
 
+        $scope.clearAll = function(){
+            var i, results=[], query = /^contract/;
+            for (i in $window.localStorage){
+                if ($window.localStorage.hasOwnProperty(i)) {
+                    if (i.match(query) || (!query && typeof i === 'string')) {
+                        $window.localStorage.removeItem(i);
+                    }
+                }
+            }
+            $window.localStorage.removeItem("myCurrentContract")
+
+        }
+
 
 
         $scope.updateFriends();
+        $scope.getUser();
         $scope.createRandomFriends();
 
     });

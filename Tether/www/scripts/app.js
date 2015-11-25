@@ -122,14 +122,31 @@ angular.module('tetherApp', [
                 }
             })
 
+            .when('/manageContracts', {
+                templateUrl: 'views/manageContracts.html',
+                //controller: 'contractCtrl',
+                resolve: {
+                    authenticated: ['userService', function(userService){
+                        return userService.authenticationStatus(true);
+                    }],
+                }
+            })
+
 
             .otherwise({
                 redirectTo: '/'
             });
     })
   .run(function(userService){
-    userService.initialize('http://128.189.254.186:8000/rest-auth', false);
-    //    userService.initialize('http://192.168.1.67:8000/rest-auth', false);
+<<<<<<< HEAD
+    userService.initialize('http://128.189.249.249:8000/', false);
+    //userService.initialize('http://128.189.253.29:8000/', false);
+        //userService.initialize('http://192.168.1.67:8000/', false);
+=======
+    userService.initialize('http://128.189.249.249:8000/rest-auth', false);
+    //userService.initialize('http://128.189.253.29:8000/rest-auth', false);
+        //userService.initialize('http://192.168.1.67:8000/rest-auth', false);
+>>>>>>> laneNov16UIandTemplating
 
 
   });

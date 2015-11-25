@@ -61,6 +61,17 @@
 
     </form>
 
+    <div ng-show="waitingForResponse">
+        <div class="jumbotron">
+            <p>Pending acceptance by: {{friend}}</p>
+
+            <i class="fa fa-spinner fa-spin fa-5x"></i>
+
+            <button class="btn btn-alert" ng-click="cancelContract()">Cancel</button>
+        </div>
+
+    </div>
+
    <pre ng-show="ongoingContract">Your contract will end in:
         <div class="container" id="countdown"></div>
         <div>These apps are not permitted to   use during the contract: 
