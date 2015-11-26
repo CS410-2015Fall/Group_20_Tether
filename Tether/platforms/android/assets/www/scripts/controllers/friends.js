@@ -5,7 +5,7 @@
 
 angular.module('tetherApp')
     .controller('friendsCtrl', function($scope, $window, $rootScope, $location, $http, userService,
-                                                                SharedState){
+                                        SharedState){
         $scope.allusers =[];
         userService.users().then(function (data){
             var s = data;
@@ -14,10 +14,10 @@ angular.module('tetherApp')
                 jsons[i]=JSON.stringify(s[i]);
                 var jdata = JSON.parse(jsons[i]);
                 $scope.allusers.push(jdata.username);
-                console.log(jdata.username);
             }
             console.log(JSON.stringify($scope.allusers));
         });
+
 
         //$scope.model = {'friendToAdd':''};
         $scope.noFriends = false;
@@ -38,10 +38,10 @@ angular.module('tetherApp')
         $scope.updateFriends = function(){
 
             userService.profile().then(function (data){
-                //$scope.serverReturned = data;
+                //$scope.serverReturned = data; todo
                 $scope.serverReturned = {username: "Lane", email: "lpither@hotmail.com", first_name: "",
                     last_name: "", friends:["Arthur", "Steven", "Lane"]};
-                 $scope.checkNoFriends();
+                $scope.checkNoFriends();
             });
         };
 
@@ -53,7 +53,7 @@ angular.module('tetherApp')
         $scope.mockUpdateFriends = function(friendToAdd){
 
 
-                $scope.serverReturned.friends.push(friendToAdd);
+            $scope.serverReturned.friends.push(friendToAdd);
 
         };
 
@@ -77,7 +77,7 @@ angular.module('tetherApp')
         $scope.addFriend = function(){
             $scope.friendAlreadyExists = false;
             console.log("Add Friend Button Pressed: Adding " + document.getElementById("id_userToAdd").value);
-            // add friend
+            // add friend todo
             // relay confirm or doesn't exist
             //update friends
 
@@ -120,6 +120,7 @@ angular.module('tetherApp')
         $scope.deleteFriend = function(friendToDelete){
             console.log("DeletingFriend" + friendToDelete);
             $scope.showConfirmDeleteIndex = "";
+            // todo delete from server
             $scope.mockDeleteFriends(friendToDelete);
             $scope.checkNoFriends();
         };
@@ -133,7 +134,7 @@ angular.module('tetherApp')
         };
 
         $scope.isShowing = function(index){
-          return  $scope.showConfirmDeleteIndex === index;
+            return  $scope.showConfirmDeleteIndex === index;
         };
 
 

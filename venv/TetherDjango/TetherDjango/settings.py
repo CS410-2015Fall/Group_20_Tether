@@ -25,7 +25,7 @@ SECRET_KEY = 'rk8hc67jpa#39imd$4acgj6=r=gaqsnpbfo(l#uc5od^ys6mfz'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = []
 
 
 # Application definition
@@ -122,7 +122,6 @@ AUTHENTICATION_BACKENDS = (
 REST_AUTH_SERIALIZERS = {
     'USER_DETAILS_SERIALIZER': 'userprofile.serializers.UserSerializer'
 }
-
 ############
 #EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 # gmail to send email
