@@ -217,7 +217,7 @@ angular.module('tetherApp')
             $window.localStorage.setItem(setKey, JSON.stringify(contractJSON));
 
             //send notification to other user - TODO
-            ///
+
             ///
             //
             ///

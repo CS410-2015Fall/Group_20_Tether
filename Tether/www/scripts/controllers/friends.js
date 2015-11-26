@@ -40,7 +40,7 @@ angular.module('tetherApp')
             userService.profile().then(function (data){
                 //$scope.serverReturned = data; todo
                 $scope.serverReturned = {username: "Lane", email: "lpither@hotmail.com", first_name: "",
-                    last_name: "", friends:["Arthur", "Steven", "Lane"]};
+                    last_name: "", friends:["Arthur", "Steven", "jay"]};
                 $scope.checkNoFriends();
             });
         };
