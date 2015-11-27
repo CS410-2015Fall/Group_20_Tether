@@ -53,15 +53,17 @@ class UserSerializer(UserDetailsSerializer):
     # friends= serializers.CharField(source="userprofile.friends")
     contract = serializers.CharField(source="userprofile.contract")
     GCM_token = serializers.CharField(source="userprofile.GCM_token")
+    following = serializers.CharField(source="followship.following")
 
     class Meta(UserDetailsSerializer.Meta):
-        fields = UserDetailsSerializer.Meta.fields + ('GCM_token','userInfo','contract',) 
+        fields = UserDetailsSerializer.Meta.fields + ('GCM_token','userInfo','contract', 'following',) 
 
     def update(self, instance, validated_data):
         profile_data = validated_data.pop('userprofile', {})
         GCM_token = profile_data.get('GCM_token')
         userInfo = profile_data.get('userInfo')
         contract = profile_data.get('contract')
+        following = profile_data.get('following')
         # friends = profile_data.get('friends')
         instance = super(UserSerializer, self).update(instance, validated_data)
 
