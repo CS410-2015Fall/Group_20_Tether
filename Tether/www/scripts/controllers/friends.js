@@ -1,11 +1,8 @@
 /**
  * Created by lanepither on 15-11-12.
  */
-
-
 angular.module('tetherApp')
-    .controller('friendsCtrl', function($scope, $window, $rootScope, $location, $http, userService,
-                                        SharedState){
+    .controller('friendsCtrl', function($scope, $window, $rootScope, $location, $http, userService, SharedState){
         $scope.allusers =[];
         userService.users().then(function (data){
             var s = data;
@@ -18,43 +15,32 @@ angular.module('tetherApp')
             console.log(JSON.stringify($scope.allusers));
         });
 
-
-        //$scope.model = {'friendToAdd':''};
         $scope.noFriends = false;
         $scope.showConfirmDeleteIndex;
         $scope.friendAddedNotValid = false;
         $scope.friendAlreadyExists = false;
-        $scope.serverReturned = {username: "", email: "", first_name: "",
-            last_name: "", friends:[]};
+        $scope.serverReturned = {username: "", email: "", first_name: "", last_name: "", friends:[]};
 
 
         $scope.checkNoFriends = function(){
             if($scope.serverReturned.friends.length == 0){
                 $scope.noFriends = true;
             } else $scope.noFriends = false;
+
         };
 
 
         $scope.updateFriends = function(){
-
             userService.profile().then(function (data){
                 //$scope.serverReturned = data; todo
-                $scope.serverReturned = {username: "Lane", email: "lpither@hotmail.com", first_name: "",
-                    last_name: "", friends:["Arthur", "Steven", "Paul"]};
+                $scope.serverReturned = {username: "Lane", email: "lpither@hotmail.com", first_name: "", last_name: "", friends:["Arthur", "Steven", "Paul"]};
                 $scope.checkNoFriends();
             });
         };
 
 
-
-
-
-
         $scope.mockUpdateFriends = function(friendToAdd){
-
-
             $scope.serverReturned.friends.push(friendToAdd);
-
         };
 
 
@@ -66,59 +52,57 @@ angular.module('tetherApp')
         };
 
 
+        /*
+         * Abstracted away for testing
+         * getFriendToAdd() should be called in view
+         */
+        $scope.getFriendToAdd = function() {
+            var friendToAdd = document.getElementById("id_userToAdd").value.toString().toUpperCase();
+            $scope.addFriend(friendToAdd);
+            document.getElementById("id_addFriendForm").reset();
+        };
 
 
+        $scope.addFriend = function(valueToCheck){
+            // TODO: update friends in the server
 
-
-
-
-
-
-        $scope.addFriend = function(){
             $scope.friendAlreadyExists = false;
-            console.log("Add Friend Button Pressed: Adding " + document.getElementById("id_userToAdd").value);
-            // add friend todo
-            // relay confirm or doesn't exist
-            //update friends
 
-            var valueToCheck = document.getElementById("id_userToAdd").value.toString().toUpperCase();
+            // var valueToCheck = document.getElementById("id_userToAdd").value.toString().toUpperCase();
 
             for (var i = 0; i < $scope.serverReturned.friends.length; i++){
-
-                var listItemToCheck = $scope.serverReturned.friends[i].toString().toUpperCase();
-
+                // Removed .toUpperCase() for testing
+                var listItemToCheck = $scope.serverReturned.friends[i].toString();
                 if (listItemToCheck === valueToCheck){
                     var alreadyExists = true;
+                    console.log("This person already exists in the friend list");
                     break;
-
                 }
                 else {
                     var alreadyExists = false;
                 }
-
             }
-
-
 
             if (valueToCheck === ""){
                 $scope.friendAddedNotValid = true;
+                console.log("The input is not valid")
             }  else {
                 if (alreadyExists){
                     $scope.friendAlreadyExists = true;
                 } else {
-                    $scope.mockUpdateFriends(document.getElementById("id_userToAdd").value);
+                    console.log("Add Friend Button Pressed: Adding " + valueToCheck);
+                    $scope.mockUpdateFriends(valueToCheck);
                     $scope.checkNoFriends();
-                    document.getElementById("id_addFriendForm").reset();
+                    //document.getElementById("id_addFriendForm").reset();
                     $scope.friendAddedNotValid = false;
                     $scope.friendAlreadyExists = false;
                 }
             }
-
         };
 
 
         $scope.deleteFriend = function(friendToDelete){
-            console.log("DeletingFriend" + friendToDelete);
+            console.log("Deleting Friend " + friendToDelete);
             $scope.showConfirmDeleteIndex = "";
             // todo delete from server
             $scope.mockDeleteFriends(friendToDelete);
@@ -138,21 +122,11 @@ angular.module('tetherApp')
         };
 
 
-
         $scope.propose = function(proposeTo){
-            console.log("Proposing to" + proposeTo);
-
+            console.log("Proposing to " + proposeTo);
             $window.localStorage.proposingTo = proposeTo;
-
-            $location.path('/contract');
-            $scope.$apply();
-            //pass to service - set username
-            // take to contract page set up proposal
-            // need to add contract view where they are waiting/set timer that on confirmation it does so
+            //$location.path('/contract');
+            //$scope.$apply();
         };
-
-
         $scope.updateFriends();
-
-
     });

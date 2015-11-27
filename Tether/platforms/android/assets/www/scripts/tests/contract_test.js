@@ -5,7 +5,7 @@ describe('Contract Controller', function() {
 
     beforeEach(module('tetherApp'));
 
-    var $scope, $window, $location, $http, $routeParams, $controller, controller;
+    var $scope, $window, $location, $http, $routeParams, contractService, $controller, controller;
 
     beforeEach(inject(function (_$controller_) {
         // The injector unwraps the underscores (_) from around the parameter names when matching
@@ -18,7 +18,7 @@ describe('Contract Controller', function() {
         $location = {};
         $http = {};
         $routeParams = {};
-        controller = $controller('contractCtrl', { $scope: $scope, $window: $window, $location: $location, $http: $http, $routeParams: $routeParams });
+        controller = $controller('contractCtrl', { $scope: $scope, $window: $window, $location: $location, $http: $http, $routeParams: $routeParams, contractService: contractService});
     });
 
     describe('$scope.validateHours', function() {

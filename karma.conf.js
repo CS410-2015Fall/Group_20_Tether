@@ -32,6 +32,8 @@ module.exports = function(config) {
 
     // list of files to exclude
     exclude: [
+      'Desktop/2015W/CPSC410/Group_20_Tether/Tether/www/scripts/tests/contract_test.js',
+      'Desktop/2015W/CPSC410/Group_20_Tether/Tether/www/scripts/tests/home_test.js'
     ],
 
 

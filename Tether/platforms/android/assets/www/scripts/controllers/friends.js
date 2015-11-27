@@ -5,7 +5,19 @@
 
 angular.module('tetherApp')
     .controller('friendsCtrl', function($scope, $window, $rootScope, $location, $http, userService,
-                                                                SharedState){
+                                        SharedState){
+        $scope.allusers =[];
+        userService.users().then(function (data){
+            var s = data;
+            var jsons=[];
+            for (var i=s.length;i--;){
+                jsons[i]=JSON.stringify(s[i]);
+                var jdata = JSON.parse(jsons[i]);
+                $scope.allusers.push(jdata.username);
+            }
+            console.log(JSON.stringify($scope.allusers));
+        });
+
 
         //$scope.model = {'friendToAdd':''};
         $scope.noFriends = false;
@@ -29,7 +41,7 @@ angular.module('tetherApp')
                 //$scope.serverReturned = data; todo
                 $scope.serverReturned = {username: "Lane", email: "lpither@hotmail.com", first_name: "",
                     last_name: "", friends:["Arthur", "Steven", "Paul"]};
-                 $scope.checkNoFriends();
+                $scope.checkNoFriends();
             });
         };
 
@@ -41,7 +53,7 @@ angular.module('tetherApp')
         $scope.mockUpdateFriends = function(friendToAdd){
 
 
-                $scope.serverReturned.friends.push(friendToAdd);
+            $scope.serverReturned.friends.push(friendToAdd);
 
         };
 
@@ -122,7 +134,7 @@ angular.module('tetherApp')
         };
 
         $scope.isShowing = function(index){
-          return  $scope.showConfirmDeleteIndex === index;
+            return  $scope.showConfirmDeleteIndex === index;
         };
 
 
@@ -132,8 +144,8 @@ angular.module('tetherApp')
 
             $window.localStorage.proposingTo = proposeTo;
 
-            $location.path('/contract');
-            $scope.$apply();
+            //$location.path('/contract');
+            //$scope.$apply();
             //pass to service - set username
             // take to contract page set up proposal
             // need to add contract view where they are waiting/set timer that on confirmation it does so

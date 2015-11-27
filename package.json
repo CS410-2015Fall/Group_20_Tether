@@ -14,6 +14,6 @@
     "start": "http-server -a localhost -p 8000 -c-1",
 
     "pretest": "npm install",
-    "test": "./node_modules/.bin/karma start"
+    "test": "./node_modules/karma/bin/karma start"
   }
 }

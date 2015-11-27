@@ -6,22 +6,7 @@
 
 angular.module('tetherApp')
     .controller('contractCtrl', function ($window,$scope, $location, $http,$routeParams,contractService,userService){
-        // send the token to server need better place for this...
-        // commnet out this section if it cause errors I implemented something in the server
-        // or try copying TetherDjango into your venv and run the server
-        //var token = $window.localStorage.gcmtoken;
-        //var data = {
-        //    'gcm_token':token
-        //}
-        //userService.updateProfile(data)
-        //   .then(function(data){
-        //        // success case
-        //        $scope.complete = true;
-        //    },function(data){
-        //        // error case
-        //        $scope.error = data;
-        //    });
-        /////////////////////////////////////////////////////////////////////////
+        var togcm = '';
         $scope.submitted = false;
         $scope.contractOver = false;
         $scope.ongoingContract = false;
@@ -60,15 +45,12 @@ angular.module('tetherApp')
         /* $scope.createContract = function(){
          $location.path("/contract");
          $scope.showButton = false;
-
          var getInstalledAppEvent = new CustomEvent("getInstalledApps",{
          'bubbles': true,
          'cancelable': true
          });
          document.getElementById("startContract").dispatchEvent(getInstalledAppEvent);
-
          };
-
          document.addEventListener('getInstalledApps', function (){
          contractService.applist();
          }); */
@@ -176,6 +158,11 @@ angular.module('tetherApp')
             $window.localStorage.setItem(storeAs, contractJSON);
 
             //gcm send todo
+            contractService.sendcontract(togcm,contractJSON).then(function(result) {
+                // Success!
+            }, function(err) {
+                // An error occured. Show a message to the user
+            });
 
             $scope.waitingForResponse = true;
             $scope.submitted = true;
@@ -307,7 +294,7 @@ angular.module('tetherApp')
                 // local notification
                 navigator.notification.alert('You have successfully completed contract!');
                 // gcm notification todo
-                contractService.contractsucceed().then(function(result) {
+                contractService.contractsucceed(togcm,contractJSON).then(function(result) {
                     // Success!
                 }, function(err) {
                     // An error occured. Show a message to the user
@@ -335,7 +322,7 @@ angular.module('tetherApp')
             // local notification
             navigator.notification.alert('You have broken your contract!');
             // gcm notification todo
-            contractService.contractbroken().then(function(result) {
+            contractService.contractbroken(togcm,contractJSON).then(function(result) {
                 // Success!
             }, function(err) {
                 // An error occured. Show a message to the user
@@ -362,7 +349,7 @@ angular.module('tetherApp')
                 // local notification
                 navigator.notification.alert('You have broken your contract!');
                 // gcm notification todo
-                contractService.contractbroken().then(function(result) {
+                contractService.contractbroken(togcm,contractJSON).then(function(result) {
                     // Success!
                 }, function(err) {
                     // An error occured. Show a message to the user
@@ -493,5 +480,3 @@ angular.module('tetherApp')
         }
 
     });
-
-
