@@ -7,4 +7,5 @@ class UserProfile(models.Model):
     # custom fields for user
 	points = models.CharField(max_length=100, blank=True)
 	gcm_token = models.CharField(max_length=150, blank=True)
-	friends = models.CharField(max_length=500)
+	friends = models.TextField()
+	# wins loses

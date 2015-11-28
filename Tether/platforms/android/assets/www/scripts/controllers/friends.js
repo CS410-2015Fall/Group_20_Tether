@@ -6,26 +6,24 @@
 angular.module('tetherApp')
     .controller('friendsCtrl', function($scope, $window, $rootScope, $location, $http, userService,
                                         SharedState){
-        $scope.allusers =[];
+
         userService.users().then(function (data){
             var s = data;
             var jsons=[];
             for (var i=s.length;i--;){
                 jsons[i]=JSON.stringify(s[i]);
                 var jdata = JSON.parse(jsons[i]);
-                $scope.allusers.push(jdata.username);
+                $scope.allusers.push(jdata.username.toUpperCase());
             }
             console.log(JSON.stringify($scope.allusers));
         });
 
-
-        //$scope.model = {'friendToAdd':''};
+        $scope.allusers =[];
         $scope.noFriends = false;
         $scope.showConfirmDeleteIndex;
         $scope.friendAddedNotValid = false;
         $scope.friendAlreadyExists = false;
-        $scope.serverReturned = {username: "", email: "", first_name: "",
-            last_name: "", friends:[]};
+        $scope.serverReturned = {friends:[]};
 
 
         $scope.checkNoFriends = function(){
@@ -34,53 +32,33 @@ angular.module('tetherApp')
             } else $scope.noFriends = false;
         };
 
-
         $scope.updateFriends = function(){
-
             userService.profile().then(function (data){
-                //$scope.serverReturned = data; todo
-                $scope.serverReturned = {username: "Lane", email: "lpither@hotmail.com", first_name: "",
-                    last_name: "", friends:["Arthur", "Steven", "jay"]};
+                var text = JSON.stringify(data);
+                var jdata = JSON.parse(text);
+                var jarray = jdata["friends"].replace(/'/g, '"');
+                var array = JSON.parse(jarray);
+                console.log(array);
+                $scope.serverReturned.friends = array;
                 $scope.checkNoFriends();
             });
         };
 
-
-
-
-
-
         $scope.mockUpdateFriends = function(friendToAdd){
-
-
             $scope.serverReturned.friends.push(friendToAdd);
-
+            var updated = {
+                'friends':$scope.serverReturned.friends
+            };
+            userService.updateProfile(updated).then(function(data){
+                // success case
+            },function(data){
+                // error case
+            });
         };
-
-
-        $scope.mockDeleteFriends = function(friendToDelete) {
-            var deleteIndex = $scope.serverReturned.friends.indexOf(friendToDelete);
-            if (deleteIndex > -1) {
-                $scope.serverReturned.friends.splice(deleteIndex, 1);
-            }
-        };
-
-
-
-
-
-
-
-
-
 
         $scope.addFriend = function(){
             $scope.friendAlreadyExists = false;
             console.log("Add Friend Button Pressed: Adding " + document.getElementById("id_userToAdd").value);
-            // add friend todo
-            // relay confirm or doesn't exist
-            //update friends
-
             var valueToCheck = document.getElementById("id_userToAdd").value.toString().toUpperCase();
 
             for (var i = 0; i < $scope.serverReturned.friends.length; i++){
@@ -97,12 +75,10 @@ angular.module('tetherApp')
                 }
 
             }
-
-
-
-            if (valueToCheck === ""){
+            if (valueToCheck === "" || $scope.allusers.indexOf(valueToCheck) == -1){
+                console.log(valueToCheck);
                 $scope.friendAddedNotValid = true;
-            }  else {
+            } else {
                 if (alreadyExists){
                     $scope.friendAlreadyExists = true;
                 } else {
@@ -120,10 +96,22 @@ angular.module('tetherApp')
         $scope.deleteFriend = function(friendToDelete){
             console.log("DeletingFriend" + friendToDelete);
             $scope.showConfirmDeleteIndex = "";
-            // todo delete from server
-            $scope.mockDeleteFriends(friendToDelete);
+            var deleteIndex = $scope.serverReturned.friends.indexOf(friendToDelete);
+            if (deleteIndex > -1) {
+                $scope.serverReturned.friends.splice(deleteIndex, 1);
+                console.log($scope.serverReturned.friends);
+            }
+            var updated = {
+                'friends':$scope.serverReturned.friends
+            };
+            userService.updateProfile(updated).then(function(data){
+                    // success case
+                },function(data){
+                    // error case
+                });
             $scope.checkNoFriends();
         };
+
 
         $scope.cancelDelete = function(){
             $scope.showConfirmDeleteIndex = "";
