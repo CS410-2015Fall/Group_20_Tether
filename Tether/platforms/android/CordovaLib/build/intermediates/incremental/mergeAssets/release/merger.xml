@@ -1,2 +1,2 @@
 <?xml version="1.0" encoding="utf-8"?>
-<merger version="3"><dataSet config="main"><source path="C:\Users\jay-_\Desktop\Group_20_Tether\Tether\platforms\android\CordovaLib\assets"/></dataSet><dataSet config="release"><source path="C:\Users\jay-_\Desktop\Group_20_Tether\Tether\platforms\android\CordovaLib\src\release\assets"/></dataSet></merger>
+<merger version="3"><dataSet config="main"><source path="/Users/lanepither/Documents/Group_20_Tether/Tether/platforms/android/CordovaLib/assets"/></dataSet><dataSet config="release"><source path="/Users/lanepither/Documents/Group_20_Tether/Tether/platforms/android/CordovaLib/src/release/assets"/></dataSet></merger>

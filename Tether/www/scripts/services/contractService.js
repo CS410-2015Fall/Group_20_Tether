@@ -141,10 +141,48 @@ angular.module('tetherApp')
                     }
                 });
             },
+            'acceptcontractandstartown': function (togcm,contractjson) {
+                var data = {
+                    'title': 'Tether',
+                    'message': 'Your contractee has accepted your contract and is participating with the same terms!',
+                    'msgcnt': '1',
+                    'soundname': 'beep.wav',
+                    'contractjson': contractjson
+                }
+                return this.request({
+                    'method': "POST",
+                    'data': {
+                        'collapse_key': 'msg',
+                        'time_to_live': 2419200,
+                        'delay_while_idle': true,
+                        'data': data,
+                        'to': togcm
+                    }
+                });
+            },
             'declinecontract': function (togcm,contractjson) {
                 var data = {
                     'title': 'Tether',
                     'message': 'Your contractee has declined your contract!',
+                    'msgcnt': '1',
+                    'soundname': 'beep.wav',
+                    'contractjson': contractjson
+                }
+                return this.request({
+                    'method': "POST",
+                    'data': {
+                        'collapse_key': 'msg',
+                        'time_to_live': 2419200,
+                        'delay_while_idle': true,
+                        'data': data,
+                        'to': togcm
+                    }
+                });
+            },
+            'cancelcontract': function (togcm,contractjson) {
+                var data = {
+                    'title': 'Tether',
+                    'message': 'Your proposer has cancelled this contract!',
                     'msgcnt': '1',
                     'soundname': 'beep.wav',
                     'contractjson': contractjson
