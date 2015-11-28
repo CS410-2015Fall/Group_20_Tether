@@ -33,20 +33,28 @@ module.exports = function(config) {
     // list of files to exclude
     exclude: [
       'Desktop/2015W/CPSC410/Group_20_Tether/Tether/www/scripts/tests/contract_test.js',
-      'Desktop/2015W/CPSC410/Group_20_Tether/Tether/www/scripts/tests/home_test.js'
     ],
-
-
-    // preprocess matching files before serving them to the browser
-    // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
-    preprocessors: {
-    },
 
 
     // test results reporter to use
     // possible values: 'dots', 'progress'
     // available reporters: https://npmjs.org/browse/keyword/karma-reporter
-    reporters: ['progress'],
+    reporters: ['progress', 'coverage'],
+
+
+    // preprocess matching files before serving them to the browser
+    // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
+    preprocessors: {
+      'Desktop/2015W/CPSC410/Group_20_Tether/Tether/www/scripts/controllers/friends.js': ['coverage'],
+      'Desktop/2015W/CPSC410/Group_20_Tether/Tether/www/scripts/controllers/home.js': ['coverage']
+    },
+
+
+    // optionally, configure the reporter
+    coverageReporter: {
+      type : 'html',
+      dir : 'coverage/'
+    },
 
 
     // web server port
@@ -84,5 +92,5 @@ module.exports = function(config) {
     // Concurrency level
     // how many browser should be started simultanous
     concurrency: Infinity
-  })
-}
+  });
+};

@@ -27,18 +27,26 @@ angular.module('tetherApp')
             last_name: "", friends:[], points:""};
 
 
+        $scope.checkNoFriends = function(){
+            if($scope.serverReturned.friends.length == 0){
+
+                $scope.noFriends = true;
+            } else {
+                $scope.noFriends = false;
+            }
+        };
 
         $scope.quickMatch = function(){
             if($scope.noFriends){
                 console.log("No Friends to match with");
             } else {
                 var proposeTo = $scope.getRandomFriend();
-                console.log("proposing to: " + proposeTo);
+                console.log("Quick Match - Proposing to " + proposeTo);
 
                 $window.localStorage.proposingTo = proposeTo;
 
-                $location.path('/contract');
-                $scope.$apply();
+                //$location.path('/contract');
+                //$scope.$apply();
             }
 
         };
@@ -66,14 +74,7 @@ angular.module('tetherApp')
 
 
 
-        $scope.checkNoFriends = function(){
-            if($scope.serverReturned.friends.length == 0){
 
-                $scope.noFriends = true;
-            } else {
-                $scope.noFriends = false;
-            }
-        };
 
 
 

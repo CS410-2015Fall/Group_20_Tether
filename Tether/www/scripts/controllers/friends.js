@@ -4,6 +4,7 @@
 angular.module('tetherApp')
     .controller('friendsCtrl', function($scope, $window, $rootScope, $location, $http, userService, SharedState){
         $scope.allusers =[];
+
         userService.users().then(function (data){
             var s = data;
             var jsons=[];
@@ -75,7 +76,7 @@ angular.module('tetherApp')
                 var listItemToCheck = $scope.serverReturned.friends[i].toString();
                 if (listItemToCheck === valueToCheck){
                     var alreadyExists = true;
-                    console.log("This person already exists in the friend list");
+                    console.log(valueToCheck + " already exists in the friend list");
                     break;
                 }
                 else {
@@ -123,7 +124,7 @@ angular.module('tetherApp')
 
 
         $scope.propose = function(proposeTo){
-            console.log("Proposing to " + proposeTo);
+            console.log("Selected friend - Proposing to " + proposeTo);
             $window.localStorage.proposingTo = proposeTo;
             //$location.path('/contract');
             //$scope.$apply();

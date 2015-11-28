@@ -17,6 +17,7 @@ describe('Home Controller', function() {
         $window = {};
         $location = {};
         $http = {};
+        //$window.localStorage.gcmtoken = "";
         $scope.serverReturned = {username: "", email: "", first_name: "", last_name: "", friends:[], points:""};
         controller = $controller('homeCtrl', { $scope: $scope, $window: $window, $location: $location, $http: $http });
     });

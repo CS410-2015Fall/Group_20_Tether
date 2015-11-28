@@ -50,6 +50,35 @@ describe('Friends Controller', function() {
         });
     });
 
+    describe('$scope.addFriend', function() {
+
+        // Mock getElementById to return a dummy HTML element
+        var dummyElement = document.createElement("id_userToAdd");
+        document.getElementById = jasmine.createSpy("Tony").and.returnValue(dummyElement);
+        // $scope.getFriendToAdd();
+
+        it('should add new friend if the input is valid and is not already in the list', function() {
+            $scope.addFriend("Jack");
+            $scope.addFriend("Sam");
+            expect($scope.friendAddedNotValid).toBe(false);
+            expect($scope.friendAlreadyExists).toBe(false);
+            expect($scope.serverReturned.friends).toContain("Jack");
+            console.log("Friends: " + $scope.serverReturned.friends);
+        });
+        it('should not add and alert if friend list already contains the friend to be added', function() {
+            $scope.addFriend("Steven");
+            console.log("Friends: " + $scope.serverReturned.friends);
+            $scope.addFriend("Steven");
+            expect($scope.friendAlreadyExists).toBe(true);
+            console.log("Friends: " + $scope.serverReturned.friends);
+        });
+        it('should alert the user if the input is not valid', function() {
+            $scope.addFriend("");
+            expect($scope.friendAddedNotValid).toBe(true);
+            expect($scope.serverReturned.friends).toEqual([]);
+        });
+    });
+
     describe('$scope.deleteFriend', function() {
         it('should remove the given username from the friend list', function() {
             $scope.serverReturned.friends.push("Jack");
@@ -86,6 +115,8 @@ describe('Friends Controller', function() {
 
     describe('$scope.propose', function() {
         it('should propose the contract to a selected friend and store the username at local storage', function() {
+            //spyOn($location, 'path').andReturn('/contract');
+
             $window.localStorage = {};
             $window.localStorage.proposingTo = '';
             $scope.propose("Tony");

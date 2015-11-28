@@ -17,13 +17,21 @@ describe('Home Controller', function() {
         $window = {};
         $location = {};
         $http = {};
+        $window.localStorage = {};
+        $window.localStorage.gcmtoken = "dummyGCMtoken";
         $scope.serverReturned = {username: "", email: "", first_name: "", last_name: "", friends:[], points:""};
         controller = $controller('homeCtrl', { $scope: $scope, $window: $window, $location: $location, $http: $http });
     });
 
     describe('$scope.quickMatch', function() {
+        it('should alert if user has no friend', function() {
+            $scope.serverReturned.friends = [];
+            $scope.quickMatch();
+        });
         it('should propose to a random friend', function() {
             // TODO
+            $scope.serverReturned.friends = ["Arthur", "Steven", "Paul", "Emily", "Tony"];
+            $scope.quickMatch();
         });
     });
 
@@ -65,12 +73,14 @@ describe('Home Controller', function() {
 
     describe('$scope.createRandomFriends', function() {
         it('if friend list contains <=3 items, should add those items to the list $scope.randomFriends after shuffling ', function() {
-            $scope.serverReturned.friends = ["Arthur"];
+            $scope.serverReturned.friends = ["Arthur", "Steven"];
             $scope.createRandomFriends();
-            expect($scope.randomFriends).toEqual(["Arthur"]);
+            expect($scope.randomFriends).toEqual($scope.serverReturned.friends);
         });
         it('if friend list contains >3 items, should add first three to the list $scope.randomFriends after shuffling', function() {
-            // TODO
+            $scope.serverReturned.friends = ["Arthur", "Steven", "Paul", "Emily", "Tony"];
+            $scope.createRandomFriends();
+            expect($scope.serverReturned.friends).toEqual(jasmine.arrayContaining($scope.randomFriends));
         });
     });
 
@@ -90,6 +100,13 @@ describe('Home Controller', function() {
             $scope.serverReturned.friends = ["Arthur", "Steven", "Paul", "Jack", "Tony"];
             randomFriend = $scope.getRandomFriend();
             expect($scope.serverReturned.friends).toContain(randomFriend);
+        });
+    });
+
+    describe('$scope.clearAll', function() {
+        it('should clear all data from $window.localStorage', function() {
+            // TODO
+            //$scope.clearAll();
         });
     });
 });

@@ -57,8 +57,9 @@ describe('Friends Controller', function() {
         document.getElementById = jasmine.createSpy("Tony").and.returnValue(dummyElement);
         // $scope.getFriendToAdd();
 
-        it('should add new friend if the input is valid', function() {
+        it('should add new friend if the input is valid and is not already in the list', function() {
             $scope.addFriend("Jack");
+            $scope.addFriend("Sam");
             expect($scope.friendAddedNotValid).toBe(false);
             expect($scope.friendAlreadyExists).toBe(false);
             expect($scope.serverReturned.friends).toContain("Jack");
