@@ -8,4 +8,6 @@ class UserProfile(models.Model):
 	points = models.CharField(max_length=100, blank=True)
 	gcm_token = models.CharField(max_length=150, blank=True)
 	friends = models.TextField()
-	# wins loses
+	wins = models.CharField(max_length=150, blank=True)
+	loses = models.CharField(max_length=150, blank=True)
+	contracts = models.TextField()
