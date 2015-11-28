@@ -1,7 +1,13 @@
 from django.db import models
 from django.contrib.auth.models import User
+from annoying.fields import AutoOneToOneField
 
 class UserProfile(models.Model):
-    user = models.OneToOneField(User)
+	user = AutoOneToOneField(User,primary_key=True)
     # custom fields for user
-    gcm_token = models.CharField(max_length=200)
+	points = models.CharField(max_length=100, blank=True)
+	gcm_token = models.CharField(max_length=150, blank=True)
+	friends = models.TextField()
+	wins = models.CharField(max_length=150, blank=True)
+	loses = models.CharField(max_length=150, blank=True)
+	contracts = models.TextField()

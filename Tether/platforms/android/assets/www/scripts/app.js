@@ -1,13 +1,12 @@
 'use strict';
 
 angular.module('tetherApp', [
-  'ngCookies',
-  'ngResource',
-  'ngSanitize',
-  'ngRoute',
-    'ngMock',
-  "mobile-angular-ui"
-])
+        'ngCookies',
+        'ngResource',
+        'ngSanitize',
+        'ngRoute',
+        "mobile-angular-ui"
+    ])
     .config(function ($routeProvider) {
         $routeProvider
             .when('/register', {
@@ -137,9 +136,16 @@ angular.module('tetherApp', [
                 redirectTo: '/'
             });
     })
+<<<<<<< HEAD
   .run(function(userService){
-    userService.initialize('http://128.189.249.249:8000/', false);
+    userService.initialize('http://206.87.114.66:8000/', false);
+
+=======
+    .run(function(userService){
+        //userService.initialize('http://128.189.254.186:8000/rest-auth', false);
+        //userService.initialize('http://128.189.253.29:8000/rest-auth', false);
+        userService.initialize('http://206.87.220.31:8000/', false);
+>>>>>>> newjaygcm
 
 
-
-  });
+    });
