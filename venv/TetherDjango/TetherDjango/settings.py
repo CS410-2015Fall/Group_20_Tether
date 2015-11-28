@@ -46,6 +46,7 @@ INSTALLED_APPS = (
     'allauth.account',
     'rest_auth.registration',
     'userprofile',
+    'annoying',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -121,7 +122,6 @@ AUTHENTICATION_BACKENDS = (
 REST_AUTH_SERIALIZERS = {
     'USER_DETAILS_SERIALIZER': 'userprofile.serializers.UserSerializer'
 }
-
 ############
 #EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 # gmail to send email

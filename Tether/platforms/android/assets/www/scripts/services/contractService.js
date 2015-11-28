@@ -1,10 +1,9 @@
 'use strict';
 angular.module('tetherApp')
-    .service('contractService',function contractService($q,$http,$window){
+    .service('contractService',function contractService($q,$http){
         var service = {
 
             'GCM_URL': 'https://android.googleapis.com/gcm/send',
-            'toself' : $window.localStorage.gcmtoken,
             // APPLIST AND APPMONITOR
             'applist': function(){
                 var success = function(app_list){
@@ -69,7 +68,7 @@ angular.module('tetherApp')
             'contractbroken': function (togcm,contractjson) {
                 var data = {
                     'title':'Tether',
-                    'message':'You have broken your contract!',
+                    'message':'Your contractor has broken the contract!',
                     'msgcnt':'1',
                     'soundname':'beep.wav',
                     'contractjson': contractjson
@@ -77,8 +76,13 @@ angular.module('tetherApp')
                 return this.request({
                     'method': "POST",
                     'data': {
+<<<<<<< HEAD
                         "collapse_key" : "msg",
                         "time_to_live": 2419200,
+=======
+                        'collapse_key': 'msg',
+                        'time_to_live': 2419200,
+>>>>>>> newjaygcm
                         'delay_while_idle':true,
                         'data': data,
                         'to': togcm
@@ -88,7 +92,7 @@ angular.module('tetherApp')
             'contractsucceed': function(togcm,contractjson){
                 var data = {
                     'title':'Tether',
-                    'message':'You have successfully completed contract!',
+                    'message':'Your contractor has successfully completed the contract!',
                     'msgcnt':'1',
                     'soundname':'beep.wav',
                     'contractjson': contractjson
@@ -96,8 +100,13 @@ angular.module('tetherApp')
                 return this.request({
                     'method': "POST",
                     'data': {
+<<<<<<< HEAD
                         "collapse_key" : "msg",
                         "time_to_live": 2419200,
+=======
+                        'collapse_key': 'msg',
+                        'time_to_live': 2419200,
+>>>>>>> newjaygcm
                         'delay_while_idle':true,
                         'data': data,
                         'to': togcm
@@ -115,8 +124,13 @@ angular.module('tetherApp')
                 return this.request({
                     'method': "POST",
                     'data': {
+<<<<<<< HEAD
                         "collapse_key": "demo",
                         "time_to_live": 2419200,
+=======
+                        'collapse_key': 'msg',
+                        'time_to_live': 2419200,
+>>>>>>> newjaygcm
                         'delay_while_idle': true,
                         'data': data,
                         'to': togcm
@@ -134,8 +148,13 @@ angular.module('tetherApp')
                 return this.request({
                     'method': "POST",
                     'data': {
+<<<<<<< HEAD
                         "collapse_key": "demo",
                         "time_to_live": 2419200,
+=======
+                        'collapse_key': 'msg',
+                        'time_to_live': 2419200,
+>>>>>>> newjaygcm
                         'delay_while_idle': true,
                         'data': data,
                         'to': togcm
@@ -153,8 +172,13 @@ angular.module('tetherApp')
                 return this.request({
                     'method': "POST",
                     'data': {
+<<<<<<< HEAD
                         "collapse_key": "demo",
                         "time_to_live": 2419200,
+=======
+                        'collapse_key': 'msg',
+                        'time_to_live': 2419200,
+>>>>>>> newjaygcm
                         'delay_while_idle': true,
                         'data': data,
                         'to': togcm

@@ -6,7 +6,11 @@
 
 angular.module('tetherApp')
     .controller('manageContractCtrl',function($scope, $window, $location, $http,
+<<<<<<< HEAD
                                     $routeParams, userService, pushService){
+=======
+                                              $routeParams, userService, pushService){
+>>>>>>> newjaygcm
 
 
         $scope.noContractsInStorage = false;
@@ -217,7 +221,11 @@ angular.module('tetherApp')
             $window.localStorage.setItem(setKey, JSON.stringify(contractJSON));
 
             //send notification to other user - TODO
+<<<<<<< HEAD
             ///
+=======
+
+>>>>>>> newjaygcm
             ///
             //
             ///
@@ -266,4 +274,8 @@ angular.module('tetherApp')
 
 
 
+<<<<<<< HEAD
     });
+=======
+    });
+>>>>>>> newjaygcm
