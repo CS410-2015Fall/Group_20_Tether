@@ -44,17 +44,7 @@ angular.module('tetherApp')
             });
         };
 
-        $scope.mockUpdateFriends = function(friendToAdd){
-            $scope.serverReturned.friends.push(friendToAdd);
-            var updated = {
-                'friends':$scope.serverReturned.friends
-            };
-            userService.updateProfile(updated).then(function(data){
-                // success case
-            },function(data){
-                // error case
-            });
-        };
+
 
         $scope.addFriend = function(){
             $scope.friendAlreadyExists = false;
@@ -81,7 +71,16 @@ angular.module('tetherApp')
                 if (alreadyExists){
                     $scope.friendAlreadyExists = true;
                 } else {
-                    $scope.mockUpdateFriends(document.getElementById("id_userToAdd").value);
+                    //$scope.mockUpdateFriends(document.getElementById("id_userToAdd").value);
+                    $scope.serverReturned.friends.push(document.getElementById("id_userToAdd").value);
+                    var updated = {
+                        'friends':$scope.serverReturned.friends
+                    };
+                    userService.updateProfile(updated).then(function(data){
+                        // success case
+                    },function(data){
+                        // error case
+                    });
                     $scope.checkNoFriends();
                     document.getElementById("id_addFriendForm").reset();
                     $scope.friendAddedNotValid = false;
@@ -112,6 +111,7 @@ angular.module('tetherApp')
         };
 
 
+
         $scope.cancelDelete = function(){
             $scope.showConfirmDeleteIndex = "";
         };
@@ -128,18 +128,12 @@ angular.module('tetherApp')
 
         $scope.propose = function(proposeTo){
             console.log("Proposing to" + proposeTo);
-
             $window.localStorage.proposingTo = proposeTo;
-
             $location.path('/contract');
             $scope.$apply();
             //pass to service - set username
             // take to contract page set up proposal
             // need to add contract view where they are waiting/set timer that on confirmation it does so
         };
-
-
         $scope.updateFriends();
-
-
     });
