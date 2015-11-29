@@ -184,6 +184,7 @@ angular.module('tetherApp')
 
 
             var storeAs = "contract" + $scope.from;
+            // pass contractJSON to server with
             $window.localStorage.setItem(storeAs, contractJSON);
 
             //gcm send todo

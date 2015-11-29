@@ -151,7 +151,7 @@ angular.module('tetherApp')
                 $scope.validWagerAmount = false;
             }
 
-            if ($scope.wagerAmount < $scope.userPoints){
+            if ($scope.wagerAmount > $scope.userPoints){
                 console.log("Wager amount is too high");
                 $scope.enoughPoints = false;
             }
