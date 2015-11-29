@@ -21,7 +21,7 @@ angular.module('tetherApp')
                 Applist.createEvent('','','','','',success,error)
             },
             'request': function (args) {
-               // $http.defaults.headers.common.Authorization = 'key=AIzaSyCxLrs3Sw4YJ2HuFfe66UgVkBRCKMc0AwQ';
+                //$http.defaults.headers.common.Authorization = 'key=AIzaSyCxLrs3Sw4YJ2HuFfe66UgVkBRCKMc0AwQ';
                 // Continue
                 params = args.params || {}
                 args = args || {};
@@ -32,7 +32,7 @@ angular.module('tetherApp')
                     data = args.data || {};
 
                 $http({
-                    headers : {'Content-Type': 'application/json', 'Authorization':'key=AIzaSyCxLrs3Sw4YJ2HuFfe66UgVkBRCKMc0AwQ'},
+                    headers : {'Content-Type': 'application/json','Authorization':'key=AIzaSyCxLrs3Sw4YJ2HuFfe66UgVkBRCKMc0AwQ'},
                     url: url,
                     method: method.toUpperCase(),
                     data: data,

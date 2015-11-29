@@ -5,7 +5,7 @@
 'use strict';
 
 angular.module('tetherApp')
-  .service('userService', function userService($q, $http, $cookies, $rootScope) {
+  .service('userService', function userService($q, $http, $cookies,$window, $rootScope) {
     // AngularJS will instantiate a singleton by calling "new" on this function
     var service = {
         // Change this to point to your Django REST Auth API
@@ -21,6 +21,10 @@ angular.module('tetherApp')
             // Retrieve the token from the cookie, if available
             if($cookies.token){
                 $http.defaults.headers.common.Authorization = 'Token ' + $cookies.token;
+            } else{
+                if($window.localStorage.token){
+                    $http.defaults.headers.common.Authorization = 'Token ' + $window.localStorage.token;
+                }
             }
             // Continue
             params = args.params || {}
@@ -100,6 +104,7 @@ angular.module('tetherApp')
                 if(!userService.use_session){
                     $http.defaults.headers.common.Authorization = 'Token ' + data.key;
                     $cookies.token = data.key;
+                    $window.localStorage.token = data.key;
                 }
                 userService.authenticated = true;
                 $rootScope.$broadcast("userService.logged_in", data);
@@ -116,7 +121,7 @@ angular.module('tetherApp')
             }).then(function(data){
                 delete $http.defaults.headers.common.Authorization;
                 delete $cookies.token;
-                console.log($cookies.token);
+                delete $window.localStorage.token;
                 userService.authenticated = false;
                 $rootScope.$broadcast("userService.logged_out");
             });

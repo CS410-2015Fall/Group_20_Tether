@@ -331,13 +331,13 @@ angular.module('tetherApp')
                     $window.localStorage.removeItem(storeAs);
                     $window.localStorage.removeItem("myCurrentContract");
                 } else {
-                    var storeAs1 = "contract" + $scope.from;
+                    var storeAs1 = "myCurrentContract";
                     var myContractLocalStorage1 = $window.localStorage.getItem(storeAs1);
                     var myContract1 = JSON.parse(myContractLocalStorage1)
-
+                    var gcmFromProposer = myContract1["contract"].gcmTokenFromProposer;
 
                     // gcm notification todo
-                    contractService.contractsucceed(togcm,myContract).then(function(result) {
+                    contractService.contractsucceed(gcmFromProposer,myContract1).then(function(result) {
                         // Success!
                     }, function(err) {
                         // An error occured. Show a message to the user
@@ -385,12 +385,13 @@ angular.module('tetherApp')
                 $window.localStorage.removeItem("myCurrentContract");
 
             } else {
-                var storeAs1 = "contract" + $scope.from;
+                var storeAs1 = "myCurrentContract";
                 var myContractLocalStorage1 = $window.localStorage.getItem(storeAs1);
-                var myContract1 = JSON.parse(myContractLocalStorage1);
+                var myContract1 = JSON.parse(myContractLocalStorage1)
+                var gcmFromProposer = myContract1["contract"].gcmTokenFromProposer;
 
 
-                contractService.contractbroken(togcm,myContract1).then(function(result) {
+                contractService.contractbroken(gcmFromProposer,myContract1).then(function(result) {
                     // Success!
                 }, function(err) {
                     // An error occured. Show a message to the user
@@ -437,15 +438,16 @@ angular.module('tetherApp')
                     $window.localStorage.removeItem(storeAs);
                     $window.localStorage.removeItem("myCurrentContract");
                 } else {
-                    var storeAs1 = "contract" + $scope.from;
+                    var storeAs1 = "myCurrentContract";
                     var myContractLocalStorage1 = $window.localStorage.getItem(storeAs1);
                     var myContract1 = JSON.parse(myContractLocalStorage1)
+                    var gcmFromProposer = myContract1["contract"].gcmTokenFromProposer;
 
 
 
 
                     // gcm notification todo
-                    contractService.contractbroken(togcm,myContract1).then(function(result) {
+                    contractService.contractbroken(gcmFromProposer,myContract1).then(function(result) {
                         // Success!
                     }, function(err) {
                         // An error occured. Show a message to the user

@@ -7,7 +7,7 @@
 angular.module('tetherApp')
     .controller('homeCtrl',function($scope, $window, $location, $http,
                                     $routeParams, userService){
-        // Update server with new GCM registration
+        /*// Update server with new GCM registration
         var token = $window.localStorage.gcmtoken;
         var data = {
             'gcm_token':token
@@ -16,7 +16,7 @@ angular.module('tetherApp')
             // Success!
         }, function(err) {
             // An error occured. Show a message to the user
-        });
+        });*/
 
 
         //Friends stuff
