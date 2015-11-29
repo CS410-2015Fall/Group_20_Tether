@@ -101,7 +101,7 @@ angular.module('tetherApp')
                     }
                 }
 
-                //console.log(localStorage.getItem(i).toString());
+
             }
             if (results.length == 0){
                 $scope.noContractsInStorage = true;

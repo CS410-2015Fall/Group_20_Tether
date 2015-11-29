@@ -1,3 +1,4 @@
+
 angular.module('tetherApp')
     .service('pushService', function pushService($q, $window) {
 
