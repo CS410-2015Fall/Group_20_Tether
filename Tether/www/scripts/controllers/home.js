@@ -19,8 +19,6 @@ angular.module('tetherApp')
         });
 
 
-        //Friends stuff
-
         $scope.noFriends = false;
         $scope.randomFriends = [];
         $scope.serverReturned = {username: "", email: "", first_name: "",
@@ -29,7 +27,6 @@ angular.module('tetherApp')
 
         $scope.checkNoFriends = function(){
             if($scope.serverReturned.friends.length == 0){
-
                 $scope.noFriends = true;
             } else {
                 $scope.noFriends = false;
@@ -37,8 +34,9 @@ angular.module('tetherApp')
         };
 
         $scope.quickMatch = function(){
+            $scope.checkNoFriends();
             if($scope.noFriends){
-                console.log("No Friends to match with");
+                console.log("Quick Match - No Friends to match with");
             } else {
                 var proposeTo = $scope.getRandomFriend();
                 console.log("Quick Match - Proposing to " + proposeTo);
@@ -48,19 +46,16 @@ angular.module('tetherApp')
                 //$location.path('/contract');
                 //$scope.$apply();
             }
-
         };
 
 
         $scope.propose = function(proposeTo){
-            console.log("proposing to: " + proposeTo);
-
+            console.log("Proposing to selected friend: " + proposeTo);
             $window.localStorage.proposingTo = proposeTo;
-
-            $location.path('/contract');
-            $scope.$apply();
+            // TODO
+            //$location.path('/contract');
+            //$scope.$apply();
         };
-
 
 
         $scope.getUser = function(){
@@ -70,13 +65,6 @@ angular.module('tetherApp')
                 $scope.user = data.username;
             });
         };
-
-
-
-
-
-
-
 
 
         $scope.updateFriends = function(){
@@ -138,6 +126,7 @@ angular.module('tetherApp')
             return $scope.serverReturned.friends[0];
         };
 
+        /*
         $scope.clearAll = function(){
             var i, results=[], query = /^contract/;
             for (i in $window.localStorage){
@@ -148,10 +137,8 @@ angular.module('tetherApp')
                 }
             }
             $window.localStorage.removeItem("myCurrentContract")
-
         }
-
-
+        */
 
         $scope.updateFriends();
         $scope.getUser();

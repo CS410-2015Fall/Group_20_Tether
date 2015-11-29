@@ -44,12 +44,19 @@ angular.module('tetherApp')
             });
         };
 
+        $scope.setFriendToAdd = function() {
+            var friendToAdd = document.getElementById("id_userToAdd").value.toString().toUpperCase();
+            addFriend(friendToAdd);
+        }
 
 
-        $scope.addFriend = function(){
+        $scope.addFriend = function(valueToCheck){
+
             $scope.friendAlreadyExists = false;
-            console.log("Add Friend Button Pressed: Adding " + document.getElementById("id_userToAdd").value);
-            var valueToCheck = document.getElementById("id_userToAdd").value.toString().toUpperCase();
+
+            console.log("Add Friend Button Pressed: Adding " + valueToCheck);
+
+            //var valueToCheck = document.getElementById("id_userToAdd").value.toString().toUpperCase();
 
             for (var i = 0; i < $scope.serverReturned.friends.length; i++){
 
@@ -72,17 +79,17 @@ angular.module('tetherApp')
                     $scope.friendAlreadyExists = true;
                 } else {
                     //$scope.mockUpdateFriends(document.getElementById("id_userToAdd").value);
-                    $scope.serverReturned.friends.push(document.getElementById("id_userToAdd").value);
+                    $scope.serverReturned.friends.push(valueToCheck);
                     var updated = {
                         'friends':$scope.serverReturned.friends
                     };
-                    userService.updateProfile(updated).then(function(data){
-                        // success case
-                    },function(data){
-                        // error case
-                    });
+                    //userService.updateProfile(updated).then(function(data){
+                    //    // success case
+                    //},function(data){
+                    //    // error case
+                    //});
                     $scope.checkNoFriends();
-                    document.getElementById("id_addFriendForm").reset();
+                    //document.getElementById("id_addFriendForm").reset();
                     $scope.friendAddedNotValid = false;
                     $scope.friendAlreadyExists = false;
                 }
@@ -92,12 +99,12 @@ angular.module('tetherApp')
 
 
         $scope.deleteFriend = function(friendToDelete){
-            console.log("DeletingFriend" + friendToDelete);
+            console.log("Deleting Friend " + friendToDelete);
             $scope.showConfirmDeleteIndex = "";
             var deleteIndex = $scope.serverReturned.friends.indexOf(friendToDelete);
             if (deleteIndex > -1) {
                 $scope.serverReturned.friends.splice(deleteIndex, 1);
-                console.log($scope.serverReturned.friends);
+                console.log("Friends after deletion: " + $scope.serverReturned.friends);
             }
             var updated = {
                 'friends':$scope.serverReturned.friends
@@ -127,13 +134,11 @@ angular.module('tetherApp')
 
 
         $scope.propose = function(proposeTo){
-            console.log("Proposing to" + proposeTo);
+            console.log("Proposing to selected friend: " + proposeTo);
             $window.localStorage.proposingTo = proposeTo;
-            $location.path('/contract');
-            $scope.$apply();
-            //pass to service - set username
-            // take to contract page set up proposal
-            // need to add contract view where they are waiting/set timer that on confirmation it does so
+            // TODO
+            //$location.path('/contract');
+            //$scope.$apply();
         };
         $scope.updateFriends();
     });

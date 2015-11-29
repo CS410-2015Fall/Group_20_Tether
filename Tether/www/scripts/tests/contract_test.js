@@ -18,7 +18,14 @@ describe('Contract Controller', function() {
         $location = {};
         $http = {};
         $routeParams = {};
-        controller = $controller('contractCtrl', { $scope: $scope, $window: $window, $location: $location, $http: $http, $routeParams: $routeParams, contractService: contractService});
+        controller = $controller('contractCtrl', {
+            $scope: $scope,
+            $window: $window,
+            $location: $location,
+            $http: $http,
+            $routeParams: $routeParams,
+            contractService: contractService
+        });
     });
 
     describe('$scope.validateHours', function() {

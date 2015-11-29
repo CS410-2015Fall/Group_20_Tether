@@ -20,33 +20,11 @@ describe('Home Controller', function() {
         $window.localStorage = {};
         $window.localStorage.gcmtoken = "dummyGCMtoken";
         $scope.serverReturned = {username: "", email: "", first_name: "", last_name: "", friends:[], points:""};
-        controller = $controller('homeCtrl', { $scope: $scope, $window: $window, $location: $location, $http: $http });
-    });
-
-    describe('$scope.quickMatch', function() {
-        it('should alert if user has no friend', function() {
-            $scope.serverReturned.friends = [];
-            $scope.quickMatch();
-        });
-        it('should propose to a random friend', function() {
-            // TODO
-            $scope.serverReturned.friends = ["Arthur", "Steven", "Paul", "Emily", "Tony"];
-            $scope.quickMatch();
-        });
-    });
-
-    describe('$scope.propose', function() {
-        it('should propose the contract to a selected friend and store the username at local storage', function() {
-            // TODO
-        });
-    });
-
-    describe('$scope.getUser', function() {
-        it('should set $scope.user to data.username ', function() {
-            // TODO
-            //$scope.serverReturned.username = "johnsmith";
-            $scope.getUser();
-            expect($scope.user).toBeUndefined();
+        controller = $controller('homeCtrl', {
+            $scope: $scope,
+            $window: $window,
+            $location: $location,
+            $http: $http
         });
     });
 
@@ -60,6 +38,38 @@ describe('Home Controller', function() {
             $scope.serverReturned = {username: "Lane", email: "lpither@hotmail.com", first_name: "", last_name: "", friends:["Arthur", "Steven"]};
             $scope.checkNoFriends();
             expect($scope.noFriends).toBe(false);
+        });
+    });
+
+    describe('$scope.quickMatch', function() {
+        it('should alert if user has no friend', function() {
+            $scope.serverReturned.friends = [];
+            $scope.quickMatch();
+            expect($scope.noFriends).toBe(true);
+        });
+        it('should propose to a random friend', function() {
+            $scope.serverReturned.friends = ["Arthur", "Steven", "Paul", "Emily", "Tony"];
+            $scope.quickMatch();
+            expect($scope.serverReturned.friends).toContain($window.localStorage.proposingTo);
+        });
+    });
+
+    describe('$scope.propose', function() {
+        it('should propose the contract to a selected friend and store the username at local storage', function() {
+            // TODO
+            //spyOn($location, 'path').and.returnValue('/contract');
+
+            $scope.propose("Tony");
+            expect($window.localStorage.proposingTo).toEqual("Tony");
+        });
+    });
+
+    describe('$scope.getUser', function() {
+        it('should set $scope.user to data.username ', function() {
+            // TODO
+            //$scope.serverReturned.username = "johnsmith";
+            $scope.getUser();
+            expect($scope.user).toBeUndefined();
         });
     });
 
@@ -103,10 +113,4 @@ describe('Home Controller', function() {
         });
     });
 
-    describe('$scope.clearAll', function() {
-        it('should clear all data from $window.localStorage', function() {
-            // TODO
-            //$scope.clearAll();
-        });
-    });
 });
