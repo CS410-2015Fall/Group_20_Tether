@@ -38,7 +38,7 @@ angular.module('tetherApp')
                 $window.localStorage.proposingTo = proposeTo;
 
                 $location.path('/contract');
-                $scope.$apply();
+
             }
 
         };
@@ -50,7 +50,7 @@ angular.module('tetherApp')
             $window.localStorage.proposingTo = proposeTo;
 
             $location.path('/contract');
-            $scope.$apply();
+
         };
 
 

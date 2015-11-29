@@ -52,6 +52,76 @@ angular.module('tetherApp')
 
         };
 
+        $scope.viewDetailsFinished = function(index, contractJSON){
+            $scope.showDetails = index;
+            var goThroughThis = contractJSON.contract.apps;
+            $scope.selectedContractApps = [];
+            for (var i = 0; i < goThroughThis.length; i ++){
+                $scope.selectedContractApps.push(goThroughThis[i].name)
+            }
+
+            $scope.timerInterval = setInterval($scope.getContractTimeRemaining(contractJSON), 1000);
+
+
+        };
+
+        $scope.getPoints = function(contractStatus, contractPoints) {
+            console.log("claiming points");
+
+            userService.profile().then(function (data) {
+                var text = JSON.stringify(data);
+                var jdata = JSON.parse(text);
+                $scope.userPoints = jdata.points;
+                console.log($scope.userPoints);
+            })
+
+
+            switch (contractStatus) {
+                case 'success':
+                    //do nothing
+                    break;
+
+                case 'forfeit':
+
+                    $scope.userPoints = parseInt($scope.userPoints) + contractPoints;
+
+                    var data = {
+                        'points': $scope.userPoints.toString()
+                    }
+                    userService.updateProfile(data).then(function (result) {
+                        // Success!
+                    }, function (err) {
+                        // An error occured. Show a message to the user
+                    });
+                    break;
+
+                case 'failure':
+
+                    $scope.userPoints = parseInt($scope.userPoints) + contractPoints;
+
+                    var data = {
+                        'points': $scope.userPoints.toString()
+                    }
+                    userService.updateProfile(data).then(function (result) {
+                        // Success!
+                    }, function (err) {
+                        // An error occured. Show a message to the user
+                    });
+                    break;
+
+                default:
+                    console.log("error");
+                    break;
+
+            }
+        };
+
+        $scope.deleteContract = function(contractFrom){
+            var storedAs = "contract" + contractFrom;
+            $window.localStorage.removeItem(storedAs);
+            $scope.$apply();
+        };
+
         $scope.getContractTimeRemaining = function(contractJSON){
             var currentTime = new Date().getTime();
             var startTime = contractJSON.contract.timeStart;
@@ -280,6 +350,11 @@ angular.module('tetherApp')
 
             $location.path('/contract');
             $scope.$apply();
+        };
+
+
+        $scope.refreshPage = function(){
+            location.reload();
         };
 
         $scope.clearAll = function(){
