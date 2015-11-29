@@ -28,9 +28,7 @@ angular.module('tetherApp')
             var text = JSON.stringify(data);
             var jdata = JSON.parse(text);
             $scope.from = jdata.username;
-            $scope.userPoints = jdata.points;
         });
-
 
         //Scope variables for monitoring
         $scope.blacklistedApps = [];
@@ -313,17 +311,6 @@ angular.module('tetherApp')
                 $scope.blacklistedApps = [];
                 clearInterval($scope.refreshToastMessage);
 
-                $scope.userPoints =  $scope.userPoints + $scope.wagerAmount + $scope.wagerAmount;
-
-                var data = {
-                    'points':$scope.userPoints
-                }
-                userService.updateProfile(data).then(function(result) {
-                    // Success!
-                }, function(err) {
-                    // An error occured. Show a message to the user
-                });
-
                 // local notification
                 navigator.notification.alert('You have successfully completed contract!');
 
@@ -332,7 +319,7 @@ angular.module('tetherApp')
                     var myContractLocalStorage = $window.localStorage.getItem(storeAs);
                     var myContract = JSON.parse(myContractLocalStorage)
                     myContract["contract"].status="success";
-                    myContract["contract"].points=$scope.wagerAmount + $scope.wagerAmount;
+                    myContract["contract"].points=$scope.wagerAmount + $scope.wagerAmount
 
                     // gcm notification todo
                     contractService.contractsucceed(togcm,myContract).then(function(result) {
@@ -376,22 +363,9 @@ angular.module('tetherApp')
             clearInterval($scope.refreshToastMessage);
 
 
-            $scope.userPoints =  $scope.userPoints - $scope.wagerAmount;
-
-            var data = {
-                'points':$scope.userPoints
-            }
-            userService.updateProfile(data).then(function(result) {
-                // Success!
-            }, function(err) {
-                // An error occured. Show a message to the user
-            });
-
-
             // local notification
             navigator.notification.alert('You have broken your contract!');
             // gcm notification todo
-
 
 
             if ($window.localStorage.getItem("myCurrentContract") === null){
@@ -399,7 +373,7 @@ angular.module('tetherApp')
                 var myContractLocalStorage = $window.localStorage.getItem(storeAs);
                 var myContract = JSON.parse(myContractLocalStorage);
                 myContract["contract"].status="forfeit";
-                myContract["contract"].points=$scope.wagerAmount;
+                myContract["contract"].points=$scope.wagerAmount + $scope.wagerAmount;
 
                 contractService.contractbroken(togcm,myContract).then(function(result) {
                     // Success!
@@ -442,18 +416,6 @@ angular.module('tetherApp')
                 clearInterval($scope.refreshContractTimerIntervalId);
                 clearInterval($scope.refreshToastMessage);
 
-                $scope.userPoints =  $scope.userPoints - $scope.wagerAmount;
-
-                var data = {
-                    'points':$scope.userPoints
-                }
-                userService.updateProfile(data).then(function(result) {
-                    // Success!
-                }, function(err) {
-                    // An error occured. Show a message to the user
-                });
-
-
                 // local notification
                 navigator.notification.alert('You have broken your contract!');
 
@@ -462,7 +424,7 @@ angular.module('tetherApp')
                     var myContractLocalStorage = $window.localStorage.getItem(storeAs);
                     var myContract = JSON.parse(myContractLocalStorage)
                     myContract["contract"].status="failure";
-                    myContract["contract"].points=$scope.wagerAmount;
+                    myContract["contract"].points=$scope.wagerAmount + $scope.wagerAmount
 
 
 
