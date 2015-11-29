@@ -108,7 +108,6 @@ angular.module('tetherApp')
                     'title': 'Tether',
                     'message': 'You have received a new contract!',
                     'msgcnt': '1',
-                    'alert': true,
                     'soundname': 'beep.wav',
                     'contractjson': contractjson
                 }
@@ -128,7 +127,6 @@ angular.module('tetherApp')
                     'title': 'Tether',
                     'message': 'Your contractee has accepted your contract!',
                     'msgcnt': '1',
-                    'alert': true,
                     'soundname': 'beep.wav',
                     'contractjson': contractjson
                 }

@@ -79,13 +79,12 @@ angular.module('tetherApp')
 
 
         $scope.updateFriends = function(){
+
             userService.profile().then(function (data){
-                var text = JSON.stringify(data);
-                var jdata = JSON.parse(text);
-                var jarray = jdata["friends"].replace(/'/g, '"');
-                var array = JSON.parse(jarray);
-                console.log(array);
-                $scope.serverReturned.friends = array;
+                //$scope.serverReturned = data; todo
+                $scope.serverReturned = {username: "Lane", email: "lpither@hotmail.com", first_name: "",
+                    last_name: "", friends:["Arthur", "Steven", "Paul", "arga", "AWefawef","wafwefaw"]};
+                //last_name: "", friends:[]};
                 $scope.checkNoFriends();
             });
         };
