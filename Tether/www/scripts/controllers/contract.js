@@ -15,6 +15,7 @@ angular.module('tetherApp')
         $scope.validHours = true;
         $scope.validAppSelection = true;
         $scope.validWagerAmount = true;
+        $scope.enoughPoints = true;
 
         $scope.contractHours = 0;
         $scope.contractMinutes = 0;
@@ -29,6 +30,8 @@ angular.module('tetherApp')
             var jdata = JSON.parse(text);
             $scope.from = jdata.username;
             $scope.userPoints = jdata.points;
+            $scope.userWins = jdata.wins;
+            $scope.userLosses = jdata.loses;
         });
 
 
@@ -89,6 +92,7 @@ angular.module('tetherApp')
             $scope.validHours = true;
             $scope.validAppSelection = true;
             $scope.validWagerAmount = true;
+            $scope.enoughPoints = true;
 
             var globalForegroundApp = "";
 
@@ -147,7 +151,12 @@ angular.module('tetherApp')
                 $scope.validWagerAmount = false;
             }
 
-            if ($scope.validHours == false || $scope.validAppSelection == false || $scope.validWagerAmount == false){
+            if ($scope.wagerAmount < $scope.userPoints){
+                console.log("Wager amount is too high");
+                $scope.enoughPoints = false;
+            }
+
+            if ($scope.validHours == false || $scope.validAppSelection == false || $scope.validWagerAmount == false || $scope.enoughPoints == false){
                 return;
             } else {
                 // convert to minutes and attach to contract JSON object
@@ -158,6 +167,7 @@ angular.module('tetherApp')
                 // attach wagering amount to contract JSON object
                 obj["contract"].wagerAmount = $scope.wagerAmount;
                 $scope.validWagerAmount = true;
+                $scope.enoughPoints = true
             }
 
             obj["contract"].friend = $scope.friend;
@@ -174,6 +184,7 @@ angular.module('tetherApp')
 
 
             var storeAs = "contract" + $scope.from;
+            // pass contractJSON to server with
             $window.localStorage.setItem(storeAs, contractJSON);
 
             //gcm send todo
@@ -201,26 +212,32 @@ angular.module('tetherApp')
         $scope.checkForResponse = function(){
             var storeAs = "contract" + $scope.from;
             var myContractLocalStorage = $window.localStorage.getItem(storeAs);
-            var myContract = JSON.parse(myContractLocalStorage)
-            if (myContract["contract"].status === "accepted"){
 
-                clearInterval($scope.checkForResponseInterval);
-                $scope.waitingForResponse = false;
-                $scope.ongoingContract = true;
-                $scope.contractOver = false;
-                $scope.$apply();
+            if ($window.localStorage.getItem(storeAs) === null){
 
-                $scope.startTimer();
-
-
-                $scope.startToasts();
             } else {
-                if (myContract["contract"].status === "rejected"){
+                var myContract = JSON.parse(myContractLocalStorage)
+                if (myContract["contract"].status === "accepted"){
+
                     clearInterval($scope.checkForResponseInterval);
+                    $scope.waitingForResponse = false;
+                    $scope.ongoingContract = true;
+                    $scope.contractOver = false;
                     $scope.$apply();
-                    $scope.routeToContract();
+
+                    $scope.startTimer();
+
+
+                    $scope.startToasts();
+                } else {
+                    if (myContract["contract"].status === "rejected"){
+                        clearInterval($scope.checkForResponseInterval);
+                        $scope.$apply();
+                        $scope.routeToContract();
+                    }
                 }
             }
+
 
 
         };
@@ -313,10 +330,14 @@ angular.module('tetherApp')
                 $scope.blacklistedApps = [];
                 clearInterval($scope.refreshToastMessage);
 
-                $scope.userPoints =  $scope.userPoints + $scope.wagerAmount + $scope.wagerAmount;
+
+                $scope.userPoints =  (parseInt($scope.userPoints) + $scope.wagerAmount + $scope.wagerAmount).toString();
+                $scope.userWins = (parseInt($scope.userWins) + 1).toString();
 
                 var data = {
-                    'points':$scope.userPoints
+                    'points':$scope.userPoints,
+                    'wins': $scope.userWins
+
                 }
                 userService.updateProfile(data).then(function(result) {
                     // Success!
@@ -376,10 +397,13 @@ angular.module('tetherApp')
             clearInterval($scope.refreshToastMessage);
 
 
-            $scope.userPoints =  $scope.userPoints - $scope.wagerAmount;
+            $scope.userPoints =  (parseInt($scope.userPoints) - $scope.wagerAmount).toString();
+            $scope.userLosses = (parseInt($scope.userLosses) + 1).toString();
 
             var data = {
-                'points':$scope.userPoints
+                'points':$scope.userPoints,
+                'loses': $scope.userLosses
+
             }
             userService.updateProfile(data).then(function(result) {
                 // Success!
@@ -442,10 +466,13 @@ angular.module('tetherApp')
                 clearInterval($scope.refreshContractTimerIntervalId);
                 clearInterval($scope.refreshToastMessage);
 
-                $scope.userPoints =  $scope.userPoints - $scope.wagerAmount;
+                $scope.userPoints =  (parseInt($scope.userPoints) - $scope.wagerAmount).toString();
+                $scope.userLosses = (parseInt($scope.userLosses) + 1).toString();
 
                 var data = {
-                    'points':$scope.userPoints
+                    'points':$scope.userPoints,
+                    'loses': $scope.userLosses
+
                 }
                 userService.updateProfile(data).then(function(result) {
                     // Success!
@@ -501,6 +528,7 @@ angular.module('tetherApp')
         $scope.checkForegroundApp = function(){
             ForegroundActivity.createEvent('','','', function(foreground_app){
                 $scope.foregroundApp = foreground_app;
+                console.log(foreground_app);
                 for (var i = 0; i < $scope.blacklistedApps.length; i++){
                     if ($scope.foregroundApp == $scope.blacklistedApps[i]){
                         clearInterval($scope.refreshContractTimerIntervalId);
@@ -538,6 +566,7 @@ angular.module('tetherApp')
             $scope.validHours = true;
             $scope.validAppSelection = true;
             $scope.validWagerAmount = true;
+            $scope.enoughPoints = true;
 
             $scope.contractHours = 0;
             $scope.contractMinutes = 0;

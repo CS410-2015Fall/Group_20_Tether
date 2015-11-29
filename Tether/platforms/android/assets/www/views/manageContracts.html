@@ -151,7 +151,7 @@
                 <div class="panel panel-success">
                     <div class="panel-heading">
                         <div class="panel-title">
-                            Ongoing Contracts
+                            Completed Contracts
                         </div>
                     </div>
 
@@ -190,12 +190,15 @@
                                 </div>
 
                                 <div class="panel-body">
-                                    <div class="list-group-item" ng-click="getPoints(contract.val.contract.status,contract.val.contract.points)">
-                                        Claim points
-                                    </div>
-                                    <div class="list-group-item" ng-click="deleteContract(contract.val.contract.from)">
-                                        Delete Contract
-                                    </div>
+                                    <a class="list-group-item" ng-show="isClaimed" ng-click="getPoints(contract.val.contract.from, contract.val.contract.status,contract.val.contract.points, contract.val)">
+                                        Claim points: {{$scope.pointsEarned}}<i class="fa fa-money pull-right fa-lg"></i>
+                                    </a>
+                                    <a class="list-group-item" ng-hide="isClaimed">
+                                        Points earned: {{$scope.pointsEarned}}<i class="fa fa-money pull-right fa-lg"></i>
+                                    </a>
+                                    <a class="list-group-item" ng-click="deleteContract(contract.val.contract.from)">
+                                        <i class="fa fa-remove pull-left fa-lg"></i> Delete Contract
+                                    </a>
                                 </div>
 
 

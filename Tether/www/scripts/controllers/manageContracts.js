@@ -39,6 +39,8 @@ angular.module('tetherApp')
             }
         };
 
+
+
         $scope.viewDetailsOngoing = function(index, contractJSON){
             $scope.showDetails = index;
             var goThroughThis = contractJSON.contract.apps;
@@ -60,12 +62,48 @@ angular.module('tetherApp')
                 $scope.selectedContractApps.push(goThroughThis[i].name)
             }
 
-            $scope.timerInterval = setInterval($scope.getContractTimeRemaining(contractJSON), 1000);
-
+            $scope.pointsEarned = $scope.calculatePointsEarned(contractJSON);
+            if (contractJSON["contract"].claimed === "yes"){
+                $scope.isClaimed = true;
+            } else {
+                $scope.isClaimed = false;
+            }
+            $scope.$apply();
 
         };
 
-        $scope.getPoints = function(contractStatus, contractPoints) {
+        $scope.calculatePointsEarned = function(contractJSON){
+            var status = contractJSON.contract.status;
+            var points = contractJSON.contract.points;
+
+            switch (contractStatus) {
+                case 'success':
+
+                    $scope.pointsEarned = 0;
+
+                    break;
+
+                case 'forfeit':
+
+                    $scope.pointsEarned = points;
+
+                    break;
+
+                case 'failure':
+
+                    $scope.pointsEarned = points;
+
+                    break;
+
+                default:
+                    console.log("error");
+                    break;
+
+            }
+
+        };
+
+        $scope.getPoints = function(user, contractStatus, contractPoints, contractJSON) {
             console.log("claiming points");
 
             userService.profile().then(function (data) {
@@ -73,12 +111,14 @@ angular.module('tetherApp')
                 var jdata = JSON.parse(text);
                 $scope.userPoints = jdata.points;
                 console.log($scope.userPoints);
-            })
+            });
 
+            var storeAs = "contract" +  user.toString();
 
             switch (contractStatus) {
                 case 'success':
-                    //do nothing
+                    contractJSON["contract"].claimed = "yes";
+                    $window.localStorage.setItem(storeAs, contractJSON);
                     break;
 
                 case 'forfeit':
@@ -93,6 +133,8 @@ angular.module('tetherApp')
                     }, function (err) {
                         // An error occured. Show a message to the user
                     });
+                    contractJSON["contract"].claimed = "yes";
+                    $window.localStorage.setItem(storeAs, contractJSON);
                     break;
 
                 case 'failure':
@@ -107,6 +149,11 @@ angular.module('tetherApp')
                     }, function (err) {
                         // An error occured. Show a message to the user
                     });
+
+
+                    contractJSON["contract"].claimed = "yes";
+                    $window.localStorage.setItem(storeAs, contractJSON);
+
                     break;
 
                 default:
@@ -258,6 +305,7 @@ angular.module('tetherApp')
             $scope.getNumOngoingContracts();
             $scope.getNumFinishedContracts();
 
+            $scope.refreshPage();
             $scope.$apply();
 
         };
