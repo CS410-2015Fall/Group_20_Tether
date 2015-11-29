@@ -5,11 +5,23 @@ describe('Home Controller', function() {
 
     beforeEach(module('tetherApp'));
 
-    var $scope, $window, $location, $http, $routeParams, $controller, controller;
+    var $scope, $window, $location, $http, $routeParams, mockUserService, $controller, controller;
 
-    beforeEach(inject(function (_$controller_) {
+    beforeEach(function() {
+        mockUserService = {
+            profile: jasmine.createSpy()
+        };
+    });
+
+    module(function($provide) {
+        $provide.service('userService', mockUserService)
+    });
+
+    beforeEach(inject(function (_$controller_, userService) {
         // The injector unwraps the underscores (_) from around the parameter names when matching
         $controller = _$controller_;
+        // Get a reference to mock userService
+        mockUserService = userService;
     }));
 
     beforeEach(function() {
@@ -24,7 +36,8 @@ describe('Home Controller', function() {
             $scope: $scope,
             $window: $window,
             $location: $location,
-            $http: $http
+            $http: $http,
+            userService: mockUserService
         });
     });
 
@@ -67,7 +80,6 @@ describe('Home Controller', function() {
     describe('$scope.getUser', function() {
         it('should set $scope.user to data.username ', function() {
             // TODO
-            //$scope.serverReturned.username = "johnsmith";
             $scope.getUser();
             expect($scope.user).toBeUndefined();
         });

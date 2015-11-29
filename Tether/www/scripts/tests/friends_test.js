@@ -5,11 +5,25 @@ describe('Friends Controller', function() {
 
     beforeEach(module('tetherApp'));
 
-    var $scope, $window, $rootScope, $location, $http, $controller, controller;
+    var $scope, $window, $rootScope, $location, $http, mockUserService, $controller, controller;
 
-    beforeEach(inject(function (_$controller_) {
+    module(function($provide) {
+        $provide.service('userService', function() {
+            this.users = jasmine.createSpy('users').and.callFake(function() {
+                return [];
+            });
+            this.profile = jasmine.createSpy('profile').and.callFake(function() {
+                var data = {username: "Lane", email: "lpither@hotmail.com", first_name: "", last_name: "", friends:["Arthur", "Steven", "Paul"]};
+                return data;
+            });
+        });
+    });
+
+    beforeEach(inject(function (_$controller_, userService) {
         // The injector unwraps the underscores (_) from around the parameter names when matching
         $controller = _$controller_;
+        // Get a reference to mock userService
+        mockUserService = userService;
     }));
 
     beforeEach(function() {
@@ -25,7 +39,8 @@ describe('Friends Controller', function() {
             $window: $window,
             $rootScope: $rootScope,
             $location: $location,
-            $http: $http
+            $http: $http,
+            userService: mockUserService
         });
     });
 
@@ -86,7 +101,7 @@ describe('Friends Controller', function() {
 
     describe('$scope.deleteFriend', function() {
         it('should remove the given username from the friend list', function() {
-            $scope.serverReturned.friends = ["Arthur", "Steven", "Paul", "Jack", "Tony"];
+            $scope.serverReturned.friends = ["Sam", "Jack", "Tony"];
             console.log("Friends: " + $scope.serverReturned.friends);
             $scope.deleteFriend("Jack");
             expect($scope.serverReturned.friends).not.toContain("Jack");

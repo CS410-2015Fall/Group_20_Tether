@@ -134,9 +134,8 @@ angular.module('tetherApp')
 
 
         $scope.propose = function(proposeTo){
-            console.log("Proposing to selected friend: " + proposeTo);
+            console.log("Proposing to: " + proposeTo);
             $window.localStorage.proposingTo = proposeTo;
-            // TODO
             //$location.path('/contract');
             //$scope.$apply();
         };
