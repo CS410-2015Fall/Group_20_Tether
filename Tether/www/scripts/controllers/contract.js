@@ -306,7 +306,7 @@ angular.module('tetherApp')
                 clearInterval($scope.refreshToastMessage);
 
 
-                $scope.userPoints =  $scope.userPoints + $scope.wagerAmount + $scope.wagerAmount;
+                $scope.userPoints =  $scope.userPoints + $scope.wagerAmount;
                 $scope.userWins = $scope.userWins + 1;
 
                 var data = {
@@ -375,7 +375,7 @@ angular.module('tetherApp')
             clearInterval($scope.refreshContractTimerIntervalId);
             clearInterval($scope.refreshToastMessage);
 
-            $scope.userPoints =  $scope.userPoints -$scope.wagerAmount;
+            $scope.userPoints =  $scope.userPoints - $scope.wagerAmount;
             $scope.userLosses = $scope.userLosses + 1;
 
             var data = {

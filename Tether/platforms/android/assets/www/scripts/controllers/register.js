@@ -13,7 +13,6 @@ angular.module('tetherApp')
               .then(function(data){
                 // success case
                 $scope.complete = true;
-                $location.path("/login");
               },function(data){
                 // error case
                 $scope.errors = data;

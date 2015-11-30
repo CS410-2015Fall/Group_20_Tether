@@ -23,11 +23,22 @@ angular.module('tetherApp')
         $scope.ongoingContracts = [];
         $scope.finishedContracts = [];
         $scope.showDetails = "";
+        $scope.showDetailsComplete = "";
+
+        userService.profile().then(function(data){
+            var text = JSON.stringify(data);
+            var jdata = JSON.parse(text);
+            $window.localStorage.pointsTracker = jdata.points
+        });
 
 
 
         $scope.isShowing = function(index){
             return  $scope.showDetails === index;
+        };
+
+        $scope.isShowingComplete = function(index){
+            return  $scope.showDetailsComplete === index;
         };
 
         $scope.viewDetails = function(index, contractJSON){
@@ -41,103 +52,148 @@ angular.module('tetherApp')
 
         $scope.viewDetailsOngoing = function(index, contractJSON){
             $scope.viewDetails(index, contractJSON);
+
             $scope.timerInterval = setInterval($scope.getContractTimeRemaining(contractJSON), 1000);
+
+
         };
 
 
         $scope.viewDetailsFinished = function(index, contractJSON){
-            $scope.viewDetails(index, contractJSON);
+            $scope.showDetailsComplete = index;
+            var goThroughThis = contractJSON.contract.apps;
+            $scope.selectedContractApps = [];
+            for (var i = 0; i < goThroughThis.length; i ++){
+                $scope.selectedContractApps.push(goThroughThis[i].name)
+            }
 
-            $scope.pointsEarned = $scope.calculatePointsEarned(contractJSON);
+            $scope.calculatePointsEarned(contractJSON);
             if (contractJSON["contract"].claimed === "yes"){
                 $scope.isClaimed = true;
+                $scope.$apply();
             } else {
                 $scope.isClaimed = false;
+                $scope.$apply();
             }
-            //$scope.$apply();
+
+
+
         };
 
         $scope.calculatePointsEarned = function(contractJSON){
-            var status = contractJSON.contract.status;
-            var points = contractJSON.contract.points;
+                        var status = contractJSON.contract.status;
+                        var points = contractJSON.contract.points;
 
-            switch (status) {
-                case 'success':
-                    $scope.pointsEarned = 0;
-                    break;
+                            switch (status) {
+                                case 'success':
 
-                case 'forfeit':
-                    $scope.pointsEarned = points;
-                    break;
+                                            $scope.pointsEarned = 0;
+                                            contractJSON["contract"].claimed = "yes";
+                                            $window.localStorage.setItem(storeAs, contractJSON);
 
-                case 'failure':
-                    $scope.pointsEarned = points;
-                    break;
+                                            break;
 
-                default:
-                    console.log("Calculate Points Earned - Contract Status Error");
-                    break;
-            }
+                                        case 'forfeit':
+
+                                        $scope.pointsEarned = points;
+
+                                            break;
+
+                                        case 'failure':
+
+                                            $scope.pointsEarned = points;
+
+                                            break;
+
+                                        default:
+                                        console.log("error");
+                                        break;
+
+                                    }
+
         };
 
-        $scope.getPoints = function(user, contractStatus, contractPoints, contractJSON) {
+        $scope.getPoints = function(user, contractStatus, contractPoints, contractJSON, unique) {
+            console.log("claiming points");
 
-            userService.profile().then(function (data) {
-                var text = JSON.stringify(data);
-                var jdata = JSON.parse(text);
-                $scope.userPoints = jdata.points;
-                console.log($scope.userPoints);
-            });
+
+
+            var storeAs = "contract" + user + unique.toString();
+
 
             switch (contractStatus) {
                 case 'success':
+                    //do nothing
                     contractJSON["contract"].claimed = "yes";
-                    $window.localStorage.setItem(storeAs, contractJSON);
+                    $window.localStorage.setItem(storeAs, JSON.stringify(contractJSON));
+                    //$scope.hideDetailsComplete();
+                    $scope.$apply();
                     break;
 
                 case 'forfeit':
-                    $scope.userPoints = parseInt($scope.userPoints) + contractPoints;
-                    var data = {
-                        'points': $scope.userPoints.toString()
-                    }
 
+                    $window.localStorage.pointsTracker = parseInt($window.localStorage.pointsTracker) + contractPoints;
+
+                    $scope.$apply();
+
+                    var data = {
+                        'points': parseInt($window.localStorage.pointsTracker)
+                    }
                     userService.updateProfile(data).then(function (result) {
                         // Success!
                     }, function (err) {
                         // An error occured. Show a message to the user
                     });
-
                     contractJSON["contract"].claimed = "yes";
-                    $window.localStorage.setItem(storeAs, contractJSON);
+                    $window.localStorage.setItem(storeAs, JSON.stringify(contractJSON));
+                    //$scope.hideDetailsComplete();
+                    $scope.isClaimed = true;
+                    $scope.$apply();
                     break;
 
                 case 'failure':
-                    $scope.userPoints = parseInt($scope.userPoints) + contractPoints;
-                    var data = {
-                        'points': $scope.userPoints.toString()
-                    }
 
+                    $window.localStorage.pointsTracker = parseInt($window.localStorage.pointsTracker) + contractPoints;
+
+                    $scope.$apply();
+
+                    var data = {
+                        'points': parseInt($window.localStorage.pointsTracker)
+                    }
                     userService.updateProfile(data).then(function (result) {
                         // Success!
                     }, function (err) {
                         // An error occured. Show a message to the user
                     });
-
                     contractJSON["contract"].claimed = "yes";
-                    $window.localStorage.setItem(storeAs, contractJSON);
+                    $window.localStorage.setItem(storeAs, JSON.stringify(contractJSON));
+                    //$scope.hideDetailsComplete();
+                    $scope.isClaimed = true;
+                    $scope.$apply();
                     break;
 
                 default:
                     console.log("error");
                     break;
+
             }
+
+            $scope.$apply();
         };
 
-        $scope.deleteContract = function(contractFrom){
-            var storedAs = "contract" + contractFrom;
+        $scope.deleteContract = function(contractFrom, uniqueId){
+            var storedAs = "contract" + contractFrom + uniqueId.toString();
             $window.localStorage.removeItem(storedAs);
-            //$scope.$apply();
+            $scope.$apply();
         };
+
+
+
+
+
+
+
+
 
 
         $scope.getContractTimeRemaining = function(contractJSON){
@@ -155,6 +211,7 @@ angular.module('tetherApp')
                 $scope.selectedContractHours = hoursLeft;
                 $scope.selectedContractMins = minsLeft;
                 $scope.selectedContractSeconds = sec;
+                $scope.$apply();
             } else {
                 $scope.selectedContractHours = 0;
                 $scope.selectedContractMins = 0;
@@ -172,6 +229,8 @@ angular.module('tetherApp')
         };
 
 
+
+
         $scope.getContractsFromLocalStorage = function(){
             var i, results=[], query = /^contract/;
             for (i in $window.localStorage){
@@ -181,8 +240,27 @@ angular.module('tetherApp')
 
                         if (value["contract"].status === "cancelled"){
                             $window.localStorage.removeItem(i);
+                        } else { if (value["contract"].status === "forfeit" ||
+                            value["contract"].status === "success" ||
+                            value["contract"].status === "failure") {
+
+                            if (value["contract"].uniqueId != null){
+                                results.push({key:id,val:value});
+                            } else {
+                                var uniqueIdentifier = Math.random();
+                                value["contract"].uniqueId = uniqueIdentifier.toString(36).substring(2);
+
+                                var id = "contract" + value["contract"].from + uniqueIdentifier.toString(36).substring(2);
+                                var deleteKey = "contract" + value["contract"]["from"];
+                                var storeKey = "contract" + value["contract"]["from"] + uniqueIdentifier.toString(36).substring(2);;
+                                $window.localStorage.setItem(storeKey,JSON.stringify(value));
+                                $window.localStorage.removeItem(deleteKey);
+                                results.push({key:id,val:value});
+                            }
+
                         } else {
                             results.push({key:i,val:value});
+                        }
                         }
 
 
@@ -211,7 +289,7 @@ angular.module('tetherApp')
                 }
             }
 
-            //$scope.$apply();
+            $scope.$apply();
         };
 
         $scope.getNumOngoingContracts = function(){
@@ -224,21 +302,21 @@ angular.module('tetherApp')
                 }
             }
 
-            //$scope.$apply();
+            $scope.$apply();
         };
 
         $scope.getNumFinishedContracts = function(){
             $scope.finishedContracts = [];
             for(var i = 0; i < $scope.contracts.length; i++){
-                if ($scope.contracts[i].val["contract"]["status"] == "failure" ||
-                    $scope.contracts[i].val["contract"]["status"] == "forfeit" ||
-                    $scope.contracts[i].val["contract"]["status"] == "success"){
+                if ($scope.contracts[i].val["contract"]["uniqueId"] != null){
                     $scope.numFinishedContracts = $scope.numFinishedContracts + 1;
                     $scope.finishedContracts.push($scope.contracts[i]);
+
+
                 }
             }
 
-            //$scope.$apply();
+            $scope.$apply();
         };
 
         $scope.displayPending = function(){
@@ -276,8 +354,8 @@ angular.module('tetherApp')
             $scope.getNumOngoingContracts();
             $scope.getNumFinishedContracts();
 
-            $scope.refreshPage();
-            //$scope.$apply();
+
+            $scope.$apply();
 
         };
 
@@ -367,11 +445,24 @@ angular.module('tetherApp')
             $scope.update();
 
             $location.path('/contract');
-            //$scope.$apply();
+            $scope.$apply();
         };
 
-        $scope.refreshPage = function(){
-            //$scope.$apply();
-        };
+
+
+        $scope.clearAll = function(){
+            var i, results=[], query = /^contract/;
+            for (i in $window.localStorage){
+                if ($window.localStorage.hasOwnProperty(i)) {
+                    if (i.match(query) || (!query && typeof i === 'string')) {
+                        $window.localStorage.removeItem(i);
+                    }
+                }
+            }
+            $window.localStorage.removeItem("myCurrentContract")
+        }
+
+
+
 
     });
