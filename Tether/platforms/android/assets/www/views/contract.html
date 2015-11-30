@@ -41,6 +41,10 @@
                     <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
                     Please enter an amount to wager!
                 </div>
+                <div class="alert alert-danger" role="alert" ng-hide="enoughPoints">
+                    <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                    You do not have enough points!!
+                </div>
 
                 <!--<div class="input-group">
                     <span class="input-group-addon">
@@ -86,11 +90,11 @@
     <pre ng-show="contractOver">The contract is now over:
         <div ng-hide="contractSuccess">
             <div ng-show="contractForfeited">"Forfeited the contract. You lost<br>
-                <div>Points earned: {{ wagerAmount + wagerAmount }}</div>
+                <div>Points earned: {{ wagerAmount}}</div>
             </div>
             <div ng-hide="contractForfeited">You lost. The app that caused you to fail your contract:
                 <li>{{ blacklistedAppUsed }}</li>
-                <div>Points lost: {{ wagerAmount + wagerAmount }}</div>
+                <div>Points lost: {{ wagerAmount }}</div>
             </div>
         </div>
         <div ng-show="contractSuccess">"You made it - great job!<br> Stay focused!"
