@@ -10,7 +10,7 @@ describe('Friends Controller', function() {
     module(function($provide) {
         $provide.service('userService', function() {
             this.users = jasmine.createSpy('users').and.callFake(function() {
-                return [];
+                return ["Tony", "Lane", "Jack", "Jenna", "Steven", "Arthur", "Paul"];
             });
             this.profile = jasmine.createSpy('profile').and.callFake(function() {
                 var data = {username: "Lane", email: "lpither@hotmail.com", first_name: "", last_name: "", friends:["Arthur", "Steven", "Paul"]};
@@ -73,24 +73,17 @@ describe('Friends Controller', function() {
     describe('$scope.addFriend', function() {
         // TODO
         it('should add new friend if the input is valid and is not already in the list', function() {
-            /*
-            $scope.serverReturned.friends = ["Jack", "Jerry", "Jenna"]
+            $scope.serverReturned.friends = ["Jack", "Jerry"];
             $scope.addFriend("Tony");
             expect($scope.friendAddedNotValid).toBe(false);
             expect($scope.friendAlreadyExists).toBe(false);
             expect($scope.serverReturned.friends).toContain("Tony");
             console.log("Friends: " + $scope.serverReturned.friends);
-            /*
         });
         it('should not add and alert if friend list already contains the friend to be added', function() {
-            /*
-            $scope.addFriend("Steven");
-            console.log("Friends: " + $scope.serverReturned.friends);
-
-            $scope.addFriend("Steven");
+            $scope.serverReturned.friends = ["Jack", "Jerry", "Tony"];
+            $scope.addFriend("Tony");
             expect($scope.friendAlreadyExists).toBe(true);
-            console.log("Friends: " + $scope.serverReturned.friends);
-            */
         });
         it('should alert the user if the input is not valid', function() {
             $scope.addFriend("");
@@ -101,10 +94,9 @@ describe('Friends Controller', function() {
 
     describe('$scope.deleteFriend', function() {
         it('should remove the given username from the friend list', function() {
-            $scope.serverReturned.friends = ["Sam", "Jack", "Tony"];
-            console.log("Friends: " + $scope.serverReturned.friends);
-            $scope.deleteFriend("Jack");
-            expect($scope.serverReturned.friends).not.toContain("Jack");
+            $scope.serverReturned.friends = ["Jack", "Jerry", "Tony"];
+            $scope.deleteFriend("Jerry");
+            expect($scope.serverReturned.friends).not.toContain("Jerry");
         });
     });
 

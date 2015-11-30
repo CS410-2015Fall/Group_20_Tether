@@ -42,7 +42,7 @@ angular.module('tetherApp')
                 console.log("Quick Match - Proposing to " + proposeTo);
 
                 $window.localStorage.proposingTo = proposeTo;
-
+                // TODO
                 //$location.path('/contract');
                 //$scope.$apply();
             }
@@ -121,24 +121,8 @@ angular.module('tetherApp')
                 $scope.serverReturned.friends[randomIndex] = temporaryValue;
             }
 
-
-
             return $scope.serverReturned.friends[0];
         };
-
-        /*
-        $scope.clearAll = function(){
-            var i, results=[], query = /^contract/;
-            for (i in $window.localStorage){
-                if ($window.localStorage.hasOwnProperty(i)) {
-                    if (i.match(query) || (!query && typeof i === 'string')) {
-                        $window.localStorage.removeItem(i);
-                    }
-                }
-            }
-            $window.localStorage.removeItem("myCurrentContract")
-        }
-        */
 
         $scope.updateFriends();
         $scope.getUser();

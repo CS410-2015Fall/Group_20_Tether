@@ -3,13 +3,15 @@
  */
 describe('Push Service', function() {
 
-    var PushService, $q, $window;
+    var PushService, $q, $window, pushConfig, device;
 
     beforeEach(function() {
         module('tetherApp');
         $q = {};
         $window = {};
-        //var pushConfig = {};
+        pushConfig = {};
+        device = {};
+        device.platform = 'android';
         inject(function($injector) {
             PushService = $injector.get('pushService', {
                 $q: $q,

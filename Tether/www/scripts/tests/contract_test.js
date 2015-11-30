@@ -5,11 +5,20 @@ describe('Contract Controller', function() {
 
     beforeEach(module('tetherApp'));
 
-    var $scope, $window, $location, $http, $routeParams, contractService, $controller, controller;
+    var $scope, $window, $location, $http, $routeParams, mockContractService, $controller, controller;
 
-    beforeEach(inject(function (_$controller_) {
+    module(function($provide) {
+        $provide.service('contractService', function() {
+            this.applist = jasmine.createSpy('applist').and.callFake(function() {
+                return [];
+            });
+        });
+    });
+
+    beforeEach(inject(function (_$controller_, contractService) {
         // The injector unwraps the underscores (_) from around the parameter names when matching
         $controller = _$controller_;
+        mockContractService = contractService;
     }));
 
     beforeEach(function() {
@@ -18,13 +27,14 @@ describe('Contract Controller', function() {
         $location = {};
         $http = {};
         $routeParams = {};
+        $window.localStorage = {};
         controller = $controller('contractCtrl', {
             $scope: $scope,
             $window: $window,
             $location: $location,
             $http: $http,
             $routeParams: $routeParams,
-            contractService: contractService
+            contractService: mockContractService
         });
     });
 

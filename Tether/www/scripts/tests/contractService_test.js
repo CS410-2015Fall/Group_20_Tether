@@ -17,7 +17,7 @@ describe('Contract Service', function() {
         });
     });
 
-    it('should set GCM_URL to the right URL', function() {
+    it('should initialize GCM_URL', function() {
         expect(ContractService.GCM_URL).toBe('https://android.googleapis.com/gcm/send')
     });
 

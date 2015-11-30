@@ -72,9 +72,6 @@ angular.module('tetherApp')
                 $scope.selectedContractMins = 0;
                 $scope.selectedContractSeconds = 0;
             }
-
-
-
         };
 
 
@@ -104,8 +101,6 @@ angular.module('tetherApp')
         };
 
 
-
-
         $scope.contracts = $scope.getContractsFromLocalStorage();
 
         $scope.getNumProposedContracts = function(){
@@ -116,9 +111,9 @@ angular.module('tetherApp')
                     $scope.pendingContracts.push($scope.contracts[i]);
                 }
             }
-
             $scope.$apply();
         };
+
 
         $scope.getNumOngoingContracts = function(){
             $scope.ongoingContracts = [];
@@ -129,7 +124,6 @@ angular.module('tetherApp')
                     $scope.ongoingContracts.push($scope.contracts[i]);
                 }
             }
-
             $scope.$apply();
         };
 

@@ -1,7 +1,8 @@
 angular.module('tetherApp')
     .service('pushService', function pushService($q, $window) {
 
-    var pushConfig = {};
+        var device;
+        var pushConfig = {};
     if (device.platform == 'android' || device.platform == 'Android') {
         pushConfig = {
             // senderID = ProjectID in google developer console
