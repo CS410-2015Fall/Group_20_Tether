@@ -1,0 +1,146 @@
+<!doctype html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self' * 'unsafe-inline' 'unsafe-eval">
+
+    <title>TETHER</title>
+
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width">
+
+    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css" />
+    <link rel="stylesheet" href="styles/main.css">
+
+
+
+    <link rel="stylesheet" href="angularUI_components/dist/css/mobile-angular-ui-base.min.css"/>
+    <link rel="stylesheet" href="angularUI_components/dist/css/mobile-angular-ui-hover.min.css"/>
+    <link rel="stylesheet" href="angularUI_components/dist/css/mobile-angular-ui-migrate.min.css"/>
+
+    <!-- <link rel="stylesheet" href="angularUI_components/dist/css/mobile-angular-ui-base.min.css">
+    <link rel="stylesheet" href="angularUI_components/dist/css/mobile-angular-ui-hover.min.css">
+    <link rel="stylesheet" href="angularUI_components/dist/css/mobile-angular-ui-migrate.min.css"> -->
+</head>
+
+  <body ng-app="tetherApp" ng-controller="MasterCtrl">
+   <!-- <div class="container">
+        <div class="header">
+          <h3 class="text-muted">Tether</h3>
+        </div> -->
+
+
+
+        <div class="sidebar sidebar-left">
+            <div class="scrollable">
+                <h1 class="scrollable-header app-name">Tether</h1>
+                <div class="scrollable-content">
+                    <div class="list-group" ui-turn-off='uiSidebarLeft'>
+                        <a ng-hide="authenticated" class="list-group-item" ng-click="goToLogin()">Login
+                            <i class="fa fa-chevron-right pull-right"></i></a>
+                        <a ng-hide="authenticated" class="list-group-item" ng-click="goToRegister()">Register
+                            <i class="fa fa-chevron-right pull-right"></i></a>
+
+                        <a ng-show="authenticated" class="list-group-item" ng-click="goToHome()">Home
+                            <i class="fa fa-home pull-right"></i></a>
+                        <a ng-show="authenticated" class="list-group-item" ng-click="goToFriends()">Friends
+                            <i class="fa fa-users pull-right"></i></a>
+                        <a ng-show="authenticated" class="list-group-item" ng-click="goToProfile()">Profile
+                            <i class="fa fa-user pull-right"></i></a>
+                        <a ng-show="authenticated" class="list-group-item" ng-click="goToManageContracts()">Manage Contracts
+                            <i class="fa fa-briefcase pull-right"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+   <div class="app" style="background: whitesmoke"
+        ui-swipe-right='Ui.turnOn("uiSidebarLeft")'
+        ui-swipe-left='Ui.turnOff("uiSidebarLeft")'>
+
+       <div class="navbar navbar-app navbar-absolute-top">
+           <div class="navbar-brand navbar-brand-center" ui-yield-to="title">
+               Tether
+           </div>
+           <div class="btn-group pull-left">
+               <div ui-toggle="uiSidebarLeft" class="btn sidebar-toggle">
+                   <i class="fa fa-bars"></i> Menu
+               </div>
+           </div>
+
+           <div class="btn-group pull-right" ng-click="goToLogout()">
+               <div class="btn btn-navbar" ng-show="authenticated">
+                   Logout
+               </div>
+           </div>
+
+       </div>
+
+        <!-- Add application content here -->
+        <div class="app-body">
+            <div class="app-content">
+                <div ng-view=""></div>
+            </div>
+
+        </div>
+
+
+
+
+
+
+
+
+
+
+
+
+   </div>
+    <!-- </div> -->
+
+
+    <script src="bower_components/es5-shim/es5-shim.js"></script>
+    <script src="bower_components/json3/lib/json3.min.js"></script>
+    <script src="bower_components/jquery/jquery.js"></script>
+    <script src="bower_components/angular/angular.js"></script>
+    <script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
+    <script src="bower_components/angular-resource/angular-resource.js"></script>
+    <script src="bower_components/angular-cookies/angular-cookies.js"></script>
+    <script src="bower_components/angular-sanitize/angular-sanitize.js"></script>
+    <script src="bower_components/angular-route/angular-route.js"></script>
+
+   <script src="angularUI_components/dist/js/mobile-angular-ui.core.min.js"></script>
+   <script src="angularUI_components/dist/js/mobile-angular-ui.gestures.min.js"></script>
+   <script src="angularUI_components/dist/js/mobile-angular-ui.min.js"></script>
+   <script src="angularUI_components/dist/js/mobile-angular-ui.migrate.min.js"></script>
+
+
+
+
+    <script src="scripts/app.js"></script>
+    <script src="scripts/controllers/contract.js"></script>
+    <script src="scripts/controllers/home.js"></script>
+    <script src="scripts/controllers/friends.js"></script>
+   <script src="scripts/controllers/manageContracts.js"></script>
+    <script src="scripts/controllers/register.js"></script>
+    <script src="scripts/controllers/passwordreset.js"></script>
+    <script src="scripts/controllers/passwordresetconfirm.js"></script>
+    <script src="scripts/controllers/login.js"></script>
+    <script src="scripts/controllers/verifyemail.js"></script>
+    <script src="scripts/controllers/logout.js"></script>
+    <script src="scripts/controllers/userprofile.js"></script>
+    <script src="scripts/controllers/passwordchange.js"></script>
+    <script src="scripts/controllers/master.js"></script>
+    <script src="scripts/controllers/restricted.js"></script>
+    <script src="scripts/controllers/authrequired.js"></script>
+    <script src="scripts/services/userService.js"></script>
+    <script src="scripts/services/validationService.js"></script>
+    <script src="scripts/services/contractService.js"></script>
+    <script src="scripts/services/pushService.js"></script>
+    <script src="scripts/CordovaInit.js"></script>
+    <script src="cordova.js"></script>
+
+
+
+  </body>
+</html>

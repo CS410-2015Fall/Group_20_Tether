@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body ng-app="tetherApp">
+
+<div ui-content-for="title">
+    <span>Home</span>
+</div>
+
+
+
+<div ng-controller="homeCtrl">
+
+
+
+    <div class="scrollable">
+
+
+        <div class="scrollable-header">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+
+                    <div class="panel-title">
+                        Welcome {{user}}
+                    </div>
+                    <button class="button" ng-click="clearAll()">Click to clear localcontracts - testing only</button>
+                </div>
+                <div class="panel-body" ng-click="quickMatch()">
+                    <a>Random Match
+                        <i class="fa fa-chevron-right pull-right"></i></a>
+                    <div class="alert alert-danger" ng-show="noFriends">You have no friends to match with!</div>
+                </div>
+            </div>
+            <!--<div class="btn-group btn-group-justified" role="group">
+                <div class="btn-group" role="group">
+
+                </div>
+            </div> -->
+        </div>
+
+        <div class="scrollable-content">
+
+
+            <div id="threeRandomFriends">
+                <div class="panel panel-primary">
+
+                    <div class="panel-heading">
+
+                        <div class="panel-title">
+                            <div ng-hide="noFriends" ng-click="createRandomFriends()">
+                                Click here to see three random friends
+                                <i class="fa fa-refresh pull-right"></i>
+                            </div>
+                        </div>
+
+                        <div ng-show="noFriends">
+                            <a class="list-group-item">
+                                You have no friends! Add some on the friends page!
+                            </a>
+                        </div>
+
+                    </div>
+
+                    <div class="panel-body">
+                        <div ng-repeat="friend in randomFriends | filter:search">
+                            <a class="list-group-item">
+                                {{friend}}
+                                <i class="fa fa-edit pull-right fa-2x" ng-click="propose(friend)"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="leaderBoard">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">
+                        <div class="panel-title" ng-click="refreshLeaderBoard()">
+                            Leaderboard:
+                            <i class="fa fa-refresh pull-right"></i>
+                        </div>
+                    </div>
+                    <div class="panel-body">
+
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <td>User</td>
+                                    <td>Points</td>
+                                </tr>
+                            </thead>
+                            <tbody ng-repeat="leaders in allusers">
+                            <tr>
+                                <td>{{leaders.key}}</td>
+                                <td>{{leaders.val}}</td>
+
+                            </tr>
+
+                            </tbody>
+                        </table>
+
+
+                    </div>
+
+                </div>
+            </div>
+
+
+        </div>
+
+    </div>
+
+
+</div>
+
+
+
+</body>
+</html>

@@ -1,0 +1,269 @@
+<div ui-content-for="title">
+    <span>Profile</span>
+</div>
+
+<div class="scrollable" ng-controller="UserprofileCtrl">
+    <div class="scrollable-content">
+        <a class="list-group-item" ng-click="edit()">
+            Edit Profile Info<i class="fa fa-edit pull-right"></i>
+            </a>
+
+        <div id="userProfile_view" ng-show="editProfile">
+            <div ng-if="complete == false">
+                <form role="form" ng-if="authenticated" name="userProfileForm" ng-submit="updateProfile(userProfileForm, model)" novalidate>
+                    <div class="form-group">
+                        <label for="id_first_name">First Name</label>
+                        <input name="first_name" id="id_first_name" class="form-control" type="text" ng-model="model.first_name" placeholder="First Name" />
+                    </div>
+                    <div class="alert alert-danger" ng-repeat="error in errors.first_name">{{error}}</div>
+                    <div class="form-group">
+                        <label for="id_last_name">Last Name</label>
+                        <input name="last_name" id="id_last_name" class="form-control" type="text" ng-model="model.last_name" placeholder="Last Name" />
+                    </div>
+                    <div class="alert alert-danger" ng-repeat="error in errors.last_name">{{error}}</div>
+                    <div class="form-group">
+                        <label for="id_email">Email</label>
+                        <input name="email" id="id_email" class="form-control" type="email" ng-model="model.email" placeholder="Email" required />
+                    </div>
+                    <div class="alert alert-danger" ng-repeat="error in errors.email">{{error}}</div>
+                    <button type="submit" ng-show="authenticated" class="btn btn-primary">Update Profile</button>
+                </form>
+                <div class="alert alert-warning" ng-if="authenticated == false">You need to be logged in to do this.</div>
+            </div>
+            <div ng-if="complete == true">
+                <div class="alert alert-success">You have updated your profile.</div>
+            </div>
+        </div>
+
+
+        <div class="panel panel-success">
+            <div class="panel-heading">
+                <div class="panel-title">Achievements</div>
+            </div>
+            <div class="panel-body">
+
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <td>First Win</td>
+                        <td>Status</td>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td><i class="fa fa-thumbs-up" ng-show="firstWin" style="colour:green"></i>
+                            <i class="fa fa-thumbs-down" ng-show="!firstWin" style="colour:red"></i></td>
+                        <td>Earned when you successfully complete your first contract</td>
+
+                    </tr>
+
+                    </tbody>
+                </table>
+
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <td>Fifth Win</td>
+                        <td>Status</td>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td><i class="fa fa-thumbs-up" ng-show="fiveWins" style="colour:green"></i>
+                            <i class="fa fa-thumbs-down" ng-show="!fiveWins" style="colour:red"></i></td>
+                        <td>Earned when you successfully complete your fifth contract</td>
+
+                    </tr>
+
+                    </tbody>
+                </table>
+
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <td>Tenth Win</td>
+                        <td>Status</td>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td><i class="fa fa-thumbs-up" ng-show="tenWins" style="colour:green"></i>
+                            <i class="fa fa-thumbs-down" ng-show="!tenWins" style="colour:red"></i></td>
+                        <td>Earned when you successfully complete your tenth contract</td>
+
+                    </tr>
+
+                    </tbody>
+                </table>
+
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <td>25th Win</td>
+                        <td>Status</td>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td><i class="fa fa-thumbs-up" ng-show="twentyFiveWins" style="colour:green"></i>
+                            <i class="fa fa-thumbs-down" ng-show="!twentyFiveWins" style="colour:red"></i></td>
+                        <td>Earned when you successfully complete your 25th contract</td>
+
+                    </tr>
+
+                    </tbody>
+                </table>
+
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <td>50th Win</td>
+                        <td>Status</td>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td><i class="fa fa-thumbs-up" ng-show="fiftyWins" style="colour:green"></i>
+                            <i class="fa fa-thumbs-down" ng-show="!fiftyWins" style="colour:red"></i></td>
+                        <td>Earned when you successfully complete your 50th contract</td>
+
+                    </tr>
+
+                    </tbody>
+                </table>
+
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <td>100th Win</td>
+                        <td>Status</td>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td><i class="fa fa-thumbs-up" ng-show="hundredWins" style="colour:green"></i>
+                            <i class="fa fa-thumbs-down" ng-show="!hundredWins" style="colour:red"></i></td>
+                        <td>Earned when you successfully complete your 100th contract</td>
+
+                    </tr>
+
+                    </tbody>
+                </table>
+
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <td>25% Wins</td>
+                        <td>Status</td>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td><i class="fa fa-thumbs-up" ng-show="twentyFivePercentWins" style="colour:green"></i>
+                            <i class="fa fa-thumbs-down" ng-show="!twentyFivePercentWins" style="colour:red"></i></td>
+                        <td>Earned when at least 25% of total contracts completed are successful</td>
+
+                    </tr>
+
+                    </tbody>
+                </table>
+
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <td>50% Wins</td>
+                        <td>Status</td>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td><i class="fa fa-thumbs-up" ng-show="fiftyPercentWins" style="colour:green"></i>
+                            <i class="fa fa-thumbs-down" ng-show="!fiftyPercentWins" style="colour:red"></i></td>
+                        <td>Earned when at least 50% of total contracts completed are successful</td>
+
+                    </tr>
+
+                    </tbody>
+                </table>
+
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <td>75% Wins</td>
+                        <td>Status</td>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td><i class="fa fa-thumbs-up" ng-show="seventyFivePercentWins" style="colour:green"></i>
+                            <i class="fa fa-thumbs-down" ng-show="!seventyFivePercentWins" style="colour:red"></i></td>
+                        <td>Earned when at least 75% of total contracts completed are successful</td>
+
+                    </tr>
+
+                    </tbody>
+                </table>
+
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <td>100% Wins</td>
+                        <td>Status</td>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td><i class="fa fa-thumbs-up" ng-show="hundredPercentWins" style="colour:green"></i>
+                            <i class="fa fa-thumbs-down" ng-show="!hundredPercentWins" style="colour:red"></i></td>
+                        <td>Earned when at least 100% of total contracts completed are successful</td>
+
+                    </tr>
+
+                    </tbody>
+                </table>
+
+
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <td>Loser</td>
+                        <td>Status</td>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td><i class="fa fa-thumbs-up" ng-show="lost10" style="colour:green"></i>
+                            <i class="fa fa-thumbs-down" ng-show="!lost10" style="colour:red"></i></td>
+                        <td>Earned when at you fail or forefeit 10 contracts</td>
+
+                    </tr>
+
+                    </tbody>
+                </table>
+
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <td>Loser 2.0</td>
+                        <td>Status</td>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td><i class="fa fa-thumbs-up" ng-show="lost25" style="colour:green"></i>
+                            <i class="fa fa-thumbs-down" ng-show="!lost25" style="colour:red"></i></td>
+                        <td>Earned when at you fail or forefeit 25 contracts</td>
+
+                    </tr>
+
+                    </tbody>
+                </table>
+
+            </div>
+        </div>
+
+
+
+
+    </div>
+</div>

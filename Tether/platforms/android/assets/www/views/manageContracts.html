@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body ng-app="tetherApp">
+
+<div ui-content-for="title">
+    <span>Manage Contracts</span>
+</div>
+
+<div ng-controller="manageContractCtrl">
+
+    <div class="scrollable">
+
+
+
+        <div class="scrollable-header">
+
+
+                        <div ng-show="noContractsInStorage">
+                            You have no contracts to manage!
+                        </div>
+                        <div class="btn-group" role="group">
+                            <button class="btn btn-primary" type="button" ng-click="displayPending()">
+                                Pending <span class="badge">{{numProposedContracts}}</span>
+                            </button>
+                            <button class="btn btn-danger" type="button" ng-click="displayOngoing()">
+                                Watching <span class="badge">{{numOngoingContracts}}</span>
+                            </button>
+                            <button class="btn btn-success" type="button" ng-click="displayFinished()">
+                                Completed <span class="badge">{{numFinishedContracts}}</span>
+                            </button>
+                        </div>
+
+        </div>
+
+        <div class="scrollable-content">
+
+            <div ng-show="showPending">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">
+                        <div class="panel-title">
+                            Pending Contracts
+                        </div>
+                    </div>
+                    <button class="button" ng-click="clearAll()">Clear- only for testing</button>
+
+                    <div class="panel-body">
+                        <div ng-repeat="(contractIndex, contract) in pendingContracts">
+                            <div class="panel panel-default">
+                                <div class="panel-body" ng-click="viewDetails(contractIndex)">
+                                    <div class="list-group-item">
+                                        Contract from: {{contract.val["contract"].from}}<br>
+                                        For {{contract.val.contract.hours}} hours and {{contract.val.contract.mins}} minutes.<br>
+                                        Wager amount: {{contract.val.contract.wagerAmount}}
+                                    </div>
+                                    <a class="list-group-item" style="background: lightcoral" ng-click="rejectContract(contract.val.contract.from, contract.val.contract.gcmTokenFromProposer, contract.val)">
+                                            <i class="fa fa-remove"></i>Reject
+                                    </a>
+                                    <a class="list-group-item" style="background: lightblue" ng-click="acceptAndWatch(contract.val.contract.from, contract.val.contract.gcmTokenFromProposer, contract.val)">
+                                        <i class="fa fa-eye"></i>Accept - Monitor Only
+                                    </a>
+                                    <a class="list-group-item" style="background: lightgreen" ng-click="acceptAndStartOwn(contract.val.contract.from, contract.val.contract.gcmTokenFromProposer, contract.val)">
+                                        <i class="fa fa-exchange"></i>Accept these terms for yourself
+                                    </a>
+
+                                    <div class="list-group-item" ng-hide="isShowing(contractIndex)" ng-click="viewDetails(contractIndex, contract.val)">
+                                            <i class="fa fa-info"></i> Show Details
+                                    </div>
+
+                                </div>
+
+                                <div class="panel-body" ng-show="isShowing(contractIndex)">
+                                    Blacklisted apps proposed are:
+                                    <div ng-repeat="app in selectedContractApps">
+                                        <div class="list-group-item">
+                                            <i class="fa fa-circle"> {{app}}</i>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="btn-group" ng-show="isShowing(contractIndex)">
+
+                                    <div class="list-group-item" ng-show="isShowing(contractIndex)" ng-click="hideDetails()">
+                                        <i class="fa fa-info"></i> Hide Details
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+
+
+
+            <div ng-show="showOngoing">
+                <div class="panel panel-danger">
+                    <div class="panel-heading">
+                        <div class="panel-title">
+                            Ongoing Contracts
+                        </div>
+                    </div>
+
+                    <div class="panel-body">
+                        <div ng-repeat="(contractIndex, contract) in ongoingContracts">
+                            <div class="panel panel-default">
+                                <div class="panel-body" ng-click="viewDetails(contractIndex)">
+                                    <div class="list-group-item">
+                                        Contract from: {{contract.val["contract"].from}}<br>
+                                        For {{contract.val.contract.hours}} hours and {{contract.val.contract.mins}} minutes.<br>
+                                        Wager amount: {{contract.val["contract"].wagerAmount}}
+                                    </div>
+
+
+                                    <div class="list-group-item" ng-hide="isShowing(contractIndex)" ng-click="viewDetailsOngoing(contractIndex, contract.val)">
+                                        <i class="fa fa-info"></i> Show Details
+                                    </div>
+
+                                </div>
+
+                                <div class="panel-body" ng-show="isShowing(contractIndex)">
+                                    Blacklisted apps being monitored:
+                                    <div ng-repeat="app in selectedContractApps">
+                                        <div class="list-group-item">
+                                            <i class="fa fa-circle"> {{app}}</i>
+                                        </div>
+                                    </div>
+                                    <a class="list-group-item">
+                                        <i class="fa fa-clock"></i>Time remaining: {{selectedContractHours}} hours, {{selectedContractMins}} minutes, and {{selectedContractSeconds}} seconds.
+                                    </a>
+                                </div>
+                                <div class="btn-group" ng-show="isShowing(contractIndex)">
+
+                                    <div class="list-group-item" ng-show="isShowing(contractIndex)" ng-click="hideDetails()">
+                                        <i class="fa fa-info"></i> Hide Details
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <div ng-show="showFinished">
+                <div class="panel panel-success">
+                    <div class="panel-heading">
+                        <div class="panel-title">
+                            Completed Contracts
+                        </div>
+                    </div>
+                    <div class="panel-body">
+                        <div ng-repeat="(contractIndex, contract) in finishedContracts">
+                            <div class="panel panel-default">
+                                <div class="panel-body" ng-click="viewDetailsFinished(contractIndex)">
+                                    <div class="list-group-item">
+                                        Contract from: {{contract.val["contract"].from}}<br>
+                                        For {{contract.val.contract.hours}} hours and {{contract.val.contract.mins}} minutes.<br>
+                                        Wager amount: {{contract.val.contract.wagerAmount}}<br>
+                                        Completed Status: {{contract.val.contract.status}}<br>
+                                    </div>
+
+
+
+                                    <div class="list-group-item" ng-hide="isShowing(contractIndex)" ng-click="viewDetailsFinished(contractIndex, contract.val)">
+                                        <i class="fa fa-info"></i> Show Details
+                                    </div>
+
+                                    <div ng-show="isShowingComplete(contractIndex)">
+                                        Blacklisted apps monitored:
+                                        <div ng-repeat="app in selectedContractApps">
+                                            <div class="list-group-item">
+                                                <i class="fa fa-circle"> {{app}}</i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="btn-group" ng-show="isShowingComplete(contractIndex)">
+
+                                        <a class="list-group-item" ng-hide="isClaimed" ng-click="getPoints(contract.val.contract.from, contract.val.contract.status,contract.val.contract.points, contract.val, contract.val.contract.uniqueId)">
+                                            Claim points: {{pointsEarned}}<i class="fa fa-money pull-right fa-lg"></i>
+                                        </a>
+                                        <a class="list-group-item" ng-show="isClaimed">
+                                            Points earned: {{pointsEarned}}<i class="fa fa-money pull-right fa-lg"></i>
+                                        </a>
+                                        <a class="list-group-item" ng-click="deleteContract(contract.val.contract.from, contract.val.contract.uniqueId)">
+                                            <i class="fa fa-remove pull-left fa-lg"></i> Delete Contract
+                                        </a>
+
+                                    </div>
+
+                                </div>
+
+
+
+
+                            </div>
+                        </div>
+                    </div>
+            </div>
+
+        </div>
+
+
+
+
+    </div>
+
+        <div class="scrollable-footer">
+            <a class="list-group-item" ng-click="update()">
+                <i class="fa fa-refresh pull-left"></i>Refresh
+            </a>
+        </div>
+
+
+</div>
+
+</body>
+</html>

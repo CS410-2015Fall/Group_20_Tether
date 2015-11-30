@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body ng-app="tetherApp">
+
+
+<div ui-content-for="title">
+    <span>Contract</span>
+</div>
+
+
+<div ng-controller="contractCtrl">
+    <div class="scrollable">
+        <div class="scrollable-content">
+
+            <h1 ng-hide="submitted">Proposing contract to: {{friend}}</h1>
+            <form role="form" ng-submit="" name="contractForm" novalidate ng-hide="submitted">
+                <div class="form-group">
+                    <label>Duration:
+                        <input name="contract_hours" id="hrID" type="number" ng-model="contractHours" placeholder="Hr" class="form-control" required />
+                        <input name="contract_minutes" id="minID" type="number" ng-model="contractMinutes" placeholder="Min" class="form-control" required />
+                        <input name="contract_seconds" id="secID" type="number" ng-model="contractSeconds" placeholder="Sec" class="form-control" required />
+                    </label>
+                </div>
+
+                <div class="alert alert-danger" role="alert" ng-hide="validHours">
+                    <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                    Duration must be longer than 0!
+                </div>
+
+                <div class="form-group">
+                    <label>Wagering amount:
+                        <input name="contract_wager" id="wagerID" type="number" ng-model="contractWager" placeholder="Amount to wager" class="form-control" required />
+                    </label>
+                </div>
+
+                <div class="alert alert-danger" role="alert" ng-hide="validWagerAmount">
+                    <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                    Please enter an amount to wager!
+                </div>
+                <div class="alert alert-danger" role="alert" ng-hide="enoughPoints">
+                    <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                    You do not have enough points!!
+                </div>
+
+                <!--<div class="input-group">
+                    <span class="input-group-addon">
+                        <input type="checkbox" aria-label="...">
+                    </span>
+                        <input type="text" class="form-control" aria-label="...">
+                    <img src=/storage/emulated/0/com.ionicframework.xxx/Cache/com.giphy.messenger.png";
+                </div> -->
+
+                <div id="installedApps"></div>
+
+                <div class="alert alert-danger" role="alert" ng-hide="validAppSelection">
+                    <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                    Please choose at least one app!
+                </div>
+
+                <button type="submit" class="btn btn-primary" ng-click="submitContract()">Submit</button>
+
+            </form>
+
+
+
+    <div ng-show="waitingForResponse">
+        <div class="jumbotron">
+            <p>Pending acceptance by: {{friend}}</p>
+
+            <i class="fa fa-spinner fa-spin fa-5x"></i>
+
+            <button class="btn btn-alert" ng-click="cancelContract()">Cancel</button>
+        </div>
+
+    </div>
+
+   <pre ng-show="ongoingContract">Your contract will end in:
+        <div class="container" id="countdown"></div>
+        <div>These apps are not permitted to   use during the contract:
+            <li ng-repeat="app in blacklistedApps">{{ app }}</li>
+        </div>
+    </pre>
+
+            <button class="btn btn-warning" ng-show="ongoingContract" ng-click="forfeit()">Forfeit</button>
+
+    <pre ng-show="contractOver">The contract is now over:
+        <div ng-hide="contractSuccess">
+            <div ng-show="contractForfeited">"Forfeited the contract. You lost<br>
+                <div>Points earned: {{ wagerAmount}}</div>
+            </div>
+            <div ng-hide="contractForfeited">You lost. The app that caused you to fail your contract:
+                <li>{{ blacklistedAppUsed }}</li>
+                <div>Points lost: {{ wagerAmount }}</div>
+            </div>
+        </div>
+        <div ng-show="contractSuccess">"You made it - great job!<br> Stay focused!"
+            Points earned: {{ wagerAmount + wagerAmount }}</div>
+        <button class="btn btn-primary" type="submit" ng-click="routeToContract()">New Contract</button>
+    </pre>
+
+
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
