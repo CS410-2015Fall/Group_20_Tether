@@ -2,10 +2,13 @@
     <span>Profile</span>
 </div>
 
-<div class="scrollable">
+<div class="scrollable" ng-controller="UserprofileCtrl">
     <div class="scrollable-content">
+        <a class="list-group-item" ng-click="edit()">
+            Edit Profile Info<i class="fa fa-edit pull-right"></i>
+            </a>
 
-        <div id="userProfile_view" ng-controller="UserprofileCtrl">
+        <div id="userProfile_view" ng-show="editProfile">
             <div ng-if="complete == false">
                 <form role="form" ng-if="authenticated" name="userProfileForm" ng-submit="updateProfile(userProfileForm, model)" novalidate>
                     <div class="form-group">
@@ -31,5 +34,175 @@
                 <div class="alert alert-success">You have updated your profile.</div>
             </div>
         </div>
+
+
+        <div class="panel panel-success">
+            <div class="panel-heading">
+                <div class="panel-title">Achievements</div>
+            </div>
+            <div class="panel-body">
+
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <td>Achievement</td>
+                        <td>Status</td>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td><i class="fa fa-thumbs-up" ng-show="firstWin" style="colour:green"></i>
+                            <i class="fa fa-thumbs-down" ng-show="!firstWin" style="colour:red"></i></td>
+                        <td>Earned when you successfully complete your first contract</td>
+
+                    </tr>
+
+                    </tbody>
+                </table>
+
+                <div class="panel-body">
+                    <div class="media-left">
+                        <div class="pull-left">
+                            <i class="fa fa-thumbs-down fa-stack-1x" ng-show="firstWin" style="colour:green"></i>
+                        </div>
+                    </div>
+                    <div class="media-body">
+                        <div class="media-heading">First Win</div>
+                        Earned when you successfully complete your first contract
+                    </div>
+                </div>
+                <div class="media">
+                    <div class="media-left">
+                        <i class="fa fa-thumbs-up fa-stack-1x" ng-show="fiveWins" style="colour:green"></i>
+                    </div>
+                    <div class="media-body">
+                        <div class="media-heading">Fifth Win</div>
+                        Earned when you successfully complete your fifth contract
+                    </div>
+                </div>
+                <div class="media">
+                    <div class="media-left">
+                        <i class="fa fa-thumbs-up fa-stack-1x" ng-show="tenWins" style="colour:green"></i>
+                    </div>
+                    <div class="media-body">
+                        <div class="media-heading">Tenth Win</div>
+                        Earned when you successfully complete your tenth contract
+                    </div>
+                </div>
+                <div class="media">
+                    <div class="media-left">
+                        <i class="fa fa-thumbs-up fa-stack-1x" ng-show="twentyFiveWins" style="colour:green"></i>
+                    </div>
+                    <div class="media-body">
+                        <div class="media-heading">25th Win</div>
+                        Earned when you successfully complete your 25th contract
+                    </div>
+                </div>
+                <div class="media">
+                    <div class="media-left">
+
+                        <i class="fa fa-thumbs-up fa-stack-1x" ng-show="fiftyWins" style="colour:green"></i>
+                    </div>
+                    <div class="media-body">
+                        <div class="media-heading">50th Win</div>
+                        Earned when you successfully complete your 50th contract
+                    </div>
+                </div>
+                <div class="media">
+                    <div class="media-left">
+
+                        <i class="fa fa-thumbs-up fa-stack-1x" ng-show="hundredWins" style="colour:green"></i>
+                    </div>
+                    <div class="media-body">
+                        <div class="media-heading">100th Win</div>
+                        Earned when you successfully complete your 100th contract
+                    </div>
+                </div>
+
+                <div class="media">
+                    <div class="media-left">
+
+                        <i class="fa fa-thumbs-up fa-stack-1x" ng-show="twentyFivefiftyPercentWins" style="colour:green"></i>
+                    </div>
+                    <div class="media-body">
+                        <div class="media-heading">25% Wins</div>
+                        Earned when at least 25% of total contracts completed are successful
+                    </div>
+                </div>
+
+                <div class="media">
+                    <div class="media-left">
+
+                        <i class="fa fa-thumbs-up fa-stack-1x" ng-show="fiftyPercentWins" style="colour:green"></i>
+                    </div>
+                    <div class="media-body">
+                        <div class="media-heading">50% Wins</div>
+                        Earned when at least 50% of total contracts completed are successful
+                    </div>
+                </div>
+
+                <div class="media">
+                    <div class="media-left">
+
+                        <i class="fa fa-thumbs-up fa-stack-1x" ng-show="seventyFivefiftyPercentWins" style="colour:green"></i>
+                    </div>
+                    <div class="media-body">
+                        <div class="media-heading">75% Wins</div>
+                        Earned when at least 75% of total contracts completed are successful
+                    </div>
+                </div>
+
+                <div class="media">
+                    <div class="media-left">
+
+                        <i class="fa fa-thumbs-up fa-stack-1x" ng-show="hundredPercentWins" style="colour:green"></i>
+                    </div>
+                    <div class="media-body">
+                        <div class="media-heading">100% Wins</div>
+                        Earned when at least 100% of total contracts completed are successful
+                    </div>
+                </div>
+
+                <div class="media">
+                    <div class="media-left">
+
+                        <i class="fa fa-thumbs-down fa-stack-1x" ng-show="negativePoints" style="colour:green"></i>
+
+                    </div>
+                    <div class="media-body">
+                        <div class="media-heading">Negative</div>
+                        Earned when you have negative points
+                    </div>
+                </div>
+
+                <div class="media">
+                    <div class="media-left">
+                        <div class="pull-left">
+                            <i class="fa fa-thumbs-down fa-stack-1x" ng-show="lost10" style="colour:green"></i>
+                        </div>
+
+                    </div>
+                    <div class="media-body">
+                        <div class="media-heading">Likes to lose</div>
+                        Earned when at you fail or forefeit 10 contracts
+                    </div>
+                </div>
+
+                <div class="media">
+                    <div class="media-left">
+                        <i class="fa fa-thumbs-down fa-stack-1x" ng-show="lost25" style="colour:green"></i>
+                    </div>
+                    <div class="media-body">
+                        <div class="media-heading">Likes to lose 2.0</div>
+                        Earned when at you fail or forefeit 25 contracts
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+
+
+
     </div>
 </div>
