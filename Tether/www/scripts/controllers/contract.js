@@ -55,8 +55,8 @@ angular.module('tetherApp')
             console.log(JSON.stringify(togcm));
         });
 
-
-        contractService.applist();
+        // TODO
+        //contractService.applist();
 
        var contractJSON = '{"contract":{"apps":[],"durationInMins":0,"hours":"","mins":"","seconds":"","wagerAmount":0,"friend":"","gcmTokenFromProposer":"","from":"","status":"","timeStart":""}}';
 
@@ -572,6 +572,7 @@ angular.module('tetherApp')
 
             //contractJSON = '{"contract":{"apps":[],"durationInMins":0,"hours":"","mins":"","wagerAmount":0,"friend":"","gcmTokenFromProposer":"","from":"","status":"","timeStart":""}}';
 
+            // TODO
             contractService.applist();
             $scope.$apply();
         };

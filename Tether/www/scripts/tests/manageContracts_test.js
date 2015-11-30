@@ -23,7 +23,7 @@ describe('Manage Contracts Controller', function() {
         });
     });
 
-    var contractJSON = {"contract":{"apps":[],"durationInMins":0,"hours":"","mins":"","seconds":"","wagerAmount":0,"friend":"","gcmTokenFromProposer":"","from":"","status":"","timeStart":""}};
+    var contractJSON = {"contract":{"apps":[],"durationInMins":0,"hours":"","mins":"","seconds":"","wagerAmount":0,"friend":"","gcmTokenFromProposer":"","from":"","status":"","timeStart":"","points":"","claimed":""}};
 
     describe('$scope.isShowing', function() {
         it('should return true if $scope.showDetails == index', function() {
@@ -57,6 +57,56 @@ describe('Manage Contracts Controller', function() {
         it('should ', function() {
             contractJSON.contract.durationInMins = 60;
             $scope.viewDetailsOngoing(1,contractJSON);
+        });
+    });
+
+    describe('$scope.viewDetailsFinished', function() {
+        contractJSON.contract.status = "success";
+        it('should set $scope.isClaimed to be true', function() {
+            contractJSON.contract.claimed = "yes";
+            $scope.viewDetailsFinished(1, contractJSON);
+            expect($scope.isClaimed).toBe(true);
+        });
+        it('should set $scope.isClaimed to be false', function() {
+            contractJSON.contract.claimed = "no";
+            $scope.viewDetailsFinished(1, contractJSON);
+            expect($scope.isClaimed).toBe(false);
+        });
+    });
+
+    describe('$scope.calculatePointsEarned', function() {
+        contractJSON.contract.points = 10;
+        it('should set $scope.pointsEarned = 0 if success', function() {
+            contractJSON.contract.status = "success";
+            $scope.calculatePointsEarned(contractJSON);
+            expect($scope.pointsEarned).toEqual(0);
+        });
+        it('should set $scope.pointsEarned = 10 if forfeit', function() {
+            contractJSON.contract.status = "forfeit";
+            $scope.calculatePointsEarned(contractJSON);
+            expect($scope.pointsEarned).toEqual(10);
+        });
+        it('should set $scope.pointsEarned = 10 if failure', function() {
+            contractJSON.contract.status = "failure";
+            $scope.calculatePointsEarned(contractJSON);
+            expect($scope.pointsEarned).toEqual(10);
+        });
+        it('should console out error message otherwise', function() {
+            contractJSON.contract.status = "";
+            $scope.calculatePointsEarned(contractJSON);
+            expect($scope.pointsEarned).toBeUndefined();
+        });
+    });
+
+    describe('$scope.getPoints', function() {
+        it('should ', function() {
+            // TODO
+        });
+    });
+
+    describe('$scope.deleteContract', function() {
+        it('should remove contractForm from $window.localStorage', function() {
+            // TODO
         });
     });
 

@@ -8,11 +8,7 @@ describe('Contract Controller', function() {
     var $scope, $window, $location, $http, $routeParams, mockContractService, $controller, controller;
 
     module(function($provide) {
-        $provide.service('contractService', function() {
-            this.applist = jasmine.createSpy('applist').and.callFake(function() {
-                return [];
-            });
-        });
+        $provide.service('contractService', mockContractService);
     });
 
     beforeEach(inject(function (_$controller_, contractService) {
