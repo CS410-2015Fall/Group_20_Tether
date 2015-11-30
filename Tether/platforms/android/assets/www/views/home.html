@@ -26,7 +26,7 @@
                     <div class="panel-title">
                         Welcome {{user}}
                     </div>
-                    <button class="button" ng-click="clearAll()">Click to clear localcontracts - testing only</button>
+                    <button class="btn btn-primary" ng-click="clearAll()"></button>
                 </div>
                 <div class="panel-body" ng-click="quickMatch()">
                     <a>Random Match
@@ -42,22 +42,7 @@
         </div>
 
         <div class="scrollable-content">
-            <div id="homeSummaryStats">
-                <div class="panel panel-primary">
-                    <div class="panel-heading">
-                        <div class="panel-title">
-                            Status & Achievements
-                        </div>
-                    </div>
 
-                    <div class="panel-body">
-
-                        Levels and stuff and progress bars etc etc etc
-
-                    </div>
-                </div>
-
-            </div>
 
             <div id="threeRandomFriends">
                 <div class="panel panel-primary">
@@ -87,6 +72,39 @@
                             </a>
                         </div>
                     </div>
+                </div>
+            </div>
+
+            <div id="leaderBoard">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">
+                        <div class="panel-title" ng-click="refreshLeaderBoard()">
+                            Leaderboard:
+                            <i class="fa fa-refresh pull-right"></i>
+                        </div>
+                    </div>
+                    <div class="panel-body">
+
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <td>User</td>
+                                    <td>Points</td>
+                                </tr>
+                            </thead>
+                            <tbody ng-repeat="leaders in allusers">
+                            <tr>
+                                <td>{{leaders.key}}</td>
+                                <td>{{leaders.val}}</td>
+
+                            </tr>
+
+                            </tbody>
+                        </table>
+
+
+                    </div>
+
                 </div>
             </div>
 

@@ -10,11 +10,55 @@ angular.module('tetherApp')
 
                     document.getElementById('installedApps').innerHTML = '';
                     $.each(app_list, function () {
-                        $("#installedApps").append($("<label>").text(this.name).prepend(
+                        $("#installedApps").append($("<label class='list-group-item'>").text(this.name).prepend(
                             $("<input>").attr('type', 'checkbox').attr('id',(this.name))
                         ));
                     });
+
+                    //hardcode specific apps
+                    $("#installedApps").append($("<label class='list-group-item'>").text("Messages").prepend(
+                        $("<input>").attr('type', 'checkbox').attr('id',("Messages"))
+                    ));
+                    $("#installedApps").append($("<label class='list-group-item'>").text("Chrome").prepend(
+                        $("<input>").attr('type', 'checkbox').attr('id',("Chrome"))
+                    ));
+                    $("#installedApps").append($("<label class='list-group-item'>").text("Internet").prepend(
+                        $("<input>").attr('type', 'checkbox').attr('id',("Internet"))
+                    ));
+                    $("#installedApps").append($("<label class='list-group-item'>").text("S Planner").prepend(
+                        $("<input>").attr('type', 'checkbox').attr('id',("S Planner"))
+                    ));
+                    $("#installedApps").append($("<label class='list-group-item'>").text("Gallery").prepend(
+                        $("<input>").attr('type', 'checkbox').attr('id',("Gallery"))
+                    ));
+                    $("#installedApps").append($("<label class='list-group-item'>").text("Camera").prepend(
+                        $("<input>").attr('type', 'checkbox').attr('id',("Camera"))
+                    ));
+                    $("#installedApps").append($("<label class='list-group-item'>").text("Music").prepend(
+                        $("<input>").attr('type', 'checkbox').attr('id',("Music"))
+                    ));
+                    $("#installedApps").append($("<label class='list-group-item'>").text("Video").prepend(
+                        $("<input>").attr('type', 'checkbox').attr('id',("Video"))
+                    ));
+                    $("#installedApps").append($("<label class='list-group-item'>").text("Email").prepend(
+                        $("<input>").attr('type', 'checkbox').attr('id',("Email"))
+                    ));
+                    $("#installedApps").append($("<label class='list-group-item'>").text("Gmail").prepend(
+                        $("<input>").attr('type', 'checkbox').attr('id',("Gmail"))
+                    ));
+                    $("#installedApps").append($("<label class='list-group-item'>").text("YouTube").prepend(
+                        $("<input>").attr('type', 'checkbox').attr('id',("YouTube"))
+                    ));
+                    $("#installedApps").append($("<label class='list-group-item'>").text("Google+").prepend(
+                        $("<input>").attr('type', 'checkbox').attr('id',("Google+"))
+                    ));
+                    $("#installedApps").append($("<label class='list-group-item'>").text("Google Play Store").prepend(
+                        $("<input>").attr('type', 'checkbox').attr('id',("Google Play Store"))
+                    ));
+
+
                 };
+
                 var error = function(app_list){
                     console.log("Fail:" + app_list);
                 };

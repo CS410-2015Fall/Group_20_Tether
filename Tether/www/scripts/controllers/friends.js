@@ -4,7 +4,7 @@
 
 
 angular.module('tetherApp')
-    .controller('friendsCtrl', function($scope, $window, $rootScope, $location, $http, userService,
+    .controller('friendsCtrl', function($scope, $window, $rootScope, $location, $http, userService,friendsService,
                                         SharedState){
 
         userService.users().then(function (data){
@@ -24,8 +24,8 @@ angular.module('tetherApp')
         $scope.friendAddedNotValid = false;
         $scope.friendAlreadyExists = false;
         $scope.serverReturned = {friends:[]};
-
-
+        $scope.username = '';
+        $scope.myname = '';
         $scope.checkNoFriends = function(){
             if($scope.serverReturned.friends.length == 0){
                 $scope.noFriends = true;
@@ -36,6 +36,7 @@ angular.module('tetherApp')
             userService.profile().then(function (data){
                 var text = JSON.stringify(data);
                 var jdata = JSON.parse(text);
+                $scope.myname = jdata["username"];
                 var jarray = jdata["friends"].replace(/'/g, '"');
                 var array = JSON.parse(jarray);
                 console.log(array);
@@ -44,24 +45,16 @@ angular.module('tetherApp')
             });
         };
 
-        $scope.setFriendToAdd = function() {
-            var friendToAdd = document.getElementById("id_userToAdd").value.toString();
-            addFriend(friendToAdd);
-            if (!$scope.friendAddedNotValid && !$scope.friendAlreadyExists) {
-                document.getElementById("id_addFriendForm").reset();
-            }
-        };
 
 
-        $scope.addFriend = function(valueToCheck){
-
+        $scope.addFriend = function(){
             $scope.friendAlreadyExists = false;
-
-            //var valueToCheck = document.getElementById("id_userToAdd").value.toString().toUpperCase();
+            console.log("Add Friend Button Pressed: Adding " + document.getElementById("id_userToAdd").value);
+            var valueToCheck = document.getElementById("id_userToAdd").value.toString().toUpperCase();
 
             for (var i = 0; i < $scope.serverReturned.friends.length; i++){
 
-                var listItemToCheck = $scope.serverReturned.friends[i].toString();
+                var listItemToCheck = $scope.serverReturned.friends[i].toString().toUpperCase();
 
                 if (listItemToCheck === valueToCheck){
                     var alreadyExists = true;
@@ -73,17 +66,36 @@ angular.module('tetherApp')
                 }
 
             }
-            //if (valueToCheck === "" || $scope.allusers.indexOf(valueToCheck) == -1){
-            if (valueToCheck === ""){
+            if (valueToCheck === "" || $scope.allusers.indexOf(valueToCheck) == -1){
                 $scope.friendAddedNotValid = true;
             } else {
                 if (alreadyExists){
                     $scope.friendAlreadyExists = true;
                 } else {
+                    var togcm = '';
+                    userService.users().then(function (data){
+                        var s = data;
+                        var jsons=[];
+                        for (var i=s.length;i--;){
+                            jsons[i]=JSON.stringify(s[i]);
+                            var jdata = JSON.parse(jsons[i]);
+                            if(jdata.username.toUpperCase() == valueToCheck){
+                                togcm = jdata.gcm_token;
+                            }
+                        }
+                        console.log(JSON.stringify(togcm));
+                        var user = $scope.myname.toString();
+                        var message = user+" added you as a friend!";
+                        // notify friend
+                        friendsService.notifyfriend(togcm,message).then(function(data){
+                            // success case
+                        },function(data){
+                            // error case
+                        });
+                    });
 
-                    console.log("Add Friend Button Pressed: Adding " + valueToCheck);
 
-                    $scope.serverReturned.friends.push(valueToCheck);
+                    $scope.serverReturned.friends.push(document.getElementById("id_userToAdd").value);
                     var updated = {
                         'friends':$scope.serverReturned.friends
                     };
@@ -93,21 +105,22 @@ angular.module('tetherApp')
                         // error case
                     });
                     $scope.checkNoFriends();
-                    //document.getElementById("id_addFriendForm").reset();
+                    document.getElementById("id_addFriendForm").reset();
                     $scope.friendAddedNotValid = false;
                     $scope.friendAlreadyExists = false;
                 }
             }
+
         };
 
 
         $scope.deleteFriend = function(friendToDelete){
-            console.log("Deleting Friend " + friendToDelete);
+            console.log("DeletingFriend" + friendToDelete);
             $scope.showConfirmDeleteIndex = "";
             var deleteIndex = $scope.serverReturned.friends.indexOf(friendToDelete);
             if (deleteIndex > -1) {
                 $scope.serverReturned.friends.splice(deleteIndex, 1);
-                console.log("Friends after deletion: " + $scope.serverReturned.friends);
+                console.log($scope.serverReturned.friends);
             }
             var updated = {
                 'friends':$scope.serverReturned.friends
@@ -119,6 +132,7 @@ angular.module('tetherApp')
                 });
             $scope.checkNoFriends();
         };
+
 
 
         $scope.cancelDelete = function(){
@@ -134,12 +148,15 @@ angular.module('tetherApp')
         };
 
 
+
         $scope.propose = function(proposeTo){
-            console.log("Proposing to selected friend: " + proposeTo);
+            console.log("Proposing to" + proposeTo);
             $window.localStorage.proposingTo = proposeTo;
-            // TODO
-            //$location.path('/contract');
-            //$scope.$apply();
+            $location.path('/contract');
+            $scope.$apply();
+            //pass to service - set username
+            // take to contract page set up proposal
+            // need to add contract view where they are waiting/set timer that on confirmation it does so
         };
         $scope.updateFriends();
     });
