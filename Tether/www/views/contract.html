@@ -90,7 +90,7 @@
     <pre ng-show="contractOver">The contract is now over:
         <div ng-hide="contractSuccess">
             <div ng-show="contractForfeited">"Forfeited the contract. You lost<br>
-                <div>Points earned: {{ wagerAmount}}</div>
+                <div>Points lost: {{ wagerAmount}}</div>
             </div>
             <div ng-hide="contractForfeited">You lost. The app that caused you to fail your contract:
                 <li>{{ blacklistedAppUsed }}</li>
@@ -98,7 +98,7 @@
             </div>
         </div>
         <div ng-show="contractSuccess">"You made it - great job!<br> Stay focused!"
-            Points earned: {{ wagerAmount + wagerAmount }}</div>
+            Points earned: {{ wagerAmount }}</div>
         <button class="btn btn-primary" type="submit" ng-click="routeToContract()">New Contract</button>
     </pre>
 
