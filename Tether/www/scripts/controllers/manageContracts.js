@@ -6,7 +6,7 @@
 
 angular.module('tetherApp')
     .controller('manageContractCtrl',function($scope, $window, $location, $http,
-                                    $routeParams, userService, pushService){
+                                    $routeParams, userService, contractService){
 
 
         $scope.noContractsInStorage = false;
@@ -87,12 +87,18 @@ angular.module('tetherApp')
                 if ($window.localStorage.hasOwnProperty(i)) {
                     if (i.match(query) || (!query && typeof i === 'string')) {
                         var value = JSON.parse(localStorage.getItem(i));
-                        results.push({key:i,val:value});
+
+                        if (value["contract"].status === "cancelled"){
+                            $window.localStorage.removeItem(i);
+                        } else {
+                            results.push({key:i,val:value});
+                        }
+
 
                     }
                 }
 
-                console.log(localStorage.getItem(i).toString());
+
             }
             if (results.length == 0){
                 $scope.noContractsInStorage = true;
@@ -191,6 +197,14 @@ angular.module('tetherApp')
             ///
             ///
 
+            contractService.declinecontract(theirGcmToken, contractJSON).then(function(result){
+
+            }, function(err){
+
+            });
+
+            $scope.update();
+
 
 
             var deleteKey = "contract" + user.toString();
@@ -217,6 +231,12 @@ angular.module('tetherApp')
             ///
             ///
 
+            contractService.acceptcontract(theirGcmToken, contractJSON).then(function(result){
+
+            }, function(err){
+
+            });
+
             $scope.update();
         };
 
@@ -238,6 +258,17 @@ angular.module('tetherApp')
 
             $window.localStorage.removeItem(setMyKey);
             $window.localStorage.setItem(setMyKey, JSON.stringify(contractJSON));
+
+
+            contractService.acceptcontractandstartown(theirGcmToken, contractJSON).then(function(result){
+
+            }, function(err){
+
+            });
+
+            $scope.update();
+
+
 
             $scope.update();
 

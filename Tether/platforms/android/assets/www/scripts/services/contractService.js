@@ -21,7 +21,7 @@ angular.module('tetherApp')
                 Applist.createEvent('','','','','',success,error)
             },
             'request': function (args) {
-                $http.defaults.headers.common.Authorization = 'key=AIzaSyCxLrs3Sw4YJ2HuFfe66UgVkBRCKMc0AwQ';
+                //$http.defaults.headers.common.Authorization = 'key=AIzaSyCxLrs3Sw4YJ2HuFfe66UgVkBRCKMc0AwQ';
                 // Continue
                 params = args.params || {}
                 args = args || {};
@@ -32,7 +32,7 @@ angular.module('tetherApp')
                     data = args.data || {};
 
                 $http({
-                    headers : {'Content-Type': 'application/json'},
+                    headers : {'Content-Type': 'application/json','Authorization':'key=AIzaSyCxLrs3Sw4YJ2HuFfe66UgVkBRCKMc0AwQ'},
                     url: url,
                     method: method.toUpperCase(),
                     data: data,
@@ -76,13 +76,8 @@ angular.module('tetherApp')
                 return this.request({
                     'method': "POST",
                     'data': {
-<<<<<<< HEAD
-                        "collapse_key" : "msg",
-                        "time_to_live": 2419200,
-=======
                         'collapse_key': 'msg',
                         'time_to_live': 2419200,
->>>>>>> newjaygcm
                         'delay_while_idle':true,
                         'data': data,
                         'to': togcm
@@ -100,13 +95,8 @@ angular.module('tetherApp')
                 return this.request({
                     'method': "POST",
                     'data': {
-<<<<<<< HEAD
-                        "collapse_key" : "msg",
-                        "time_to_live": 2419200,
-=======
                         'collapse_key': 'msg',
                         'time_to_live': 2419200,
->>>>>>> newjaygcm
                         'delay_while_idle':true,
                         'data': data,
                         'to': togcm
@@ -124,13 +114,8 @@ angular.module('tetherApp')
                 return this.request({
                     'method': "POST",
                     'data': {
-<<<<<<< HEAD
-                        "collapse_key": "demo",
-                        "time_to_live": 2419200,
-=======
                         'collapse_key': 'msg',
                         'time_to_live': 2419200,
->>>>>>> newjaygcm
                         'delay_while_idle': true,
                         'data': data,
                         'to': togcm
@@ -148,13 +133,27 @@ angular.module('tetherApp')
                 return this.request({
                     'method': "POST",
                     'data': {
-<<<<<<< HEAD
-                        "collapse_key": "demo",
-                        "time_to_live": 2419200,
-=======
                         'collapse_key': 'msg',
                         'time_to_live': 2419200,
->>>>>>> newjaygcm
+                        'delay_while_idle': true,
+                        'data': data,
+                        'to': togcm
+                    }
+                });
+            },
+            'acceptcontractandstartown': function (togcm,contractjson) {
+                var data = {
+                    'title': 'Tether',
+                    'message': 'Your contractee has accepted your contract and is participating with the same terms!',
+                    'msgcnt': '1',
+                    'soundname': 'beep.wav',
+                    'contractjson': contractjson
+                }
+                return this.request({
+                    'method': "POST",
+                    'data': {
+                        'collapse_key': 'msg',
+                        'time_to_live': 2419200,
                         'delay_while_idle': true,
                         'data': data,
                         'to': togcm
@@ -172,13 +171,27 @@ angular.module('tetherApp')
                 return this.request({
                     'method': "POST",
                     'data': {
-<<<<<<< HEAD
-                        "collapse_key": "demo",
-                        "time_to_live": 2419200,
-=======
                         'collapse_key': 'msg',
                         'time_to_live': 2419200,
->>>>>>> newjaygcm
+                        'delay_while_idle': true,
+                        'data': data,
+                        'to': togcm
+                    }
+                });
+            },
+            'cancelcontract': function (togcm,contractjson) {
+                var data = {
+                    'title': 'Tether',
+                    'message': 'Your proposer has cancelled this contract!',
+                    'msgcnt': '1',
+                    'soundname': 'beep.wav',
+                    'contractjson': contractjson
+                }
+                return this.request({
+                    'method': "POST",
+                    'data': {
+                        'collapse_key': 'msg',
+                        'time_to_live': 2419200,
                         'delay_while_idle': true,
                         'data': data,
                         'to': togcm
@@ -187,4 +200,4 @@ angular.module('tetherApp')
             }
         }
         return service;
-    });
+});

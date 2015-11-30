@@ -43,11 +43,12 @@ angular.module('tetherApp')
             for (var i=s.length;i--;){
                 jsons[i]=JSON.stringify(s[i]);
                 var jdata = JSON.parse(jsons[i]);
-                if(jdata.username == $scope.friend){
+                if(jdata.username.toUpperCase() == $scope.friend.toUpperCase()){
                     togcm = jdata.gcm_token;
                 }
             }
             console.log(JSON.stringify($scope.allusers));
+            console.log(JSON.stringify(togcm));
         });
 
 
@@ -174,22 +175,16 @@ angular.module('tetherApp')
             $window.localStorage.setItem(storeAs, contractJSON);
 
             //gcm send todo
-<<<<<<< HEAD
-=======
             contractService.sendcontract(togcm,contractJSON).then(function(result) {
                 // Success!
             }, function(err) {
                 // An error occured. Show a message to the user
             });
->>>>>>> newjaygcm
 
             $scope.waitingForResponse = true;
             $scope.submitted = true;
 
-<<<<<<< HEAD
-=======
             $scope.waitForResponse();
->>>>>>> newjaygcm
 
 
 
@@ -197,25 +192,12 @@ angular.module('tetherApp')
 
         $scope.waitForResponse = function(){
 
-<<<<<<< HEAD
-            $scope.checkForResponseInterval = setInterval($scope.checkForResponse(), 1000)
-=======
             $scope.checkForResponseInterval = setInterval($scope.checkForResponse, 1000)
->>>>>>> newjaygcm
 
         };
 
         $scope.checkForResponse = function(){
             var storeAs = "contract" + $scope.from;
-<<<<<<< HEAD
-            var myContract = $window.localStorage.getItem(storeAs);
-
-            if (myContract.val["contract"].status === "accepted"){
-
-                clearInterval($scope.checkForResponseInterval);
-                $scope.ongoingContract = true;
-                $scope.contractOver = false;
-=======
             var myContractLocalStorage = $window.localStorage.getItem(storeAs);
             var myContract = JSON.parse(myContractLocalStorage)
             if (myContract["contract"].status === "accepted"){
@@ -225,15 +207,15 @@ angular.module('tetherApp')
                 $scope.ongoingContract = true;
                 $scope.contractOver = false;
                 $scope.$apply();
->>>>>>> newjaygcm
 
                 $scope.startTimer();
 
 
                 $scope.startToasts();
             } else {
-                if (myContract.val["contract"].status === "rejected"){
+                if (myContract["contract"].status === "rejected"){
                     clearInterval($scope.checkForResponseInterval);
+                    $scope.$apply();
                     $scope.routeToContract();
                 }
             }
@@ -328,35 +310,42 @@ angular.module('tetherApp')
                 $scope.contractForfeited = false;
                 $scope.blacklistedApps = [];
                 clearInterval($scope.refreshToastMessage);
-<<<<<<< HEAD
-
 
                 // local notification
                 navigator.notification.alert('You have successfully completed contract!');
-                // gcm notification todo
-                contractService.contractsucceed().then(function(result) {
-=======
-                var storeAs = "contract" + $scope.from;
-                var myContractLocalStorage = $window.localStorage.getItem(storeAs);
-                var myContract = JSON.parse(myContractLocalStorage)
-                myContract["contract"].status="success";
-                myContract["contract"].points=$scope.wagerAmount + $scope.wagerAmount
-                // local notification
-                navigator.notification.alert('You have successfully completed contract!');
-                // gcm notification todo
-                contractService.contractsucceed(togcm,myContract).then(function(result) {
->>>>>>> newjaygcm
-                    // Success!
-                }, function(err) {
-                    // An error occured. Show a message to the user
-                });
 
-<<<<<<< HEAD
+                if ($window.localStorage.getItem("myCurrentContract") === null){
+                    var storeAs = "contract" + $scope.from;
+                    var myContractLocalStorage = $window.localStorage.getItem(storeAs);
+                    var myContract = JSON.parse(myContractLocalStorage)
+                    myContract["contract"].status="success";
+                    myContract["contract"].points=$scope.wagerAmount + $scope.wagerAmount
 
-=======
-                $window.localStorage.removeItem(storeAs);
->>>>>>> newjaygcm
-                $window.localStorage.removeItem("myCurrentContract");
+                    // gcm notification todo
+                    contractService.contractsucceed(togcm,myContract).then(function(result) {
+                        // Success!
+                    }, function(err) {
+                        // An error occured. Show a message to the user
+                    });
+
+                    $window.localStorage.removeItem(storeAs);
+                    $window.localStorage.removeItem("myCurrentContract");
+                } else {
+                    var storeAs1 = "myCurrentContract";
+                    var myContractLocalStorage1 = $window.localStorage.getItem(storeAs1);
+                    var myContract1 = JSON.parse(myContractLocalStorage1)
+                    var gcmFromProposer = myContract1["contract"].gcmTokenFromProposer;
+
+                    // gcm notification todo
+                    contractService.contractsucceed(gcmFromProposer,myContract1).then(function(result) {
+                        // Success!
+                    }, function(err) {
+                        // An error occured. Show a message to the user
+                    });
+
+                    $window.localStorage.removeItem("myCurrentContract");
+                }
+
             });
         };
 
@@ -372,35 +361,47 @@ angular.module('tetherApp')
             $scope.blacklistedApps = [];
             clearInterval($scope.refreshContractTimerIntervalId);
             clearInterval($scope.refreshToastMessage);
-<<<<<<< HEAD
 
-=======
-            var storeAs = "contract" + $scope.from;
-            var myContractLocalStorage = $window.localStorage.getItem(storeAs);
-            var myContract = JSON.parse(myContractLocalStorage)
-            myContract["contract"].status="forfeit";
-            myContract["contract"].points=$scope.wagerAmount + $scope.wagerAmount
->>>>>>> newjaygcm
 
             // local notification
             navigator.notification.alert('You have broken your contract!');
             // gcm notification todo
-<<<<<<< HEAD
-            contractService.contractbroken().then(function(result) {
-=======
-            contractService.contractbroken(togcm,myContract).then(function(result) {
->>>>>>> newjaygcm
-                // Success!
-            }, function(err) {
-                // An error occured. Show a message to the user
-            });
 
-<<<<<<< HEAD
 
-=======
-            $window.localStorage.removeItem(storeAs);
->>>>>>> newjaygcm
-            $window.localStorage.removeItem("myCurrentContract");
+            if ($window.localStorage.getItem("myCurrentContract") === null){
+                var storeAs = "contract" + $scope.from;
+                var myContractLocalStorage = $window.localStorage.getItem(storeAs);
+                var myContract = JSON.parse(myContractLocalStorage);
+                myContract["contract"].status="forfeit";
+                myContract["contract"].points=$scope.wagerAmount + $scope.wagerAmount;
+
+                contractService.contractbroken(togcm,myContract).then(function(result) {
+                    // Success!
+                }, function(err) {
+                    // An error occured. Show a message to the user
+                });
+
+                $window.localStorage.removeItem(storeAs);
+                $window.localStorage.removeItem("myCurrentContract");
+
+            } else {
+                var storeAs1 = "myCurrentContract";
+                var myContractLocalStorage1 = $window.localStorage.getItem(storeAs1);
+                var myContract1 = JSON.parse(myContractLocalStorage1)
+                var gcmFromProposer = myContract1["contract"].gcmTokenFromProposer;
+
+
+                contractService.contractbroken(gcmFromProposer,myContract1).then(function(result) {
+                    // Success!
+                }, function(err) {
+                    // An error occured. Show a message to the user
+                });
+
+                $window.localStorage.removeItem("myCurrentContract");
+            }
+
+
+
         };
 
         $scope.lose = function() {
@@ -415,34 +416,46 @@ angular.module('tetherApp')
                 $scope.blacklistedApps = [];
                 clearInterval($scope.refreshContractTimerIntervalId);
                 clearInterval($scope.refreshToastMessage);
-<<<<<<< HEAD
-=======
-                var storeAs = "contract" + $scope.from;
-                var myContractLocalStorage = $window.localStorage.getItem(storeAs);
-                var myContract = JSON.parse(myContractLocalStorage)
-                myContract["contract"].status="failure";
-                myContract["contract"].points=$scope.wagerAmount + $scope.wagerAmount
->>>>>>> newjaygcm
-
 
                 // local notification
                 navigator.notification.alert('You have broken your contract!');
-                // gcm notification todo
-<<<<<<< HEAD
-                contractService.contractbroken().then(function(result) {
-=======
-                contractService.contractbroken(togcm,myContract).then(function(result) {
->>>>>>> newjaygcm
-                    // Success!
-                }, function(err) {
-                    // An error occured. Show a message to the user
-                });
-<<<<<<< HEAD
 
-=======
-                $window.localStorage.removeItem(storeAs);
->>>>>>> newjaygcm
-                $window.localStorage.removeItem("myCurrentContract");
+                if ($window.localStorage.getItem("myCurrentContract") === null){
+                    var storeAs = "contract" + $scope.from;
+                    var myContractLocalStorage = $window.localStorage.getItem(storeAs);
+                    var myContract = JSON.parse(myContractLocalStorage)
+                    myContract["contract"].status="failure";
+                    myContract["contract"].points=$scope.wagerAmount + $scope.wagerAmount
+
+
+
+                    // gcm notification todo
+                    contractService.contractbroken(togcm,myContract).then(function(result) {
+                        // Success!
+                    }, function(err) {
+                        // An error occured. Show a message to the user
+                    });
+                    $window.localStorage.removeItem(storeAs);
+                    $window.localStorage.removeItem("myCurrentContract");
+                } else {
+                    var storeAs1 = "myCurrentContract";
+                    var myContractLocalStorage1 = $window.localStorage.getItem(storeAs1);
+                    var myContract1 = JSON.parse(myContractLocalStorage1)
+                    var gcmFromProposer = myContract1["contract"].gcmTokenFromProposer;
+
+
+
+
+                    // gcm notification todo
+                    contractService.contractbroken(gcmFromProposer,myContract1).then(function(result) {
+                        // Success!
+                    }, function(err) {
+                        // An error occured. Show a message to the user
+                    });
+
+                    $window.localStorage.removeItem("myCurrentContract");
+                }
+
 
             });
 
@@ -515,6 +528,7 @@ angular.module('tetherApp')
             //contractJSON = '{"contract":{"apps":[],"durationInMins":0,"hours":"","mins":"","wagerAmount":0,"friend":"","gcmTokenFromProposer":"","from":"","status":"","timeStart":""}}';
 
             contractService.applist();
+            $scope.$apply();
         };
 
 
@@ -522,6 +536,17 @@ angular.module('tetherApp')
             //sent gcm to friend saying you have cancelled and remove from local storage TODO
 
             var storeAs = "contract" + $scope.from;
+            var myContractLocalStorage = $window.localStorage.getItem(storeAs);
+            var myContract = JSON.parse(myContractLocalStorage);
+            myContract["contract"].status="cancelled";
+
+            contractService.cancelcontract(togcm,myContract).then(function(result) {
+                // Success!
+            }, function(err) {
+                // An error occured. Show a message to the user
+            });
+
+
             $window.localStorage.removeItem(storeAs);
             $scope.routeToContract();
         };
@@ -531,45 +556,6 @@ angular.module('tetherApp')
         // add event listener for back button if ongoing contract is true pops up toast saying they can't use the app
         //since it will distract them
 
-<<<<<<< HEAD
-
-        if ($window.localStorage.getItem("myCurrentContract") === null){
-            console.log("There is no contract this user is responsing to - create a proposal as normal")
-        } else {
-            var currentContract = JSON.parse($window.localStorage.getItem("myCurrentContract"));
-            if (currentContract["contract"].status === "accepted"){
-                $scope.waitingForResponse = false;
-                $scope.submitted = true;
-
-                $scope.ongoingContract = true;
-                $scope.contractOver = false;
-
-                var tempApps = currentContract["contract"].apps;
-
-                for (var i = 0; i < tempApps.length; i++){
-                    $scope.blacklistedApps.push(tempApps[i].name);
-                }
-
-                //$scope.blacklistedApps = currentContract["contract"].apps;
-                $scope.contractHours = currentContract["contract"].hours;
-                $scope.contractMinutes = currentContract["contract"].mins;
-                $scope.contractSeconds = currentContract["contract"].seconds;
-
-                $scope.wagerAmount = currentContract.wagerAmount;
-
-                $scope.$apply();
-
-
-                $scope.startTimer();
-
-
-                $scope.startToasts();
-            }
-        }
-
-    });
-=======
->>>>>>> newjaygcm
 
         if ($window.localStorage.getItem("myCurrentContract") === null){
             console.log("There is no contract this user is responsing to - create a proposal as normal")

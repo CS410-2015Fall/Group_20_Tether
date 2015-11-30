@@ -61,16 +61,7 @@
 
             </form>
 
-            <div ng-show="waitingForResponse">
-                <div class="jumbotron">
-                    <p>Pending acceptance by: {{friend}}</p>
 
-                    <i class="fa fa-spinner fa-spin fa-5x"></i>
-
-                    <button class="btn btn-alert" ng-click="cancelContract()">Cancel</button>
-                </div>
-
-            </div>
 
     <div ng-show="waitingForResponse">
         <div class="jumbotron">
@@ -94,9 +85,12 @@
 
     <pre ng-show="contractOver">The contract is now over:
         <div ng-hide="contractSuccess">
-            <div ng-show="contractForfeited">"Forfeited the contract. You lost"</div>
+            <div ng-show="contractForfeited">"Forfeited the contract. You lost<br>
+                <div>Points earned: {{ wagerAmount + wagerAmount }}</div>
+            </div>
             <div ng-hide="contractForfeited">You lost. The app that caused you to fail your contract:
                 <li>{{ blacklistedAppUsed }}</li>
+                <div>Points lost: {{ wagerAmount + wagerAmount }}</div>
             </div>
         </div>
         <div ng-show="contractSuccess">"You made it - great job!<br> Stay focused!"
