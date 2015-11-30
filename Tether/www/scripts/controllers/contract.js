@@ -52,32 +52,9 @@ angular.module('tetherApp')
         });
 
 
-
-
         contractService.applist();
 
-        /* $scope.createContract = function(){
-         $location.path("/contract");
-         $scope.showButton = false;
-
-         var getInstalledAppEvent = new CustomEvent("getInstalledApps",{
-         'bubbles': true,
-         'cancelable': true
-         });
-         document.getElementById("startContract").dispatchEvent(getInstalledAppEvent);
-
-         };
-
-         document.addEventListener('getInstalledApps', function (){
-         contractService.applist();
-         }); */
-
-
-        var contractJSON = '{"contract":{"apps":[],"durationInMins":0,"hours":"","mins":"","seconds":"","wagerAmount":0,"friend":"","gcmTokenFromProposer":"","from":"","status":"","timeStart":""}}';
-
-
-
-
+       var contractJSON = '{"contract":{"apps":[],"durationInMins":0,"hours":"","mins":"","seconds":"","wagerAmount":0,"friend":"","gcmTokenFromProposer":"","from":"","status":"","timeStart":""}}';
 
         $scope.submitContract = function(){
 
