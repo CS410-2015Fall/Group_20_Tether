@@ -54,11 +54,97 @@ angular.module('tetherApp')
             var jdata = JSON.parse(text);
             $window.localStorage.userWins = jdata.wins.toString();
             $window.localStorage.userLosses = jdata.loses.toString();
+
+            //Achievements
+            $scope.firstWin = false; // for first win
+            $scope.fiveWins = false;// for 5 wins
+            $scope.tenWins = false; // for 10 wins
+            $scope.twentyFiveWins = false; // for 25 wins
+            $scope.fiftyWins = false; // for 50 wins
+            $scope.hundredWins = false; // for 100 wins
+
+            $scope.twentyFivePercentWins = false; // for 25% of games being won
+            $scope.fiftyPercentWins = false;  // for 50% of games being won
+            $scope.seventyFivePercentWins = false; // for 75% of games being won
+            $scope.hundredPercentWins = false; // for 100% of games being won
+
+
+            $scope.lost10 = false; // for 10 losses
+            $scope.lost25 = false; // for 25 losses
+
+
+            if (parseInt($window.localStorage.userWins) >= 1){
+                $scope.firstWin = true;
+                $scope.$apply();
+            }
+
+            if (parseInt($window.localStorage.userWins) >= 5){
+                $scope.fiveWins = true;
+                $scope.$apply();
+            }
+
+            if (parseInt($window.localStorage.userWins) >= 10){
+                $scope.tenWins = true;
+                $scope.$apply();
+
+            }
+
+            if (parseInt($window.localStorage.userWins) >= 25){
+                $scope.twentyFiveWins = true;
+                $scope.$apply();
+
+            }
+
+            if (parseInt($window.localStorage.userWins) >= 50){
+                $scope.fiftyWins = true;
+                $scope.$apply();
+
+            }
+
+            if (parseInt($window.localStorage.userWins) >= 100){
+                $scope.hundredWins = true;
+                $scope.$apply();
+
+            }
+
+            if ((parseInt($window.localStorage.userWins) / (parseInt($window.localStorage.userWins) + parseInt($window.localStorage.userLosses))) >= 0.25){
+                $scope.twentyFivePercentWins = true;
+                $scope.$apply();
+            }
+
+            if ((parseInt($window.localStorage.userWins) / (parseInt($window.localStorage.userWins) + parseInt($window.localStorage.userLosses))) >= 0.50){
+                $scope.fiftyPercentWins = true;
+                $scope.$apply();
+            }
+
+            if ((parseInt($window.localStorage.userWins) / (parseInt($window.localStorage.userWins) + parseInt($window.localStorage.userLosses))) >= 0.75){
+                $scope.seventyFivePercentWins = true;
+                $scope.$apply();
+            }
+
+            if ((parseInt($window.localStorage.userWins) / (parseInt($window.localStorage.userWins) + parseInt($window.localStorage.userLosses))) === 1) {
+                $scope.hundredPercentWins = true;
+                $scope.$apply();
+            }
+
+
+            if (parseInt($window.localStorage.userLosses)  >= 10) {
+                $scope.lost10 = true;
+                $scope.$apply();
+            }
+
+            if (parseInt($window.localStorage.userLosses)  >= 25) {
+                $scope.lost25 = true;
+                $scope.$apply();
+            }
+
+            $scope.$apply();
+
         });
 
 
 
-        //Achievements
+       /* //Achievements
         $scope.firstWin = false; // for first win
         $scope.fiveWins = false;// for 5 wins
         $scope.tenWins = false; // for 10 wins
@@ -91,7 +177,7 @@ angular.module('tetherApp')
 
 
 
-
+/*
             if (parseInt($window.localStorage.userWins) >= 1){
                 $scope.firstWin = true;
                 $scope.$apply();
@@ -169,7 +255,7 @@ angular.module('tetherApp')
         };
 
 
-        $scope.calculateLevelsAndAchievements();
+        $scope.calculateLevelsAndAchievements(); */
 
 
     });
