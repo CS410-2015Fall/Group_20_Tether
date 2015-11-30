@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('tetherApp')
-  .controller('MasterCtrl', function ($scope, $location, userService) {
+  .controller('MasterCtrl', function ($scope, $location, $window, userService) {
     // Assume user is not logged in until we hear otherwise
     $scope.authenticated = false;
     // Wait for the status of authentication, set scope var to true if it resolves
@@ -21,6 +21,8 @@ angular.module('tetherApp')
       console.error("Unable to change routes.  Error: ", rejection)
       $location.path('/restricted').replace();
     });
+
+
 
       //$scope.$on('$routeChangeSuccess', function(ev, current, previous, rejection){
         //$scope.pageName = $location.path().toUpperCase().substring(1);
