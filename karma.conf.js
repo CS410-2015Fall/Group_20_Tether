@@ -32,7 +32,7 @@ module.exports = function(config) {
 
     // list of files to exclude
     exclude: [
-      //'Desktop/2015W/CPSC410/Group_20_Tether/Tether/www/scripts/tests/contract_test.js'
+      'Desktop/2015W/CPSC410/Group_20_Tether/Tether/www/scripts/tests/contract_test.js'
     ],
 
 
@@ -77,7 +77,7 @@ module.exports = function(config) {
 
     // start these browsers
     // available browser launchers: https://npmjs.org/browse/keyword/karma-launcher
-    browsers: ['Chrome'],
+    browsers: ['Safari'],
 
 
     junitReporter : {

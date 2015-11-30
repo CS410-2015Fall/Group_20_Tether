@@ -16,12 +16,14 @@ describe('Manage Contracts Controller', function() {
         $scope = {};
         $window = {};
         $location = {};
+        $window.localStorage = {};
         controller = $controller('manageContractCtrl', {
             $scope: $scope,
             $window: $window,
             $location: $location
         });
     });
+
 
     var contractJSON = {"contract":{"apps":[],"durationInMins":0,"hours":"","mins":"","seconds":"","wagerAmount":0,"friend":"","gcmTokenFromProposer":"","from":"","status":"","timeStart":"","points":"","claimed":""}};
 
