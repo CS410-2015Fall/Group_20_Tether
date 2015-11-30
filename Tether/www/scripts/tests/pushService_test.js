@@ -13,10 +13,7 @@ describe('Push Service', function() {
         device = {};
         device.platform = 'android';
         inject(function($injector) {
-            PushService = $injector.get('pushService', {
-                $q: $q,
-                $window: $window
-            });
+            PushService = $injector.get('pushService', {$q: $q, $window: $window});
         });
     });
 

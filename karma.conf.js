@@ -15,7 +15,7 @@ module.exports = function(config) {
 
     // list of files / patterns to load in the browser
     files: [
-      'Desktop/2015W/CPSC410/Group_20_Tether/Tether/www/bower_components/angular/angular.js',
+      '../Group_20_Tether/Tether/www/bower_components/angular/angular.js',
       'Desktop/2015W/CPSC410/Group_20_Tether/Tether/www/bower_components/angular-cookies/angular-cookies.js',
       'Desktop/2015W/CPSC410/Group_20_Tether/Tether/www/bower_components/angular-resource/angular-resource.js',
       'Desktop/2015W/CPSC410/Group_20_Tether/Tether/www/bower_components/angular-sanitize/angular-sanitize.js',

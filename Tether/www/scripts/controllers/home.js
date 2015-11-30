@@ -7,19 +7,6 @@
 angular.module('tetherApp')
     .controller('homeCtrl',function($scope, $window, $location, $http,
                                     $routeParams, userService){
-        /*// Update server with new GCM registration
-        var token = $window.localStorage.gcmtoken;
-        var data = {
-            'gcm_token':token
-        }
-        userService.updateProfile(data).then(function(result) {
-            // Success!
-        }, function(err) {
-            // An error occured. Show a message to the user
-        });*/
-
-
-        //Friends stuff
 
         $scope.noFriends = false;
         $scope.randomFriends = [];
@@ -27,32 +14,36 @@ angular.module('tetherApp')
             last_name: "", friends:[], points:""};
 
 
+        $scope.checkNoFriends = function(){
+            if($scope.serverReturned.friends.length == 0){
+                $scope.noFriends = true;
+            } else {
+                $scope.noFriends = false;
+            }
+        };
+
 
         $scope.quickMatch = function(){
             if($scope.noFriends){
-                console.log("No Friends to match with");
+                console.log("Quick Match - No Friends to match with");
             } else {
                 var proposeTo = $scope.getRandomFriend();
-                console.log("proposing to: " + proposeTo);
-
+                console.log("Quick Match - Proposing to: " + proposeTo);
                 $window.localStorage.proposingTo = proposeTo;
 
-                $location.path('/contract');
-                $scope.$apply();
+                //$location.path('/contract');
+                //$scope.$apply();
             }
-
         };
 
 
         $scope.propose = function(proposeTo){
-            console.log("proposing to: " + proposeTo);
-
+            console.log("Proposing to a selected friend: " + proposeTo);
             $window.localStorage.proposingTo = proposeTo;
 
-            $location.path('/contract');
-            $scope.$apply();
+            //$location.path('/contract');
+            //$scope.$apply();
         };
-
 
 
         $scope.getUser = function(){
@@ -62,20 +53,6 @@ angular.module('tetherApp')
                 $scope.user = data.username;
             });
         };
-
-
-
-
-        $scope.checkNoFriends = function(){
-            if($scope.serverReturned.friends.length == 0){
-
-                $scope.noFriends = true;
-            } else {
-                $scope.noFriends = false;
-            }
-        };
-
-
 
 
         $scope.updateFriends = function(){
@@ -90,6 +67,7 @@ angular.module('tetherApp')
                 $scope.checkNoFriends();
             });
         };
+
 
         $scope.createRandomFriends = function(){
             var randomFriendsIndex = $scope.serverReturned.friends.length, temporaryValue, randomIndex ;
@@ -109,16 +87,16 @@ angular.module('tetherApp')
 
             if ($scope.serverReturned.friends.length <= 3){
                 $scope.randomFriends = $scope.serverReturned.friends;
-                $scope.$apply();
+                //$scope.$apply();
             } else {
                 $scope.randomFriends = [];
                 $scope.randomFriends.push($scope.serverReturned.friends[0]);
                 $scope.randomFriends.push($scope.serverReturned.friends[1]);
                 $scope.randomFriends.push($scope.serverReturned.friends[2]);
-                $scope.$apply();
+                //$scope.$apply();
             }
-
         };
+
 
         $scope.getRandomFriend = function(){
             var randomFriendsIndex = $scope.serverReturned.friends.length, temporaryValue, randomIndex ;
@@ -135,32 +113,15 @@ angular.module('tetherApp')
                 $scope.serverReturned.friends[randomFriendsIndex] = $scope.serverReturned.friends[randomIndex];
                 $scope.serverReturned.friends[randomIndex] = temporaryValue;
             }
-
-
-
             return $scope.serverReturned.friends[0];
         };
 
-        $scope.clearAll = function(){
-            var i, results=[], query = /^contract/;
-            for (i in $window.localStorage){
-                if ($window.localStorage.hasOwnProperty(i)) {
-                    if (i.match(query) || (!query && typeof i === 'string')) {
-                        $window.localStorage.removeItem(i);
-                    }
-                }
-            }
-            $window.localStorage.removeItem("myCurrentContract")
 
-        };
-
-        $scope.sortUsersByPoints = function(allUsers){
-
-            $scope.allusers = allUsers.sort(function(a, b){
-                return a.val - b.val;
+        $scope.sortUsersByPoints = function(results){
+            $scope.allusers = results.sort(function(a, b){
+                return b.val - a.val;
             });
-
-            $scope.$apply();
+            //$scope.$apply();
         };
 
         $scope.refreshLeaderBoard = function(){
@@ -176,25 +137,12 @@ angular.module('tetherApp')
                     var value = jdata.points;
                     results.push({key:id,val:value});
                 }
-
-                //$scope.allusers = results;
-                //$scope.$apply();
-
-                $scope.allusers = results.sort(function(a, b){
-                    return b.val - a.val;
-                });
-
-                $scope.$apply();
+                $scope.sortUsersByPoints(results);
             });
-
-
         };
-
-
 
         $scope.updateFriends();
         $scope.getUser();
         $scope.createRandomFriends();
         $scope.refreshLeaderBoard();
-
     });

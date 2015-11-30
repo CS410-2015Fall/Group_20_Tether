@@ -45,28 +45,32 @@ angular.module('tetherApp')
             });
         };
 
+        $scope.setFriendToAdd = function() {
+            var friendToAdd = document.getElementById("id_userToAdd").value.toString().toUpperCase();
+            $scope.addFriend(friendToAdd);
+        };
 
 
-        $scope.addFriend = function(){
+        $scope.addFriend = function(valueToCheck){
             $scope.friendAlreadyExists = false;
-            console.log("Add Friend Button Pressed: Adding " + document.getElementById("id_userToAdd").value);
-            var valueToCheck = document.getElementById("id_userToAdd").value.toString().toUpperCase();
+
+            //var valueToCheck = document.getElementById("id_userToAdd").value.toString().toUpperCase();
 
             for (var i = 0; i < $scope.serverReturned.friends.length; i++){
 
-                var listItemToCheck = $scope.serverReturned.friends[i].toString().toUpperCase();
+                var listItemToCheck = $scope.serverReturned.friends[i].toString()   //.toUpperCase();
 
                 if (listItemToCheck === valueToCheck){
                     var alreadyExists = true;
                     break;
-
                 }
                 else {
                     var alreadyExists = false;
                 }
-
             }
-            if (valueToCheck === "" || $scope.allusers.indexOf(valueToCheck) == -1){
+
+            if (valueToCheck === ""){
+            //if (valueToCheck === "" || $scope.allusers.indexOf(valueToCheck) == -1){
                 $scope.friendAddedNotValid = true;
             } else {
                 if (alreadyExists){
@@ -94,8 +98,9 @@ angular.module('tetherApp')
                         });
                     });
 
+                    console.log("Add Friend Button Pressed: Adding " + valueToCheck);
 
-                    $scope.serverReturned.friends.push(document.getElementById("id_userToAdd").value);
+                    $scope.serverReturned.friends.push(valueToCheck);
                     var updated = {
                         'friends':$scope.serverReturned.friends
                     };
@@ -105,17 +110,18 @@ angular.module('tetherApp')
                         // error case
                     });
                     $scope.checkNoFriends();
-                    document.getElementById("id_addFriendForm").reset();
+
+                    //document.getElementById("id_addFriendForm").reset();
+
                     $scope.friendAddedNotValid = false;
                     $scope.friendAlreadyExists = false;
                 }
             }
-
         };
 
 
         $scope.deleteFriend = function(friendToDelete){
-            console.log("DeletingFriend" + friendToDelete);
+            console.log("Deleting Friend " + friendToDelete);
             $scope.showConfirmDeleteIndex = "";
             var deleteIndex = $scope.serverReturned.friends.indexOf(friendToDelete);
             if (deleteIndex > -1) {
@@ -150,13 +156,10 @@ angular.module('tetherApp')
 
 
         $scope.propose = function(proposeTo){
-            console.log("Proposing to" + proposeTo);
+            console.log("Proposing to " + proposeTo);
             $window.localStorage.proposingTo = proposeTo;
-            $location.path('/contract');
-            $scope.$apply();
-            //pass to service - set username
-            // take to contract page set up proposal
-            // need to add contract view where they are waiting/set timer that on confirmation it does so
+            //$location.path('/contract');
+            //$scope.$apply();
         };
         $scope.updateFriends();
     });

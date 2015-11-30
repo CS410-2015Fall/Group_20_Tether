@@ -7,23 +7,44 @@ describe('Manage Contracts Controller', function() {
 
     var $scope, $window, $location, $controller, controller;
 
+    var storage = {};
+
+    var mockStorage =  {
+        setItem: function(key, value) {
+            storage[key] = value || '';
+        },
+        getItem: function(key) {
+            return storage[key] || null;
+        },
+        removeItem: function(key) {
+            delete storage[key];
+        },
+        get length() {
+            return Object.keys(storage).length;
+        },
+        key: function(i) {
+            var keys = Object.keys(storage);
+            return keys[i] || null;
+        }
+    };
+
     beforeEach(inject(function (_$controller_) {
         // The injector unwraps the underscores (_) from around the parameter names when matching
         $controller = _$controller_;
+
     }));
 
     beforeEach(function() {
         $scope = {};
         $window = {};
         $location = {};
-        $window.localStorage = {};
+        $window.localStorage = mockStorage;
         controller = $controller('manageContractCtrl', {
             $scope: $scope,
             $window: $window,
             $location: $location
         });
     });
-
 
     var contractJSON = {"contract":{"apps":[],"durationInMins":0,"hours":"","mins":"","seconds":"","wagerAmount":0,"friend":"","gcmTokenFromProposer":"","from":"","status":"","timeStart":"","points":"","claimed":""}};
 
@@ -35,6 +56,17 @@ describe('Manage Contracts Controller', function() {
         it('should return false if $scope.showDetails is not equal to the given index', function() {
             $scope.showDetails = 1;
             expect($scope.isShowing(2)).toBe(false);
+        });
+    });
+
+    describe('$scope.isShowingComplete', function() {
+        it('should return true if $scope.showDetailsComplete == index', function() {
+            $scope.showDetailsComplete = 1;
+            expect($scope.isShowingComplete(1)).toBe(true);
+        });
+        it('should return false if $scope.showDetailsComplete is not equal to the given index', function() {
+            $scope.showDetailsComplete = 1;
+            expect($scope.isShowingComplete(2)).toBe(false);
         });
     });
 
@@ -63,7 +95,7 @@ describe('Manage Contracts Controller', function() {
     });
 
     describe('$scope.viewDetailsFinished', function() {
-        contractJSON.contract.status = "success";
+        contractJSON.contract.status = "failure";
         it('should set $scope.isClaimed to be true', function() {
             contractJSON.contract.claimed = "yes";
             $scope.viewDetailsFinished(1, contractJSON);

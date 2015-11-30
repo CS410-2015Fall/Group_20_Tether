@@ -56,13 +56,7 @@ angular.module('tetherApp')
 
 
         $scope.viewDetailsFinished = function(index, contractJSON){
-            $scope.showDetailsComplete = index;
-            var goThroughThis = contractJSON.contract.apps;
-            $scope.selectedContractApps = [];
-            for (var i = 0; i < goThroughThis.length; i ++){
-                $scope.selectedContractApps.push(goThroughThis[i].name)
-            }
-
+            $scope.viewDetails(index, contractJSON);
             $scope.calculatePointsEarned(contractJSON);
             if (contractJSON["contract"].claimed === "yes"){
                 $scope.isClaimed = true;
@@ -77,10 +71,6 @@ angular.module('tetherApp')
         $scope.calculatePointsEarned = function(contractJSON){
             var status = contractJSON.contract.status;
             var points = contractJSON.contract.points;
-
-            //var uniqueIdentifier = contractJSON.contract.uniqueId;
-            //var user = contractJSON.contract.from;
-            //var storeAs = "contract" + user + uniqueIdentifier.toString();
 
             var storeAs;
 
@@ -100,7 +90,7 @@ angular.module('tetherApp')
                     break;
 
                 default:
-                    console.log("error");
+                    console.log("Calculate Points Earned - Default case");
                     break;
             }
         };

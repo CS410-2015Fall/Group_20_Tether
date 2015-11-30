@@ -57,6 +57,7 @@ describe('Home Controller', function() {
     describe('$scope.quickMatch', function() {
         it('should alert if user has no friend', function() {
             $scope.serverReturned.friends = [];
+            $scope.checkNoFriends();
             $scope.quickMatch();
             expect($scope.noFriends).toBe(true);
         });
@@ -122,6 +123,12 @@ describe('Home Controller', function() {
             $scope.serverReturned.friends = ["Arthur", "Steven", "Paul", "Jack", "Tony"];
             randomFriend = $scope.getRandomFriend();
             expect($scope.serverReturned.friends).toContain(randomFriend);
+        });
+    });
+
+    describe('$scope.sortUsersByPoints', function() {
+        it('should ', function() {
+            //$scope.sortUsersByPoints([{key:"Jay",val:20}, {key:"Lane"}]);
         });
     });
 
