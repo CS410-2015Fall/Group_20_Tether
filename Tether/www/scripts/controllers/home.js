@@ -109,11 +109,13 @@ angular.module('tetherApp')
 
             if ($scope.serverReturned.friends.length <= 3){
                 $scope.randomFriends = $scope.serverReturned.friends;
+                $scope.$apply();
             } else {
                 $scope.randomFriends = [];
                 $scope.randomFriends.push($scope.serverReturned.friends[0]);
                 $scope.randomFriends.push($scope.serverReturned.friends[1]);
                 $scope.randomFriends.push($scope.serverReturned.friends[2]);
+                $scope.$apply();
             }
 
         };
@@ -150,12 +152,49 @@ angular.module('tetherApp')
             }
             $window.localStorage.removeItem("myCurrentContract")
 
-        }
+        };
+
+        $scope.sortUsersByPoints = function(allUsers){
+
+            $scope.allusers = allUsers.sort(function(a, b){
+                return a.val - b.val;
+            });
+
+            $scope.$apply();
+        };
+
+        $scope.refreshLeaderBoard = function(){
+
+            userService.users().then(function (data){
+                var s = data;
+                var jsons=[];
+                var results =[];
+                for (var i=s.length;i--;){
+                    jsons[i]=JSON.stringify(s[i]);
+                    var jdata = JSON.parse(jsons[i]);
+                    var id = jdata.username;
+                    var value = jdata.points;
+                    results.push({key:id,val:value});
+                }
+
+                //$scope.allusers = results;
+                //$scope.$apply();
+
+                $scope.allusers = results.sort(function(a, b){
+                    return b.val - a.val;
+                });
+
+                $scope.$apply();
+            });
+
+
+        };
 
 
 
         $scope.updateFriends();
         $scope.getUser();
         $scope.createRandomFriends();
+        $scope.refreshLeaderBoard();
 
     });
