@@ -4,7 +4,7 @@
 
 
 angular.module('tetherApp')
-    .controller('friendsCtrl', function($scope, $window, $rootScope, $location, $http, userService,
+    .controller('friendsCtrl', function($scope, $window, $rootScope, $location, $http, userService,friendsService,
                                         SharedState){
 
         userService.users().then(function (data){
@@ -24,8 +24,8 @@ angular.module('tetherApp')
         $scope.friendAddedNotValid = false;
         $scope.friendAlreadyExists = false;
         $scope.serverReturned = {friends:[]};
-
-
+        $scope.username = '';
+        $scope.myname = '';
         $scope.checkNoFriends = function(){
             if($scope.serverReturned.friends.length == 0){
                 $scope.noFriends = true;
@@ -36,6 +36,7 @@ angular.module('tetherApp')
             userService.profile().then(function (data){
                 var text = JSON.stringify(data);
                 var jdata = JSON.parse(text);
+                $scope.myname = jdata["username"];
                 var jarray = jdata["friends"].replace(/'/g, '"');
                 var array = JSON.parse(jarray);
                 console.log(array);
@@ -71,7 +72,29 @@ angular.module('tetherApp')
                 if (alreadyExists){
                     $scope.friendAlreadyExists = true;
                 } else {
-                    //$scope.mockUpdateFriends(document.getElementById("id_userToAdd").value);
+                    var togcm = '';
+                    userService.users().then(function (data){
+                        var s = data;
+                        var jsons=[];
+                        for (var i=s.length;i--;){
+                            jsons[i]=JSON.stringify(s[i]);
+                            var jdata = JSON.parse(jsons[i]);
+                            if(jdata.username.toUpperCase() == valueToCheck){
+                                togcm = jdata.gcm_token;
+                            }
+                        }
+                        console.log(JSON.stringify(togcm));
+                        var user = $scope.myname.toString();
+                        var message = user+" added you as a friend!";
+                        // notify friend
+                        friendsService.notifyfriend(togcm,message).then(function(data){
+                            // success case
+                        },function(data){
+                            // error case
+                        });
+                    });
+
+
                     $scope.serverReturned.friends.push(document.getElementById("id_userToAdd").value);
                     var updated = {
                         'friends':$scope.serverReturned.friends

@@ -58,6 +58,7 @@ angular.module('tetherApp')
 
 
                 };
+
                 var error = function(app_list){
                     console.log("Fail:" + app_list);
                 };

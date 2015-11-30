@@ -13,7 +13,12 @@ var cordovaInit = function() {
 
 	this.bindEvents = function() {
 		document.addEventListener('deviceready',onDeviceReady, false);
+		document.addEventListener("backbutton", function (e) {
+			e.preventDefault();
+		}, false );
 	};
+
+
 
 	//If cordova is present, wait for it to initialize, otherwise just try to
 	//bootstrap the application.
