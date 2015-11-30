@@ -52,6 +52,127 @@ angular.module('tetherApp')
 
         };
 
+
+        $scope.viewDetailsFinished = function(index, contractJSON){
+            $scope.showDetails = index;
+            var goThroughThis = contractJSON.contract.apps;
+            $scope.selectedContractApps = [];
+            for (var i = 0; i < goThroughThis.length; i ++){
+                $scope.selectedContractApps.push(goThroughThis[i].name)
+            }
+
+            $scope.pointsEarned = $scope.calculatePointsEarned(contractJSON);
+            if (contractJSON["contract"].claimed === "yes"){
+                $scope.isClaimed = true;
+            } else {
+                $scope.isClaimed = false;
+            }
+            $scope.$apply();
+
+
+        };
+
+        $scope.calculatePointsEarned = function(contractJSON){
+                        var status = contractJSON.contract.status;
+                        var points = contractJSON.contract.points;
+
+                            switch (contractStatus) {
+                                case 'success':
+
+                                            $scope.pointsEarned = 0;
+
+                                            break;
+
+                                        case 'forfeit':
+
+                                        $scope.pointsEarned = points;
+
+                                            break;
+
+                                        case 'failure':
+
+                                            $scope.pointsEarned = points;
+
+                                            break;
+
+                                        default:
+                                        console.log("error");
+                                        break;
+
+                                    }
+
+        };
+
+        $scope.getPoints = function(user, contractStatus, contractPoints, contractJSON) {
+            console.log("claiming points");
+
+            userService.profile().then(function (data) {
+                var text = JSON.stringify(data);
+                var jdata = JSON.parse(text);
+                $scope.userPoints = jdata.points;
+                console.log($scope.userPoints);
+            });
+
+
+            switch (contractStatus) {
+                case 'success':
+                    //do nothing
+                    contractJSON["contract"].claimed = "yes";
+                    $window.localStorage.setItem(storeAs, contractJSON);
+                    break;
+
+                case 'forfeit':
+
+                    $scope.userPoints = parseInt($scope.userPoints) + contractPoints;
+
+                    var data = {
+                        'points': $scope.userPoints.toString()
+                    }
+                    userService.updateProfile(data).then(function (result) {
+                        // Success!
+                    }, function (err) {
+                        // An error occured. Show a message to the user
+                    });
+                    contractJSON["contract"].claimed = "yes";
+                    $window.localStorage.setItem(storeAs, contractJSON);
+                    break;
+
+                case 'failure':
+
+                    $scope.userPoints = parseInt($scope.userPoints) + contractPoints;
+
+                    var data = {
+                        'points': $scope.userPoints.toString()
+                    }
+                    userService.updateProfile(data).then(function (result) {
+                        // Success!
+                    }, function (err) {
+                        // An error occured. Show a message to the user
+                    });
+                    contractJSON["contract"].claimed = "yes";
+                    $window.localStorage.setItem(storeAs, contractJSON);
+                    break;
+
+                default:
+                    console.log("error");
+                    break;
+
+            }
+        };
+
+        $scope.deleteContract = function(contractFrom){
+            var storedAs = "contract" + contractFrom;
+            $window.localStorage.removeItem(storedAs);
+            $scope.$apply();
+        };
+
+
+
+
+
+
+
+
         $scope.getContractTimeRemaining = function(contractJSON){
             var currentTime = new Date().getTime();
             var startTime = contractJSON.contract.timeStart;
@@ -188,6 +309,7 @@ angular.module('tetherApp')
             $scope.getNumOngoingContracts();
             $scope.getNumFinishedContracts();
 
+            $scope.refreshPage();
             $scope.$apply();
 
         };
@@ -272,13 +394,16 @@ angular.module('tetherApp')
 
             });
 
-            $scope.update();
 
 
 
             $scope.update();
 
             $location.path('/contract');
+            $scope.$apply();
+        };
+
+        $scope.refreshPage = function(){
             $scope.$apply();
         };
 

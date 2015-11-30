@@ -15,6 +15,7 @@ angular.module('tetherApp')
         $scope.validHours = true;
         $scope.validAppSelection = true;
         $scope.validWagerAmount = true;
+        $scope.enoughPoints = true;
 
         $scope.contractHours = 0;
         $scope.contractMinutes = 0;
@@ -28,6 +29,9 @@ angular.module('tetherApp')
             var text = JSON.stringify(data);
             var jdata = JSON.parse(text);
             $scope.from = jdata.username;
+            $scope.userPoints = jdata.points;
+            $scope.userWins = jdata.wins;
+            $scope.userLosses = jdata.loses;
         });
 
         //Scope variables for monitoring
@@ -64,6 +68,7 @@ angular.module('tetherApp')
             $scope.validHours = true;
             $scope.validAppSelection = true;
             $scope.validWagerAmount = true;
+            $scope.enoughPoints = true;
 
             var globalForegroundApp = "";
 
@@ -122,7 +127,12 @@ angular.module('tetherApp')
                 $scope.validWagerAmount = false;
             }
 
-            if ($scope.validHours == false || $scope.validAppSelection == false || $scope.validWagerAmount == false){
+            if (Math.abs($scope.userPoints) < $scope.wagerAmount){
+                console.log("Wager amount is too high");
+                $scope.enoughPoints = false;
+            }
+
+            if ($scope.validHours == false || $scope.validAppSelection == false || $scope.validWagerAmount == false || $scope.enoughPoints == false){
                 return;
             } else {
                 // convert to minutes and attach to contract JSON object
@@ -133,6 +143,7 @@ angular.module('tetherApp')
                 // attach wagering amount to contract JSON object
                 obj["contract"].wagerAmount = $scope.wagerAmount;
                 $scope.validWagerAmount = true;
+                $scope.enoughPoints = true
             }
 
             obj["contract"].friend = $scope.friend;
@@ -176,24 +187,30 @@ angular.module('tetherApp')
         $scope.checkForResponse = function(){
             var storeAs = "contract" + $scope.from;
             var myContractLocalStorage = $window.localStorage.getItem(storeAs);
-            var myContract = JSON.parse(myContractLocalStorage)
-            if (myContract["contract"].status === "accepted"){
 
-                clearInterval($scope.checkForResponseInterval);
-                $scope.waitingForResponse = false;
-                $scope.ongoingContract = true;
-                $scope.contractOver = false;
-                $scope.$apply();
+            if ($window.localStorage.getItem(storeAs) === null){
 
-                $scope.startTimer();
-
-
-                $scope.startToasts();
             } else {
-                if (myContract["contract"].status === "rejected"){
+                var myContract = JSON.parse(myContractLocalStorage)
+
+                if (myContract["contract"].status === "accepted"){
+
                     clearInterval($scope.checkForResponseInterval);
+                    $scope.waitingForResponse = false;
+                    $scope.ongoingContract = true;
+                    $scope.contractOver = false;
                     $scope.$apply();
-                    $scope.routeToContract();
+
+                    $scope.startTimer();
+
+
+                    $scope.startToasts();
+                } else {
+                    if (myContract["contract"].status === "rejected"){
+                        clearInterval($scope.checkForResponseInterval);
+                        $scope.$apply();
+                        $scope.routeToContract();
+                    }
                 }
             }
 
@@ -288,6 +305,25 @@ angular.module('tetherApp')
                 $scope.blacklistedApps = [];
                 clearInterval($scope.refreshToastMessage);
 
+
+                $scope.userPoints =  $scope.userPoints + $scope.wagerAmount + $scope.wagerAmount;
+                $scope.userWins = $scope.userWins + 1;
+
+                var data = {
+                    'points':$scope.userPoints,
+                    'wins': $scope.userWins
+                };
+
+                userService.updateProfile(data).then(function(result){
+                    //success
+                }, function(data){
+                    //error
+                });
+
+
+
+
+
                 // local notification
                 navigator.notification.alert('You have successfully completed contract!');
 
@@ -296,7 +332,7 @@ angular.module('tetherApp')
                     var myContractLocalStorage = $window.localStorage.getItem(storeAs);
                     var myContract = JSON.parse(myContractLocalStorage)
                     myContract["contract"].status="success";
-                    myContract["contract"].points=$scope.wagerAmount + $scope.wagerAmount
+                    myContract["contract"].points=$scope.wagerAmount;
 
                     // gcm notification todo
                     contractService.contractsucceed(togcm,myContract).then(function(result) {
@@ -339,6 +375,20 @@ angular.module('tetherApp')
             clearInterval($scope.refreshContractTimerIntervalId);
             clearInterval($scope.refreshToastMessage);
 
+            $scope.userPoints =  $scope.userPoints -$scope.wagerAmount;
+            $scope.userLosses = $scope.userLosses + 1;
+
+            var data = {
+                'points':$scope.userPoints,
+                'loses': $scope.userLosses
+            };
+
+            userService.updateProfile(data).then(function(result){
+                //success
+            }, function(data){
+                //error
+            });
+
 
             // local notification
             navigator.notification.alert('You have broken your contract!');
@@ -350,7 +400,7 @@ angular.module('tetherApp')
                 var myContractLocalStorage = $window.localStorage.getItem(storeAs);
                 var myContract = JSON.parse(myContractLocalStorage);
                 myContract["contract"].status="forfeit";
-                myContract["contract"].points=$scope.wagerAmount + $scope.wagerAmount;
+                myContract["contract"].points=$scope.wagerAmount;
 
                 contractService.contractbroken(togcm,myContract).then(function(result) {
                     // Success!
@@ -394,6 +444,23 @@ angular.module('tetherApp')
                 clearInterval($scope.refreshContractTimerIntervalId);
                 clearInterval($scope.refreshToastMessage);
 
+
+                $scope.userPoints =  $scope.userPoints - $scope.wagerAmount;
+                $scope.userLosses = $scope.userLosses + 1;
+
+                var data = {
+                    'points':$scope.userPoints,
+                    'loses': $scope.userLosses
+                };
+
+                userService.updateProfile(data).then(function(result){
+                    //success
+                }, function(data){
+                    //error
+                });
+
+
+
                 // local notification
                 navigator.notification.alert('You have broken your contract!');
 
@@ -402,7 +469,7 @@ angular.module('tetherApp')
                     var myContractLocalStorage = $window.localStorage.getItem(storeAs);
                     var myContract = JSON.parse(myContractLocalStorage)
                     myContract["contract"].status="failure";
-                    myContract["contract"].points=$scope.wagerAmount + $scope.wagerAmount
+                    myContract["contract"].points=$scope.wagerAmount;
 
 
 
@@ -479,6 +546,7 @@ angular.module('tetherApp')
             $scope.validHours = true;
             $scope.validAppSelection = true;
             $scope.validWagerAmount = true;
+            $scope.enoughPoints = true;
 
             $scope.contractHours = 0;
             $scope.contractMinutes = 0;
@@ -556,7 +624,7 @@ angular.module('tetherApp')
                 $scope.contractMinutes = currentContract["contract"].mins;
                 $scope.contractSeconds = currentContract["contract"].seconds;
 
-                $scope.wagerAmount = currentContract.wagerAmount;
+                $scope.wagerAmount = currentContract["contract"].wagerAmount;
 
                 $scope.$apply();
 
