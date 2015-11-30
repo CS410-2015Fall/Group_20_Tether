@@ -260,10 +260,16 @@ angular.module('tetherApp')
                         console.log("toast error " + a)
                     }
                 );
-            }
+            };
+
+            $scope.createLocalNotification = function(){
+                navigator.notification.alert("Keep on focusing ..");
+            };
 
             $scope.createToasts();
+            $scope.createLocalNotification();
             $scope.refreshToastMessage = setInterval($scope.createToasts, 2000);
+            $scope.refreshLocalMessage = setInterval($scope.createLocalNotification, 300000);
         };
 
 
@@ -327,7 +333,7 @@ angular.module('tetherApp')
                 $scope.contractForfeited = false;
                 $scope.blacklistedApps = [];
                 clearInterval($scope.refreshToastMessage);
-
+                clearInterval($scope.refreshLocalMessage);
 
                 $scope.userPoints =  $scope.userPoints + $scope.wagerAmount;
                 $scope.userWins = $scope.userWins + 1;
@@ -397,7 +403,7 @@ angular.module('tetherApp')
             $scope.blacklistedApps = [];
             clearInterval($scope.refreshContractTimerIntervalId);
             clearInterval($scope.refreshToastMessage);
-
+            clearInterval($scope.refreshLocalMessage);
             $scope.userPoints =  $scope.userPoints - $scope.wagerAmount;
             $scope.userLosses = $scope.userLosses + 1;
 
@@ -466,7 +472,7 @@ angular.module('tetherApp')
                 $scope.blacklistedApps = [];
                 clearInterval($scope.refreshContractTimerIntervalId);
                 clearInterval($scope.refreshToastMessage);
-
+                clearInterval($scope.refreshLocalMessage);
 
                 $scope.userPoints =  $scope.userPoints - $scope.wagerAmount;
                 $scope.userLosses = $scope.userLosses + 1;
