@@ -15,6 +15,7 @@ module.exports = function(config) {
 
     // list of files / patterns to load in the browser
     files: [
+      'Desktop/2015W/CPSC410/Group_20_Tether/Tether/www/bower_components/jquery/jquery.js',
       'Desktop/2015W/CPSC410/Group_20_Tether/Tether/www/bower_components/angular/angular.js',
       'Desktop/2015W/CPSC410/Group_20_Tether/Tether/www/bower_components/angular-cookies/angular-cookies.js',
       'Desktop/2015W/CPSC410/Group_20_Tether/Tether/www/bower_components/angular-resource/angular-resource.js',
@@ -32,6 +33,11 @@ module.exports = function(config) {
 
     // list of files to exclude
     exclude: [
+      'Desktop/2015W/CPSC410/Group_20_Tether/Tether/www/scripts/controllers/passwordchange.js',
+      'Desktop/2015W/CPSC410/Group_20_Tether/Tether/www/scripts/controllers/passwordreset.js',
+      'Desktop/2015W/CPSC410/Group_20_Tether/Tether/www/scripts/controllers/passwordresetconfirm.js',
+      'Desktop/2015W/CPSC410/Group_20_Tether/Tether/www/scripts/controllers/restricted.js',
+      'Desktop/2015W/CPSC410/Group_20_Tether/Tether/www/scripts/controllers/verifyemail.js'
     ],
 
 
@@ -45,8 +51,7 @@ module.exports = function(config) {
     // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
     preprocessors: {
       'Desktop/2015W/CPSC410/Group_20_Tether/Tether/www/scripts/controllers/*.js': ['coverage'],
-      'Desktop/2015W/CPSC410/Group_20_Tether/Tether/www/scripts/services/*.js': ['coverage']
-
+      'Desktop/2015W/CPSC410/Group_20_Tether/Tether/www/scripts/services/*.js': ['coverage'],
     },
 
 

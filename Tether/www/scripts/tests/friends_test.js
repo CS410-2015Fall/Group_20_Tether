@@ -42,6 +42,8 @@ describe('Friends Controller', function() {
             $http: $http,
             userService: mockUserService
         });
+        this.element = $('<input name="userToAdd" id="id_userToAdd" type="text" placeholder="Enter a valid username to add ..." class="form-control" required value="Jay" />');
+        this.element.appendTo('body');
     });
 
     describe('$scope.checkNoFriends', function() {
@@ -61,7 +63,6 @@ describe('Friends Controller', function() {
         it('should update friend list of the user from the server', function() {
             // TODO Mock userService
             $scope.updateFriends();
-            console.log("Update Friends: " + $scope.serverReturned.friends);
             expect($scope.serverReturned.friends).toEqual([]);
         });
     });
@@ -134,5 +135,12 @@ describe('Friends Controller', function() {
             $scope.propose("Tony");
             expect($window.localStorage.proposingTo).toEqual("Tony");
         });
+    });
+
+    describe('$scope.setFriendToAdd', function(){
+       it('',function(){
+           $scope.setFriendToAdd();
+           expect($scope.serverReturned.friends).toContain("JAY");
+       })
     });
 });
