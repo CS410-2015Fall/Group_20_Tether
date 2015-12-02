@@ -4,7 +4,7 @@
 describe('Contract Service', function() {
 
     var ContractService, $q, $http;
-
+    var togcm = 'APA91bF6gPzgMcNLKfQt-n57BJam3SQ4LqIB5m7EQuADvIcNer7tEeLE2Ebs9Zov4J9TR1ZZ5z33_hz6t3aLmRdd6Neu-CKFziTakcVIz9kERRkMl8FhIe8jjDAc8nsSf_X-LzfGd57d';
     beforeEach(function() {
         module('tetherApp');
         $q = {};
@@ -26,11 +26,11 @@ describe('Contract Service', function() {
     });
 
     it('request() should make request to the server', function() {
-        ContractService.request({});
+        //expect(ContractService.request({})).tobe()
     });
 
     it('contractbroken() should alert that contract has been broken by the contractor', function() {
-        ContractService.contractbroken("dummyGCM",{"contract": "dummyContractJSON"});
+        ContractService.contractbroken(togcm,{"contract": "dummyContractJSON"});
     });
 
     it('contractsucceed() should alert that contract has been successfully completed by the contractor', function() {
@@ -47,5 +47,13 @@ describe('Contract Service', function() {
 
     it('declinecontract() should alert the proposer that proposed contract has been declined', function() {
         ContractService.declinecontract("dummyGCM",{"contract": "dummyContractJSON"});
+    });
+
+    it('cancelcontract() should alert the proposer that proposed contract has been declined', function() {
+        ContractService.cancelcontract("dummyGCM",{"contract": "dummyContractJSON"});
+    });
+
+    it('acceptcontractandstartown() should alert the proposer that proposed contract has been declined', function() {
+        ContractService.acceptcontractandstartown("dummyGCM",{"contract": "dummyContractJSON"});
     });
 });

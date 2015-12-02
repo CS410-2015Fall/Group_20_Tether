@@ -126,25 +126,25 @@ angular.module('tetherApp')
                 $rootScope.$broadcast("userService.logged_out");
             });
         },
-        'changePassword': function(password1,password2){
-            return this.request({
-                'method': "POST",
-                'url': "rest-auth/password/change/",
-                'data':{
-                    'new_password1':password1,
-                    'new_password2':password2
-                }
-            });
-        },
-        'resetPassword': function(email){
-            return this.request({
-                'method': "POST",
-                'url': "rest-auth/password/reset/",
-                'data':{
-                    'email':email
-                }
-            });
-        },
+        //'changePassword': function(password1,password2){
+        //    return this.request({
+        //        'method': "POST",
+        //        'url': "rest-auth/password/change/",
+        //        'data':{
+        //            'new_password1':password1,
+        //            'new_password2':password2
+        //        }
+        //    });
+        //},
+        //'resetPassword': function(email){
+        //    return this.request({
+        //        'method': "POST",
+        //        'url': "rest-auth/password/reset/",
+        //        'data':{
+        //            'email':email
+        //        }
+        //    });
+        //},
         'profile': function(){
             return this.request({
                 'method': "GET",
@@ -159,25 +159,25 @@ angular.module('tetherApp')
                 'data':data
             }); 
         },
-        'verify': function(key){
-            return this.request({
-                'method': "POST",
-                'url': "rest-auth/registration/verify-email/",
-                'data': {'key': key} 
-            });            
-        },
-        'confirmReset': function(uid,token,password1,password2){
-            return this.request({
-                'method': "POST",
-                'url': "rest-auth/password/reset/confirm/",
-                'data':{
-                    'uid': uid,
-                    'token': token,
-                    'new_password1':password1,
-                    'new_password2':password2
-                }
-            });
-        },
+        //'verify': function(key){
+        //    return this.request({
+        //        'method': "POST",
+        //        'url': "rest-auth/registration/verify-email/",
+        //        'data': {'key': key}
+        //    });
+        //},
+        //'confirmReset': function(uid,token,password1,password2){
+        //    return this.request({
+        //        'method': "POST",
+        //        'url': "rest-auth/password/reset/confirm/",
+        //        'data':{
+        //            'uid': uid,
+        //            'token': token,
+        //            'new_password1':password1,
+        //            'new_password2':password2
+        //        }
+        //    });
+        //},
         'authenticationStatus': function(restrict, force){
             // Set restrict to true to reject the promise if not logged in
             // Set to false or omit to resolve when status is known

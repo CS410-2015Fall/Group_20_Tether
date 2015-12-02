@@ -11,6 +11,27 @@ describe('Contract Controller', function() {
         $provide.service('contractService', mockContractService);
     });
 
+    var storage = {};
+
+    var mockStorage =  {
+        setItem: function(key, value) {
+            storage[key] = value || '';
+        },
+        getItem: function(key) {
+            return storage[key] || null;
+        },
+        removeItem: function(key) {
+            delete storage[key];
+        },
+        get length() {
+            return Object.keys(storage).length;
+        },
+        key: function(i) {
+            var keys = Object.keys(storage);
+            return keys[i] || null;
+        }
+    };
+
     beforeEach(inject(function (_$controller_, contractService) {
         // The injector unwraps the underscores (_) from around the parameter names when matching
         $controller = _$controller_;
@@ -23,7 +44,7 @@ describe('Contract Controller', function() {
         $location = {};
         $http = {};
         $routeParams = {};
-        $window.localStorage = {};
+        $window.localStorage = mockStorage;
         controller = $controller('contractCtrl', {
             $scope: $scope,
             $window: $window,

@@ -25,7 +25,7 @@ describe('Home Controller', function() {
     }));
 
     beforeEach(function() {
-        $scope = {};
+        $scope = {'$apply': function() {}};
         $window = {};
         $location = {};
         $http = {};
@@ -127,8 +127,10 @@ describe('Home Controller', function() {
     });
 
     describe('$scope.sortUsersByPoints', function() {
-        it('should ', function() {
-            //$scope.sortUsersByPoints([{key:"Jay",val:20}, {key:"Lane"}]);
+        it('should rank users by points from highest to lowest', function() {
+            var results = [{key:"Jay",val:20}, {key:"Lane",val:30}, {key:"Tunjay",val:25}, {key:"Norman",val:35}]
+            $scope.sortUsersByPoints(results);
+            expect($scope.allusers).toEqual([{key:"Norman",val:35}, {key:"Lane",val:30}, {key:"Tunjay",val:25}, {key:"Jay",val:20}]);
         });
     });
 

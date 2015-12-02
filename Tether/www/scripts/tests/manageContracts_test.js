@@ -35,7 +35,7 @@ describe('Manage Contracts Controller', function() {
     }));
 
     beforeEach(function() {
-        $scope = {};
+        $scope = {'$apply': function() {}};
         $window = {};
         $location = {};
         $window.localStorage = mockStorage;
@@ -47,6 +47,10 @@ describe('Manage Contracts Controller', function() {
     });
 
     var contractJSON = {"contract":{"apps":[],"durationInMins":0,"hours":"","mins":"","seconds":"","wagerAmount":0,"friend":"","gcmTokenFromProposer":"","from":"","status":"","timeStart":"","points":"","claimed":""}};
+
+    beforeEach(function() {
+        contractJSON = {"contract":{"apps":[],"durationInMins":0,"hours":"","mins":"","seconds":"","wagerAmount":0,"friend":"","gcmTokenFromProposer":"","from":"","status":"","timeStart":"","points":"","claimed":""}};
+    });
 
     describe('$scope.isShowing', function() {
         it('should return true if $scope.showDetails == index', function() {
@@ -71,8 +75,8 @@ describe('Manage Contracts Controller', function() {
     });
 
     describe('$scope.viewDetails', function() {
-        contractJSON.contract.apps = [{'name':"Facebook"}, {"name":"Instagram"}];
         it('should update $scope.selectedContractApps with the name of apps in the given contractJSON', function() {
+            contractJSON.contract.apps = [{'name':"Facebook"}, {"name":"Instagram"}];
             $scope.viewDetails(1, contractJSON);
             expect($scope.showDetails).toEqual(1);
             expect($scope.selectedContractApps).toEqual(["Facebook", "Instagram"]);
@@ -80,17 +84,18 @@ describe('Manage Contracts Controller', function() {
     });
 
     describe('$scope.viewDetailsOngoing', function() {
-        contractJSON.contract.apps = [{'name':"Facebook"}, {"name":"Instagram"}];
         contractJSON.contract.timeStart = new Date().getTime();
-        it('should ', function() {
+        it('should set $scope.showDetails to the given index and set $scope.timerInterval', function() {
+            contractJSON.contract.apps = [{'name':"Facebook"}, {"name":"Instagram"}];
             contractJSON.contract.durationInMins = 0;
             $scope.viewDetailsOngoing(1, contractJSON);
             expect($scope.showDetails).toEqual(1);
             expect($scope.selectedContractApps).toEqual(["Facebook", "Instagram"]);
         });
-        it('should ', function() {
+        it('should set $scope.showDetails to the given index and set $scope.timerInterval', function() {
             contractJSON.contract.durationInMins = 60;
             $scope.viewDetailsOngoing(1,contractJSON);
+            expect($scope.showDetails).toEqual(1);
         });
     });
 
@@ -109,18 +114,20 @@ describe('Manage Contracts Controller', function() {
     });
 
     describe('$scope.calculatePointsEarned', function() {
-        contractJSON.contract.points = 10;
         it('should set $scope.pointsEarned = 0 if success', function() {
+            contractJSON.contract.points = 10;
             contractJSON.contract.status = "success";
             $scope.calculatePointsEarned(contractJSON);
             expect($scope.pointsEarned).toEqual(0);
         });
         it('should set $scope.pointsEarned = 10 if forfeit', function() {
+            contractJSON.contract.points = 10;
             contractJSON.contract.status = "forfeit";
             $scope.calculatePointsEarned(contractJSON);
             expect($scope.pointsEarned).toEqual(10);
         });
         it('should set $scope.pointsEarned = 10 if failure', function() {
+            contractJSON.contract.points = 10;
             contractJSON.contract.status = "failure";
             $scope.calculatePointsEarned(contractJSON);
             expect($scope.pointsEarned).toEqual(10);
@@ -133,20 +140,46 @@ describe('Manage Contracts Controller', function() {
     });
 
     describe('$scope.getPoints', function() {
-        it('should ', function() {
-            // TODO
+        contractJSON.contract.claimed = "";
+        it('should set claimed == yes and store contractJSON in the local storage if success', function() {
+            $scope.getPoints("Jay", "success", 25, contractJSON, 0);
+            expect(contractJSON.contract.claimed).toEqual("yes");
+        });
+        it('should set claimed == yes and  store contractJSON in the local storage if forfeit', function() {
+            $scope.getPoints("Jay", "forfeit", 25, contractJSON, 0);
+            expect(contractJSON.contract.claimed).toEqual("yes");
+            expect($scope.isClaimed).toBe(true);
+        });
+        it('should set claimed == yes and  store contractJSON in the local storage if failure', function() {
+            $scope.getPoints("Jay", "failure", 25, contractJSON, 0);
+            expect(contractJSON.contract.claimed).toEqual("yes");
+            expect($scope.isClaimed).toBe(true);
+        });
+        it('should do nothing otherwise', function() {
+            $scope.getPoints("Jay", "", 25, contractJSON, 0);
+            expect($scope.isClaimed).toBeUndefined();
         });
     });
 
     describe('$scope.deleteContract', function() {
         it('should remove contractForm from $window.localStorage', function() {
-            // TODO
+            contractJSON.contract.from = "Jay";
+            contractJSON.contract.uniqueId = "85"
+
+            var dummyContract = JSON.stringify(contractJSON);
+            var storageKey = "contract" + "Jay" + "85";
+
+            mockStorage.setItem(storageKey, dummyContract);
+            expect(dummyContract).toEqual(mockStorage.getItem(storageKey));
+
+            $scope.deleteContract("Jay", "85");
+            expect(mockStorage.getItem(storageKey)).toBe(null);
         });
     });
 
     describe('$scope.getContractTimeRemaining', function() {
-        contractJSON.contract.timeStart = new Date().getTime();
         it('should ', function() {
+            contractJSON.contract.timeStart = new Date().getTime();
             contractJSON.contract.durationInMins = 60.00;
             $scope.getContractTimeRemaining(contractJSON);
         });
@@ -168,19 +201,51 @@ describe('Manage Contracts Controller', function() {
 
     describe('$scope.getContractsFromLocalStorage', function() {
         // TODO
+        it('', function() {
+            contractJSON.contract.status = "forfeit";
+            mockStorage.setItem("key", JSON.stringify(contractJSON));
+            $scope.getContractsFromLocalStorage();
+        });
     });
 
     describe('$scope.getNumProposedContracts', function() {
-        // TODO
+        it('should set $scopeNumProposedContracts to the # of contracts with status=proposed', function() {
+            var contract1 = {key: "111", val: contractJSON};
+            contract1.val["contract"]["status"] = "proposed";
+            $scope.contracts = [contract1];
+            expect($scope.contracts.length).toEqual(1);
+            $scope.getNumProposedContracts();
+            expect($scope.numProposedContracts).toEqual(1);
+            expect($scope.pendingContracts).toEqual([contract1]);
+        });
     });
 
     describe('$scope.getNumOngoingContracts', function() {
-        // TODO
+        it('should set $scopeNumOngoingContracts to the # of contracts with status accepted and rejected', function() {
+            var contract1 = {key: "111", val: contractJSON};
+            contract1.val["contract"]["status"] = "accepted";
+            var contract2 = {key: "111", val: contractJSON};
+            contract1.val["contract"]["status"] = "rejected";
+            $scope.contracts = [contract1, contract2];
+            expect($scope.contracts.length).toEqual(2);
+            $scope.getNumOngoingContracts();
+            expect($scope.numOngoingContracts).toEqual(2);
+            expect($scope.ongoingContracts).toEqual([contract1, contract1]);
+        });
     });
 
 
     describe('$scope.getNumFinishedContracts', function() {
-        // TODO
+        it('should set $scopeNumFinishedContracts to the # of contracts with uniqueId', function() {
+            var contract1 = {key: "111", val: contractJSON};
+            contract1.val["contract"]["uniqueId"] = "dummyID";
+            $scope.contracts = [contract1, contract1];
+
+            expect($scope.contracts.length).toEqual(2);
+            $scope.getNumFinishedContracts();
+            expect($scope.numFinishedContracts).toEqual(2);
+            expect($scope.finishedContracts).toEqual([contract1, contract1]);
+        });
     });
 
     describe('$scope.displayPending', function() {
@@ -211,19 +276,36 @@ describe('Manage Contracts Controller', function() {
     });
 
     describe('$scope.update', function() {
-        // TODO
+        it('should update number of pending, ongoing and finished contracts', function() {
+            $scope.update();
+        });
     });
 
     describe('$scope.rejectContract', function() {
-        // TODO
+        it('should set contract status to rejected and remove from local storage', function() {
+            var storageKey = "contractuser";
+            mockStorage.setItem("contractuser", contractJSON);
+            $scope.rejectContract("user", "dummyToken", contractJSON);
+            expect(contractJSON["contract"].status).toEqual("rejected");
+            expect(mockStorage.getItem("contractuser")).toBe(null);
+        });
     });
 
     describe('$scope.acceptAndWatch', function() {
-        // TODO
+        it('should set contract status to accepted and store in local storage', function() {
+            $scope.acceptAndWatch("user", "dummyToken", contractJSON);
+            expect(contractJSON["contract"].status).toEqual("accepted");
+            expect(mockStorage.getItem("contractuser")).toBe(JSON.stringify(contractJSON));
+        });
     });
 
     describe('$scope.acceptAndStartOwn', function() {
-        // TODO
+        it('should set contract status to accepted and store in local storage', function() {
+            $scope.acceptAndStartOwn("user", "dummyToken", contractJSON);
+            expect(contractJSON["contract"].status).toEqual("accepted");
+            expect(mockStorage.getItem("contractuser")).toBe(JSON.stringify(contractJSON));
+            expect(mockStorage.getItem("myCurrentContract")).toBe(JSON.stringify(contractJSON));
+        });
     });
 
 });

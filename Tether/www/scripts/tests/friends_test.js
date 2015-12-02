@@ -27,7 +27,7 @@ describe('Friends Controller', function() {
     }));
 
     beforeEach(function() {
-        $scope = {};
+        $scope = {'$apply': function() {}};
         $window = {};
         $rootScope = {};
         $location = {};

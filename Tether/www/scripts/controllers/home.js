@@ -32,7 +32,7 @@ angular.module('tetherApp')
                 $window.localStorage.proposingTo = proposeTo;
 
                 //$location.path('/contract');
-                //$scope.$apply();
+                $scope.$apply();
             }
         };
 
@@ -42,7 +42,7 @@ angular.module('tetherApp')
             $window.localStorage.proposingTo = proposeTo;
 
             //$location.path('/contract');
-            //$scope.$apply();
+            $scope.$apply();
         };
 
 
@@ -87,13 +87,13 @@ angular.module('tetherApp')
 
             if ($scope.serverReturned.friends.length <= 3){
                 $scope.randomFriends = $scope.serverReturned.friends;
-                //$scope.$apply();
+                $scope.$apply();
             } else {
                 $scope.randomFriends = [];
                 $scope.randomFriends.push($scope.serverReturned.friends[0]);
                 $scope.randomFriends.push($scope.serverReturned.friends[1]);
                 $scope.randomFriends.push($scope.serverReturned.friends[2]);
-                //$scope.$apply();
+                $scope.$apply();
             }
         };
 
@@ -121,7 +121,7 @@ angular.module('tetherApp')
             $scope.allusers = results.sort(function(a, b){
                 return b.val - a.val;
             });
-            //$scope.$apply();
+            $scope.$apply();
         };
 
         $scope.refreshLeaderBoard = function(){

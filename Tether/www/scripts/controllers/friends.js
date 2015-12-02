@@ -159,7 +159,7 @@ angular.module('tetherApp')
             console.log("Proposing to " + proposeTo);
             $window.localStorage.proposingTo = proposeTo;
             //$location.path('/contract');
-            //$scope.$apply();
+            $scope.$apply();
         };
         $scope.updateFriends();
     });
